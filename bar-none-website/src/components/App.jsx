@@ -1,19 +1,25 @@
 import "../styles/App.css";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
+import HomePage from "./pages/HomePage";
 import Navbar from "./global/Navbar";
-import Home from "./pages/Home.jsx";
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/home");
+    console.log("test success");
+  }, []);
+
   return (
     <>
       <Navbar />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/home" element={<HomePage />} />
+      </Routes>
     </>
   );
 }
