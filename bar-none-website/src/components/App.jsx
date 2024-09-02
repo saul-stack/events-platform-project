@@ -2,12 +2,9 @@ import "../styles/App.css";
 
 import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { CalendarPage, EventsPage, HomePage, PreferencesPage } from "./pages";
 
-import CalendarPage from "./CalendarPage";
-import EventsPage from "./EventsPage";
-import Navbar from "./global/Navbar";
-import HomePage from "./HomePage";
-import PreferencesPage from "./PreferencesPage";
+import Navbar from "./global//Navbar";
 
 function App() {
   const navigate = useNavigate();
