@@ -7,7 +7,7 @@ const Navbar = () => {
   const menuItems = [
     { name: "Home", route: "/home" },
     { name: "Events", route: "/events" },
-    { name: "My Calendar", route: "/calendar" },
+    { name: "My Calendar", route: "/my_calendar" },
     { name: "Preferences", route: "/preferences" },
   ];
 
