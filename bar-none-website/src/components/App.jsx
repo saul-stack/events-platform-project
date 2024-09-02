@@ -3,7 +3,8 @@ import "../styles/App.css";
 import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
-import HomePage from "./pages/HomePage";
+import EventsPage from "./EventsPage";
+import HomePage from "./HomePage";
 import Navbar from "./global/Navbar";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/home" element={<HomePage />} />
+        <Route path="/events" element={<EventsPage />} />
       </Routes>
     </>
   );
