@@ -4,14 +4,13 @@ import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { CalendarPage, EventsPage, HomePage, PreferencesPage } from "./pages";
 
-import Navbar from "./global//Navbar";
+import Navbar from "./global/Navbar";
 
 function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
     navigate("/home");
-    console.log("test success");
   }, []);
 
   return (
