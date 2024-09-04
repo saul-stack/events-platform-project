@@ -1,6 +1,6 @@
 import "../styles/App.css";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   AboutPage,
@@ -15,10 +15,11 @@ import Navbar from "./global/Navbar";
 function App() {
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /* Temporarily disabled automatic navigation on page mount */
+  /*  useEffect(() => {
     navigate("/events");
   }, []);
-
+ */
   return (
     <>
       <Navbar />

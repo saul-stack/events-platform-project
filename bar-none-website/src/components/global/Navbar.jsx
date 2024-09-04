@@ -1,14 +1,20 @@
 import "../../styles/Navbar.css";
 
-import React from "react";
+import React, { useContext } from "react";
+
 import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
 
 const Navbar = () => {
+  const { user } = useContext(UserContext);
   const menuItems = [
     { name: "About", route: "/about" },
     { name: "Events", route: "/events" },
     { name: "My Calendar", route: "/my-calendar" },
-    { name: "Account", route: "/account" },
+    {
+      name: user.name && user.name.length > 0 ? "Account" : "Login",
+      route: user.name && user.name.length > 0 ? "/account" : "/login",
+    },
   ];
 
   return (
