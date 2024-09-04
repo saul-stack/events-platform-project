@@ -3,9 +3,9 @@ function AccountPage() {
     <div>
       <h1>AccountPage is here</h1>
       <p>
-        This area will display whether the user is logged in or not. If the User
-        is logged in, it should also display their login name in the Navbar next
-        to the Account button..
+        This area will display user account information. It should also display
+        account name in the Navbar next to the Account button. If the user is
+        not logged in, this page should redirect to the login page.
       </p>
     </div>
   );
