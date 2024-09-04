@@ -13,7 +13,7 @@ const Navbar = () => {
     { name: "My Calendar", route: "/my-calendar" },
     {
       name: user.name && user.name.length > 0 ? "Account" : "Login",
-      route: user.name && user.name.length > 0 ? "/account" : "/login",
+      route: user.name && user.name.length > 0 ? "/my-account" : "/login",
     },
   ];
 

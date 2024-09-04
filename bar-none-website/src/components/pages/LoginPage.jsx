@@ -10,7 +10,7 @@ function LoginPage() {
     event.preventDefault();
     const username = event.target.username.value;
     setUser({ name: username });
-    navigate("/account");
+    navigate("/my-account");
   };
   return (
     <div>

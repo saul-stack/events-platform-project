@@ -1,6 +1,5 @@
 import "../styles/App.css";
 
-import React from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   AboutPage,
@@ -10,6 +9,7 @@ import {
   LoginPage,
 } from "./pages";
 
+import React from "react";
 import Navbar from "./global/Navbar";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/account" element={<AccountPage />} />
+        <Route path="/my-account" element={<AccountPage />} />
         <Route path="/my-calendar" element={<CalendarPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/login" element={<LoginPage />} />
