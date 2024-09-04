@@ -4,7 +4,7 @@ const UserContext = React.createContext({ user: {} });
 
 const UserProvider = ({ children }) => {
   const testUser = {
-    name: "Test User",
+    name: "",
   };
 
   const [user, setUser] = useState(testUser);
