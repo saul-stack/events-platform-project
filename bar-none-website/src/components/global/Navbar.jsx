@@ -1,14 +1,14 @@
 import "../../styles/Navbar.css";
 
-import { Link } from "react-router-dom";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const menuItems = [
     { name: "Home", route: "/home" },
     { name: "Events", route: "/events" },
     { name: "My Calendar", route: "/my_calendar" },
-    { name: "Preferences", route: "/preferences" },
+    { name: "Account", route: "/account" },
   ];
 
   return (
