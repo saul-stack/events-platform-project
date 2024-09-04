@@ -1,4 +1,4 @@
-function HomePage() {
+function AboutPage() {
   return (
     <div>
       <h1>Welcome to Bar-None club</h1>
@@ -6,4 +6,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default AboutPage;
