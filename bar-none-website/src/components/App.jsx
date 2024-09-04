@@ -2,7 +2,13 @@ import "../styles/App.css";
 
 import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { AccountPage, CalendarPage, EventsPage, HomePage } from "./pages";
+import {
+  AccountPage,
+  CalendarPage,
+  EventsPage,
+  HomePage,
+  LoginPage,
+} from "./pages";
 
 import Navbar from "./global/Navbar";
 
@@ -21,6 +27,7 @@ function App() {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/my-calendar" element={<CalendarPage />} />
         <Route path="/events" element={<EventsPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>
   );
