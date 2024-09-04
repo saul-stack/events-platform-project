@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const menuItems = [
-    { name: "Home", route: "/home" },
+    { name: "About", route: "/about" },
     { name: "Events", route: "/events" },
-    { name: "My Calendar", route: "/my_calendar" },
+    { name: "My Calendar", route: "/my-calendar" },
     { name: "Account", route: "/account" },
   ];
 

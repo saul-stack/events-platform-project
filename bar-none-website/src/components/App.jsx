@@ -10,16 +10,16 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/home");
+    navigate("/events");
   }, []);
 
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/about" element={<HomePage />} />
         <Route path="/account" element={<AccountPage />} />
-        <Route path="/my_calendar" element={<CalendarPage />} />
+        <Route path="/my-calendar" element={<CalendarPage />} />
         <Route path="/events" element={<EventsPage />} />
       </Routes>
     </>
