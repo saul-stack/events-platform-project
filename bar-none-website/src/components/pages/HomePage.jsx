@@ -1,4 +1,9 @@
 function HomePage() {
-  return <h1>HomePage is here</h1>;
+  return (
+    <div>
+      <h1>Welcome to Bar-None club</h1>
+    </div>
+  );
 }
+
 export default HomePage;
