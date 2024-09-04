@@ -1,5 +1,6 @@
 import "../styles/App.css";
 
+import React, { useContext } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   AboutPage,
@@ -9,10 +10,11 @@ import {
   LoginPage,
 } from "./pages";
 
-import React from "react";
+import { UserContext } from "../contexts/UserContext";
 import Navbar from "./global/Navbar";
 
 function App() {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   /* Temporarily disabled automatic navigation on page mount */
@@ -30,6 +32,7 @@ function App() {
         <Route path="/events" element={<EventsPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
+      <p>Logged in as: {user.name}</p>
     </>
   );
 }
