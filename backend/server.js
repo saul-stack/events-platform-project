@@ -1,9 +1,16 @@
 const http = require("http");
-
 const port = 9090;
 
 const server = http.createServer((request, response) => {
-  console.log(`Server has received a request on port ${port}`);
+  const requestUrl = request.url;
+  const requestMethod = request.method;
+  console.log(`Received a ${requestMethod} request on ${port}${requestUrl}`);
+  response.setHeader("Content-Type", "application/json");
+  response.statusCode = 200;
+  response.write(
+    JSON.stringify({ endpoint: request.url, method: request.method })
+  );
+  response.end();
 });
 
 server.listen(port, (error) => {
