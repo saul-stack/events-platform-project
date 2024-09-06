@@ -52,5 +52,42 @@
         "is_recurring": true
       }
     }
+  },
+
+  "POST /api/events": {
+    "description": "Creates a new event and adds it into the events database",
+    "exampleRequest": {
+      "event": {
+        "title": "Tuesday morning yoga class",
+        "date": "2018-05-29",
+        "day_of_week": "Tuesday",
+        "time": "11:00",
+        "description": "A fun yoga class to start your day",
+        "advance_price": 5.0,
+        "door_price": 5.0,
+        "tickets_total": 20,
+        "tickets_sold": 0,
+        "is_seated": false,
+        "is_ticketed": true,
+        "is_recurring": true
+      }
+    },
+    "exampleResponse": {
+      "event": {
+        "id": 1234,
+        "title": "Tuesday morning yoga class",
+        "date": "2018-05-29",
+        "day_of_week": "Tuesday",
+        "time": "11:00",
+        "description": "A fun yoga class to start your day",
+        "advance_price": 5.0,
+        "door_price": 5.0,
+        "tickets_total": 20,
+        "tickets_sold": 0,
+        "is_seated": false,
+        "is_ticketed": true,
+        "is_recurring": true
+      }
+    }
   }
 }
