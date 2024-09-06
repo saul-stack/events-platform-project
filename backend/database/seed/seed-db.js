@@ -13,14 +13,14 @@ const seedDatabase = async () => {
     await eventsAndUsersPool.query(`
       CREATE TABLE events (
         id SERIAL PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
+        title VARCHAR(100) NOT NULL,
         date DATE NOT NULL,
         day_of_week VARCHAR(50) NOT NULL,
         time TIME NOT NULL,
         description TEXT,
         advance_price DECIMAL(5, 2),
         door_price DECIMAL(5, 2),
-        total_tickets INT,
+        tickets_total INT,
         tickets_sold INT,
         is_seated BOOLEAN NOT NULL,
         is_ticketed BOOLEAN NOT NULL,
@@ -32,17 +32,17 @@ const seedDatabase = async () => {
     for (const event of seedData) {
       await eventsAndUsersPool.query(
         `INSERT INTO events (
-          name, date, day_of_week, time, description, advance_price, door_price, total_tickets, tickets_sold, is_seated, is_ticketed, is_recurring
+          title, date, day_of_week, time, description, advance_price, door_price, tickets_total, tickets_sold, is_seated, is_ticketed, is_recurring
         ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
         [
-          event.name,
+          event.title,
           event.date,
           event.day_of_week,
           event.time,
           event.description,
           event.advance_price,
           event.door_price,
-          event.total_tickets,
+          event.tickets_total,
           event.tickets_sold,
           event.is_seated,
           event.is_ticketed,
