@@ -5,12 +5,10 @@ const server = http.createServer((request, response) => {
   const requestUrl = request.url;
   const requestMethod = request.method;
   console.log(`Received a ${requestMethod} request on ${port}${requestUrl}`);
-  response.setHeader("Content-Type", "application/json");
-  response.statusCode = 200;
-  response.write(
+  response.writeHead(200, { "Content-Type": "application/json" });
+  response.end(
     JSON.stringify({ endpoint: request.url, method: request.method })
   );
-  response.end();
 });
 
 server.listen(port, (error) => {
