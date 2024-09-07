@@ -1,12 +1,7 @@
 const express = require("express");
 
 const server = express();
+const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
 
-server.use((request, response) => {
-  const { method, url } = request;
-  response.send({
-    message: `Received your ${method} request on ${url}`,
-  });
-});
-
+server.get("/api", getAllEndpoints);
 module.exports = server;
