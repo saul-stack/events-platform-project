@@ -16,7 +16,9 @@ describe("/api", () => {
       .post("/api")
       .expect(405)
       .then((response) => {
-        expect(response.text).toBe("Method Not Allowed");
+        expect(response.body).toEqual({
+          error: "POST Method Not Allowed on /api",
+        });
       });
   });
 
@@ -25,7 +27,9 @@ describe("/api", () => {
       .put("/api")
       .expect(405)
       .then((response) => {
-        expect(response.text).toBe("Method Not Allowed");
+        expect(response.body).toEqual({
+          error: "PUT Method Not Allowed on /api",
+        });
       });
   });
 
@@ -34,7 +38,9 @@ describe("/api", () => {
       .delete("/api")
       .expect(405)
       .then((response) => {
-        expect(response.text).toBe("Method Not Allowed");
+        expect(response.body).toEqual({
+          error: "DELETE Method Not Allowed on /api",
+        });
       });
   });
 
@@ -43,7 +49,9 @@ describe("/api", () => {
       .patch("/api")
       .expect(405)
       .then((response) => {
-        expect(response.text).toBe("Method Not Allowed");
+        expect(response.body).toEqual({
+          error: "PATCH Method Not Allowed on /api",
+        });
       });
   });
 });
