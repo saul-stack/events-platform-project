@@ -7,9 +7,12 @@
   },
   "scripts": {
     "start": "node ./server/start-server.js",
-    "dev": "nodemon ./server/start-server.js"
+    "dev": "nodemon ./server/start-server.js",
+    "test": "jest"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "supertest": "^7.0.0"
   }
 }
