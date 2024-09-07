@@ -1,0 +1,93 @@
+{
+  "GET /api": {
+    "description": "Serves a json object of all available endpoints of the api"
+  },
+  "GET /api/events": {
+    "description": "By default serves an array of all events, sorted by date ascending. Events can be filtered and sorted with queries",
+    "queries": [
+      "type",
+      "is_upcoming",
+      "is_free",
+      "has_tickets",
+      "is_recurring",
+      {
+        "sort_by": ["tickets_sold"]
+      }
+    ],
+    "exampleResponse": {
+      "events": [
+        {
+          "id": 1282,
+          "title": "My event",
+          "date": "2018-05-30",
+          "day_of_week": "Wednesday",
+          "time": "18:00",
+          "description": "This will be a fun event",
+          "advance_price": 10.0,
+          "door_price": 15.0,
+          "tickets_total": 100,
+          "tickets_sold": 50,
+          "is_seated": true,
+          "is_ticketed": true,
+          "is_recurring": false
+        }
+      ]
+    }
+  },
+  "GET /api/events/:id": {
+    "description": "Serves an object of a single event by its unique id",
+    "exampleResponse": {
+      "event": {
+        "title": "Wednesday evening book club",
+        "date": "2018-05-30",
+        "day_of_week": "Wednesday",
+        "time": "18:00",
+        "description": "We will read books and discuss them",
+        "advance_price": null,
+        "door_price": null,
+        "tickets_total": null,
+        "tickets_sold": null,
+        "is_seated": true,
+        "is_ticketed": false,
+        "is_recurring": true
+      }
+    }
+  },
+
+  "POST /api/events": {
+    "description": "Creates a new event and adds it into the events database",
+    "exampleRequest": {
+      "event": {
+        "title": "Tuesday morning yoga class",
+        "date": "2018-05-29",
+        "day_of_week": "Tuesday",
+        "time": "11:00",
+        "description": "A fun yoga class to start your day",
+        "advance_price": 5.0,
+        "door_price": 5.0,
+        "tickets_total": 20,
+        "tickets_sold": 0,
+        "is_seated": false,
+        "is_ticketed": true,
+        "is_recurring": true
+      }
+    },
+    "exampleResponse": {
+      "event": {
+        "id": 1234,
+        "title": "Tuesday morning yoga class",
+        "date": "2018-05-29",
+        "day_of_week": "Tuesday",
+        "time": "11:00",
+        "description": "A fun yoga class to start your day",
+        "advance_price": 5.0,
+        "door_price": 5.0,
+        "tickets_total": 20,
+        "tickets_sold": 0,
+        "is_seated": false,
+        "is_ticketed": true,
+        "is_recurring": true
+      }
+    }
+  }
+}
