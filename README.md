@@ -12,5 +12,4 @@ A platform for managing and sharing events with calendar integration and payment
 - `cors`2.8.5
 - `dotenv`16.4.5
 - `express`4.19.2
-- `nodemon`3.1.4
 - `pg`8.12.0
