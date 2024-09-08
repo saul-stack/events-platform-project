@@ -1,7 +1,7 @@
 const server = require("../../server");
 const request = require("supertest");
 
-const { getEndpointsData, getEventsData } = require("../utils.js");
+const { getEndpointsData, getEventsData } = require("../test-utils.js");
 
 beforeAll(async () => {
   expectedEndpoints = await getEndpointsData();
