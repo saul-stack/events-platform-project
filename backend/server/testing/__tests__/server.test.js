@@ -5,7 +5,7 @@ const path = require("path");
 const { getEndpointsData } = require("../utils.js");
 
 beforeAll(async () => {
-  endpointsData = await getEndpointsData();
+  expectedEndpoints = await getEndpointsData();
 });
 
 describe("/api", () => {
@@ -14,7 +14,7 @@ describe("/api", () => {
       .get("/api")
       .expect(200)
       .then(async (response) => {
-        expect(response.body).toEqual(await getEndpointsData());
+        expect(response.body).toEqual(expectedEndpoints);
       });
   });
 
