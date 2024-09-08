@@ -2,7 +2,7 @@ const server = require("../server");
 const request = require("supertest");
 
 describe("/api", () => {
-  test("GET: 200 should respond with a JSON object", () => {
+  test("GET: responds (200) with JSON object", () => {
     return request(server)
       .get("/api")
       .expect(200)
@@ -11,7 +11,7 @@ describe("/api", () => {
       });
   });
 
-  test("POST: 405 should respond with 'Method Not Allowed'", () => {
+  test("POST: responds (405) with expected JSON error object", () => {
     return request(server)
       .post("/api")
       .expect(405)
@@ -22,7 +22,7 @@ describe("/api", () => {
       });
   });
 
-  test("PUT: 405 should respond with 'Method Not Allowed'", () => {
+  test("PUT: responds (405) with expected JSON error object", () => {
     return request(server)
       .put("/api")
       .expect(405)
@@ -33,7 +33,7 @@ describe("/api", () => {
       });
   });
 
-  test("DELETE: 405 should respond with 'Method Not Allowed'", () => {
+  test("DELETE: responds (405) with expected JSON error object", () => {
     return request(server)
       .delete("/api")
       .expect(405)
@@ -44,7 +44,7 @@ describe("/api", () => {
       });
   });
 
-  test("PATCH: 405 should respond with 'Method Not Allowed'", () => {
+  test("PATCH: responds (405) with expected JSON error object", () => {
     return request(server)
       .patch("/api")
       .expect(405)
