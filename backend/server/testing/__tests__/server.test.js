@@ -1,10 +1,11 @@
 const server = require("../../server");
 const request = require("supertest");
 
-const { getEndpointsData } = require("../utils.js");
+const { getEndpointsData, getEventsData } = require("../utils.js");
 
 beforeAll(async () => {
   expectedEndpoints = await getEndpointsData();
+  defaultEventsArray = await getEventsData();
 });
 
 describe("/api", () => {
