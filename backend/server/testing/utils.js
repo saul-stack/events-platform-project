@@ -1,5 +1,6 @@
 const fs = require("fs").promises;
 const path = require("path");
+const db = require("../../database/connection.js");
 
 const getEndpointsData = async () => {
   return JSON.parse(
@@ -7,4 +8,10 @@ const getEndpointsData = async () => {
   );
 };
 
-module.exports = { getEndpointsData };
+const getEventsData = async () => {
+  const query = "SELECT * FROM events";
+  const result = await db.query(query);
+  return result.rows;
+};
+
+module.exports = { getEndpointsData, getEventsData };
