@@ -1,6 +1,5 @@
 const server = require("../../server");
 const request = require("supertest");
-const path = require("path");
 
 const { getEndpointsData } = require("../utils.js");
 
