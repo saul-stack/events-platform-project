@@ -1,9 +1,11 @@
 const eventsAndUsersPool = require("../connection");
 const fs = require("fs").promises;
+const path = require("path");
 
 const seedDatabase = async () => {
+  const filePath = path.join(__dirname, "./data/test-data.json");
   try {
-    const eventsData = await fs.readFile("./data/test-data.json", "utf-8");
+    const eventsData = await fs.readFile(filePath, "utf-8");
     const seedData = JSON.parse(eventsData);
     await eventsAndUsersPool.query(`
       DROP TABLE IF EXISTS events;
