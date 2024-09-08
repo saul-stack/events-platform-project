@@ -23,9 +23,18 @@ const fetchEventsData = async () => {
   } catch (error) {
     console.error("Error fetching events data:", error);
     throw error;
-  } finally {
-    db.end();
   }
 };
 
-module.exports = { fetchEndpointsData, fetchEventsData };
+const fetchEventById = async (id) => {
+  try {
+    const query = "SELECT * FROM events WHERE id = $1";
+    const result = await db.query(query, [id]);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error fetching event data:", error);
+    throw error;
+  }
+};
+
+module.exports = { fetchEndpointsData, fetchEventsData, fetchEventById };

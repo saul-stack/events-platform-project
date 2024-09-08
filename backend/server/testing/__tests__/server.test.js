@@ -1,7 +1,12 @@
 const server = require("../../server");
 const request = require("supertest");
+const db = require("../../../database/connection.js");
 
-const { fetchEndpointsData, fetchEventsData } = require("../test-utils.js");
+const {
+  fetchEndpointsData,
+  fetchEventsData,
+  fetchEventById,
+} = require("../test-utils.js");
 
 const newEvent = {
   title: "POST Test Event",
@@ -21,6 +26,10 @@ const newEvent = {
 beforeAll(async () => {
   expectedEndpoints = await fetchEndpointsData();
   defaultEventsArray = await fetchEventsData();
+});
+
+afterAll(() => {
+  db.end();
 });
 
 describe("/api", () => {
@@ -77,7 +86,7 @@ describe("/api", () => {
       });
   });
 
-  describe("/events", () => {
+  describe.only("/events", () => {
     test("GET: responds (200) with expected JSON object", async () => {
       return request(server)
         .get("/api/events")
@@ -96,6 +105,19 @@ describe("/api", () => {
         .then((response) => {
           expect(response.body.events).toEqual(updatedEventsArray);
         });
+    });
+
+    describe("/events/:id", () => {
+      test("GET: responds (200) with expected JSON object", async () => {
+        const eventId = 1;
+        const eventData = await fetchEventById(eventId);
+        return request(server)
+          .get(`/api/events/${eventId}`)
+          .expect(200)
+          .then((response) => {
+            expect(response.body.event).toEqual(eventData);
+          });
+      });
     });
   });
 });
