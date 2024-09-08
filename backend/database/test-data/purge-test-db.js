@@ -1,10 +1,9 @@
 const eventsAndUsersPool = require("../connection");
 
-const purgeDatabase = async () => {
+const purgeDatabase = async (table) => {
+  const dropQuery = `DROP TABLE IF EXISTS ${table};`;
   try {
-    await eventsAndUsersPool.query(`
-      DROP TABLE IF EXISTS events;
-    `);
+    await eventsAndUsersPool.query(dropQuery);
 
     await eventsAndUsersPool.query(`
       CREATE TABLE events (
@@ -30,7 +29,7 @@ const purgeDatabase = async () => {
   }
 };
 
-purgeDatabase()
+purgeDatabase("events")
   .then(() => {
     console.log("Purge table data \u2714.");
   })
