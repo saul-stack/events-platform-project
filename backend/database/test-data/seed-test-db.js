@@ -2,36 +2,20 @@ const eventsAndUsersPool = require("../connection");
 const fs = require("fs").promises;
 const path = require("path");
 
-const seedDatabase = async () => {
+const fetchData = async () => {
   const filePath = path.join(__dirname, "./data/test-data.json");
   try {
     const eventsData = await fs.readFile(filePath, "utf-8");
-    const seedData = JSON.parse(eventsData);
-    await eventsAndUsersPool.query(`
-      DROP TABLE IF EXISTS events;
-    `);
-    console.log("Drop 'events' table \u2714");
+    return JSON.parse(eventsData);
+  } catch (err) {
+    console.error("Error reading data file:", err);
+    throw err;
+  }
+};
 
-    await eventsAndUsersPool.query(`
-      CREATE TABLE events (
-        id SERIAL PRIMARY KEY,
-        title VARCHAR(100) NOT NULL,
-        date DATE NOT NULL,
-        day_of_week VARCHAR(50) NOT NULL,
-        time TIME NOT NULL,
-        description TEXT,
-        advance_price DECIMAL(5, 2),
-        door_price DECIMAL(5, 2),
-        tickets_total INT,
-        tickets_sold INT,
-        is_seated BOOLEAN NOT NULL,
-        is_ticketed BOOLEAN NOT NULL,
-        is_recurring BOOLEAN NOT NULL
-      );
-    `);
-    console.log("Create empty 'events' table with columns \u2714");
-
-    for (const event of seedData) {
+const seedDatabase = async (data) => {
+  try {
+    for (const event of data) {
       await eventsAndUsersPool.query(
         `INSERT INTO events (
           title, date, day_of_week, time, description, advance_price, door_price, tickets_total, tickets_sold, is_seated, is_ticketed, is_recurring
@@ -58,13 +42,24 @@ const seedDatabase = async () => {
     );
     const rowCount = result.rows[0].count;
     console.log(
-      `Table 'events' has been created with data columns. Number of entries in the table: ${rowCount}`
+      `Seed table 'events' with ${rowCount} entries from test-data.json \u2714`
     );
   } catch (err) {
     console.error("Error seeding database:", err);
+    throw err;
   } finally {
     await eventsAndUsersPool.end();
   }
 };
 
-seedDatabase();
+fetchData()
+  .then((data) => seedDatabase(data))
+  .catch((err) => {
+    console.error("Error in fetchData or seedDatabase:", err);
+  })
+  .then(() => {
+    console.log("Seed table data \u2714.");
+  })
+  .catch((err) => {
+    console.log(err);
+  });

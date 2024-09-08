@@ -5,7 +5,6 @@ const seedDatabase = async () => {
     await eventsAndUsersPool.query(`
       DROP TABLE IF EXISTS events;
     `);
-    console.log("Drop 'events' table \u2714");
 
     await eventsAndUsersPool.query(`
       CREATE TABLE events (
@@ -18,20 +17,23 @@ const seedDatabase = async () => {
         advance_price DECIMAL(5, 2),
         door_price DECIMAL(5, 2),
         tickets_total INT,
-        tickets_available INT,
+        tickets_sold INT,
         is_seated BOOLEAN NOT NULL,
         is_ticketed BOOLEAN NOT NULL,
         is_recurring BOOLEAN NOT NULL
       );
     `);
-
-    console.log("Create empty 'events' table with columns \u2714");
-    console.log("Table data purged successfully.");
   } catch (err) {
-    console.error("Error seeding database:", err);
+    throw err;
   } finally {
-    eventsAndUsersPool.end();
+    await eventsAndUsersPool.end();
   }
 };
 
-seedDatabase();
+seedDatabase()
+  .then(() => {
+    console.log("Purge table data \u2714.");
+  })
+  .catch((err) => {
+    console.error("Error seeding database:", err);
+  });
