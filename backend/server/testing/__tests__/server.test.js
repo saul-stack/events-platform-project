@@ -3,6 +3,21 @@ const request = require("supertest");
 
 const { fetchEndpointsData, fetchEventsData } = require("../test-utils.js");
 
+const newEvent = {
+  title: "POST Test Event",
+  date: "2022-12-31",
+  day_of_week: "Saturday",
+  time: "18:00:00",
+  description: "This is a test event created by a POST request.",
+  advance_price: 10.0,
+  door_price: 15.0,
+  tickets_total: 100,
+  tickets_sold: 0,
+  is_seated: true,
+  is_ticketed: true,
+  is_recurring: false,
+};
+
 beforeAll(async () => {
   expectedEndpoints = await fetchEndpointsData();
   defaultEventsArray = await fetchEventsData();
@@ -60,5 +75,27 @@ describe("/api", () => {
           error: "PATCH Method Not Allowed on /api",
         });
       });
+  });
+
+  describe("/events", () => {
+    test("GET: responds (200) with expected JSON object", async () => {
+      return request(server)
+        .get("/api/events")
+        .expect(200)
+        .then((response) => {
+          expect(response.body.events).toEqual(defaultEventsArray);
+        });
+    });
+
+    test("POST: responds (200) and successfully updates table", () => {
+      const updatedEventsArray = defaultEventsArray;
+      updatedEventsArray.push(newEvent);
+      return request(server)
+        .post("/api/events", newEvent)
+        .expect(200)
+        .then((response) => {
+          expect(response.body.events).toEqual(updatedEventsArray);
+        });
+    });
   });
 });
