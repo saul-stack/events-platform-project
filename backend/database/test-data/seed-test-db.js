@@ -3,7 +3,7 @@ const fs = require("fs").promises;
 
 const seedDatabase = async () => {
   try {
-    const eventsData = await fs.readFile("./data/test-data.json", "utf8");
+    const eventsData = await fs.readFile("./data/test-data.json", "utf-8");
     const seedData = JSON.parse(eventsData);
     await eventsAndUsersPool.query(`
       DROP TABLE IF EXISTS events;
