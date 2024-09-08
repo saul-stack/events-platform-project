@@ -1,13 +1,17 @@
 const server = require("../server");
 const request = require("supertest");
+const path = require("path");
+const fs = require("fs").promises;
 
 describe("/api", () => {
-  test("GET: responds (200) with JSON object", () => {
+  test("GET: responds (200) with expected JSON object", async () => {
+    const filePath = path.join(__dirname, "../endpoints.json");
+    const endpoints = JSON.parse(await fs.readFile(filePath, "utf-8"));
     return request(server)
       .get("/api")
       .expect(200)
       .then((response) => {
-        expect(typeof response.body).toBe("object");
+        expect(response.body).toEqual(endpoints);
       });
   });
 
