@@ -1,6 +1,6 @@
 const eventsAndUsersPool = require("../connection");
 
-const seedDatabase = async () => {
+const purgeDatabase = async () => {
   try {
     await eventsAndUsersPool.query(`
       DROP TABLE IF EXISTS events;
@@ -30,10 +30,10 @@ const seedDatabase = async () => {
   }
 };
 
-seedDatabase()
+purgeDatabase()
   .then(() => {
     console.log("Purge table data \u2714.");
   })
   .catch((err) => {
-    console.error("Error seeding database:", err);
+    console.error("Error purging database:", err);
   });
