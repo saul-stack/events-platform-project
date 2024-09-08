@@ -86,7 +86,7 @@ describe("/api", () => {
       });
   });
 
-  describe.only("/events", () => {
+  describe("/events", () => {
     test("GET: responds (200) with expected JSON object", async () => {
       return request(server)
         .get("/api/events")
