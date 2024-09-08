@@ -10,7 +10,6 @@ exports.getAllEndpoints = async (req, res) => {
   }
   try {
     const endpoints = await fetchAllEndpoints();
-    console.log(`Request Accepted: GET /api`);
     return res.status(200).json(endpoints);
   } catch (err) {
     console.error(err);
