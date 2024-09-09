@@ -1,0 +1,36 @@
+{
+  "schema": {
+    "tableName": "events",
+    "columns": [
+      { "name": "id", "type": "SERIAL PRIMARY KEY" },
+      { "name": "title", "type": "VARCHAR(255) NOT NULL" },
+      { "name": "date", "type": "DATE NOT NULL" },
+      { "name": "day_of_week", "type": "VARCHAR(255) NOT NULL" },
+      { "name": "time", "type": "TIME NOT NULL" },
+      { "name": "description", "type": "TEXT NOT NULL" },
+      { "name": "advance_price", "type": "DECIMAL(10, 2) NOT NULL" },
+      { "name": "door_price", "type": "DECIMAL(10, 2) NOT NULL" },
+      { "name": "tickets_total", "type": "INT NOT NULL" },
+      { "name": "tickets_sold", "type": "INT NOT NULL" },
+      { "name": "is_seated", "type": "BOOLEAN NOT NULL" },
+      { "name": "is_ticketed", "type": "BOOLEAN NOT NULL" },
+      { "name": "is_recurring", "type": "BOOLEAN NOT NULL" }
+    ]
+  },
+  "data": [
+    {
+      "title": "Test Event",
+      "date": "2023-01-01",
+      "day_of_week": "Monday",
+      "time": "12:00:00",
+      "description": "This is a test event. If you are seeing this, the test was successful.",
+      "advance_price": 10.0,
+      "door_price": 15.0,
+      "tickets_total": 100,
+      "tickets_sold": 50,
+      "is_seated": true,
+      "is_ticketed": true,
+      "is_recurring": false
+    }
+  ]
+}
