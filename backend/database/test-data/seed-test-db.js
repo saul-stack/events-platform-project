@@ -1,65 +1,57 @@
 const eventsAndUsersPool = require("../connection");
-const fs = require("fs").promises;
 const path = require("path");
+const {
+  getDataFromJSON,
+  checkIfTableExists,
+  truncateTable,
+  createTable,
+  seedTable,
+} = require("./db-utils");
+const testDataPath = path.join(__dirname, "test-data.json");
 
-const fetchData = async () => {
-  const filePath = path.join(__dirname, "./data/test-data.json");
+const seedTestTable = async () => {
+  let tableData = null;
   try {
-    const eventsData = await fs.readFile(filePath, "utf-8");
-    return JSON.parse(eventsData);
-  } catch (err) {
-    console.error("Error reading data file:", err);
-    throw err;
+    tableData = await getDataFromJSON(testDataPath);
+  } catch (error) {
+    console.error(`Error reading JSON file: ${error}`);
+    return;
   }
-};
 
-const seedDatabase = async (data) => {
+  const { tableName } = tableData.schema;
+  let tableExists;
   try {
-    for (const event of data) {
-      await eventsAndUsersPool.query(
-        `INSERT INTO events (
-          title, date, day_of_week, time, description, advance_price, door_price, tickets_total, tickets_sold, is_seated, is_ticketed, is_recurring
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
-        [
-          event.title,
-          event.date,
-          event.day_of_week,
-          event.time,
-          event.description,
-          event.advance_price,
-          event.door_price,
-          event.tickets_total,
-          event.tickets_sold,
-          event.is_seated,
-          event.is_ticketed,
-          event.is_recurring,
-        ]
-      );
+    tableExists = await checkIfTableExists(tableName);
+  } catch (error) {
+    console.error(`Error checking if table exists: ${error}`);
+    return;
+  }
+
+  if (!tableExists) {
+    try {
+      await createTable(tableData);
+    } catch (error) {
+      console.error(`Error creating table: ${error}`);
+      return;
     }
+  }
 
-    const result = await eventsAndUsersPool.query(
-      "SELECT COUNT(*) FROM events"
-    );
-    const rowCount = result.rows[0].count;
-    console.log(
-      `Seed table 'events' with ${rowCount} entries from test-data.json \u2714`
-    );
-  } catch (err) {
-    console.error("Error seeding database:", err);
-    throw err;
+  try {
+    await truncateTable(tableName);
+  } catch (error) {
+    console.error(`Error truncating table: ${error}`);
+    return;
+  }
+
+  try {
+    await seedTable(tableData);
+  } catch (error) {
+    console.error(`Error seeding table: ${error}`);
+    return;
   } finally {
-    await eventsAndUsersPool.end();
+    console.log("Table seeded successfully.");
+    eventsAndUsersPool.end();
   }
 };
 
-fetchData()
-  .then((data) => seedDatabase(data))
-  .catch((err) => {
-    console.error("Error in fetchData or seedDatabase:", err);
-  })
-  .then(() => {
-    console.log("Seed table data \u2714.");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+seedTestTable();
