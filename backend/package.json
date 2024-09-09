@@ -9,7 +9,7 @@
     "start": "node ./server/start-server.js",
     "dev": "nodemon ./server/start-server.js",
     "test": "jest",
-    "test-api": "node ./database/test-data/purge-test-db.js && node ./database/test-data/seed-test-db.js && jest"
+    "test-api": "node ./database/test-data/seed-test-db.js && jest"
   },
   "devDependencies": {
     "jest": "^29.7.0",
