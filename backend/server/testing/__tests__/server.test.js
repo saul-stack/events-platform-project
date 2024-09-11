@@ -30,8 +30,8 @@ beforeAll(async () => {
   defaultEventsArray = await fetchEventsData();
 });
 
-afterAll(() => {
-  db.end();
+afterAll(async () => {
+  await db.end();
 });
 
 describe("/api", () => {
