@@ -1,4 +1,4 @@
-const eventsAndUsersPool = require("../connection");
+const db = require("../connection");
 const path = require("path");
 const {
   getDataFromJSON,
@@ -58,7 +58,7 @@ const seedTestTable = async () => {
     console.error(`Error seeding table: ${error}`);
     return;
   } finally {
-    eventsAndUsersPool.end();
+    db.end();
   }
 };
 
