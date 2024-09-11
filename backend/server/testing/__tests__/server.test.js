@@ -1,13 +1,11 @@
 const server = require("../../server");
 const request = require("supertest");
 const db = require("../../../database/connection.js");
-
 const {
   fetchEndpointsData,
   fetchEventsData,
   fetchEventById,
 } = require("../test-utils.js");
-
 const newEvent = {
   title: "POST Test Event",
   date: "2022-12-31",
@@ -85,65 +83,99 @@ describe("/api", () => {
         });
       });
   });
+});
 
-  describe("/events", () => {
-    test("GET: responds (200) with expected JSON object", async () => {
-      return request(server)
-        .get("/api/events")
-        .expect(200)
-        .then((response) => {
-          expect(response.body.events).toEqual(defaultEventsArray);
-        });
+describe("/api/events", () => {
+  test("GET: responds (200) with expected JSON object", async () => {
+    return request(server)
+      .get("/api/events")
+      .expect(200)
+      .then((response) => {
+        expect(response.body.events).toEqual(defaultEventsArray);
+      });
+  });
+
+  test("POST: responds (200) and successfully updates table", () => {
+    const updatedEventsArray = defaultEventsArray;
+    updatedEventsArray.push(newEvent);
+    return request(server)
+      .post("/api/events", newEvent)
+      .expect(200)
+      .then((response) => {
+        expect(response.body.events).toEqual(updatedEventsArray);
+      });
+  });
+
+  describe("/api/events/:id", () => {
+    describe("GET", () => {
+      test("Event exists -> responds (200) with expected JSON object", async () => {
+        const eventId = 1;
+        const eventData = await fetchEventById(eventId);
+        return request(server)
+          .get(`/api/events/${eventId}`)
+          .expect(200)
+          .then((response) => {
+            expect(response.body.event).toEqual(eventData);
+          });
+      });
+
+      test("Event does not exist -> responds (404) with expected JSON error object", () => {
+        const eventId = 99999;
+        return request(server)
+          .get(`/api/events/${eventId}`)
+          .expect(404)
+          .then((response) => {
+            expect(response.body).toEqual({
+              error: `Event with ID ${eventId} not found.`,
+            });
+          });
+      });
+
+      test("Invalid request format -> responds (400) with expected JSON error object", () => {
+        const eventId = "invalid_event_id";
+        return request(server)
+          .get(`/api/events/${eventId}`)
+          .expect(400)
+          .then((response) => {
+            expect(response.body).toEqual({
+              error: "Invalid request.",
+            });
+          });
+      });
     });
 
-    test("POST: responds (200) and successfully updates table", () => {
-      const updatedEventsArray = defaultEventsArray;
-      updatedEventsArray.push(newEvent);
-      return request(server)
-        .post("/api/events", newEvent)
-        .expect(200)
-        .then((response) => {
-          expect(response.body.events).toEqual(updatedEventsArray);
-        });
-    });
+    describe("DELETE", () => {
+      test("Event exists -> responds (200) and successfully updates table", async () => {
+        const eventId = 1;
+        const response = await request(server).delete(`/api/events/${eventId}`);
+        const eventsArray = await fetchEventsData();
+        const eventExists = eventsArray.some((event) => event.id === eventId);
+        expect(response.status).toBe(200);
+        expect(eventExists).toBe(false);
+      });
 
-    describe("/events/:id", () => {
-      describe("GET", () => {
-        test("Event exists -> responds (200) with expected JSON object", async () => {
-          const eventId = 1;
-          const eventData = await fetchEventById(eventId);
-          return request(server)
-            .get(`/api/events/${eventId}`)
-            .expect(200)
-            .then((response) => {
-              expect(response.body.event).toEqual(eventData);
+      test("Event does not exist -> responds (404) with expected JSON error object", () => {
+        const eventId = 99999;
+        return request(server)
+          .delete(`/api/events/${eventId}`)
+          .expect(404)
+          .then((response) => {
+            expect(response.body).toEqual({
+              error: `Event with ID ${eventId} not found.`,
             });
-        });
+          });
+      });
 
-        test("Event does not exist -> responds (404) with expected JSON error object", () => {
-          const eventId = 99999;
-          return request(server)
-            .get(`/api/events/${eventId}`)
-            .expect(404)
-            .then((response) => {
-              expect(response.body.event).toEqual(null);
-              expect(response.body).toEqual({
-                error: `Event with ID ${eventId} not found.`,
-              });
+      test("Invalid request format -> responds (400) with expected JSON error object", () => {
+        const eventId = "invalid_event_id";
+        return request(server)
+          .delete(`/api/events/${eventId}`)
+          .expect(400)
+          .then((response) => {
+            expect(response.body).toEqual({
+              error: "Invalid request.",
             });
-        });
-
-        test("Invalid request format -> responds (400) with expected JSON error object", () => {
-          const eventId = "invalid";
-          return request(server)
-            .get(`/api/events/${eventId}`)
-            .expect(400)
-            .then((response) => {
-              expect(response.body).toEqual({
-                error: "Invalid request.",
-              });
-            });
-        });
+          });
       });
     });
   });
