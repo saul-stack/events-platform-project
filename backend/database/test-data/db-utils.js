@@ -1,4 +1,4 @@
-const eventsAndUsersPool = require("../connection");
+const db = require("../connection");
 const fs = require("fs").promises;
 
 const checkIfTableExists = async (tableName) => {
@@ -9,7 +9,7 @@ const checkIfTableExists = async (tableName) => {
     );
   `;
   try {
-    const result = await eventsAndUsersPool.query(query, [tableName]);
+    const result = await db.query(query, [tableName]);
     console.log(`Table "${tableName}" exists: ${result.rows[0].exists}`);
     return result.rows[0].exists;
   } catch (err) {
@@ -21,7 +21,7 @@ const checkIfTableExists = async (tableName) => {
 const resetEntryIdSequence = async (tableName) => {
   const resetIdSequenceQuery = `ALTER SEQUENCE ${tableName}_id_seq RESTART WITH 1;`;
   try {
-    await eventsAndUsersPool.query(resetIdSequenceQuery);
+    await db.query(resetIdSequenceQuery);
     console.log(`ID sequence for table "${tableName}" reset successfully.`);
   } catch (err) {
     console.error(`Error resetting ID sequence for table ${tableName}:`, err);
@@ -31,7 +31,7 @@ const resetEntryIdSequence = async (tableName) => {
 const truncateTable = async (tableName) => {
   const truncateQuery = `TRUNCATE TABLE ${tableName};`;
   try {
-    await eventsAndUsersPool.query(truncateQuery);
+    await db.query(truncateQuery);
     console.log(`Table "${tableName}" truncated successfully.`);
   } catch (err) {
     console.error(`Error truncating table ${tableName}:`, err);
@@ -45,9 +45,7 @@ const createTable = async (data) => {
     const columnsDefinition = columns
       .map((col) => `${col.name} ${col.type}`)
       .join(", ");
-    await eventsAndUsersPool.query(
-      `CREATE TABLE ${tableName} (${columnsDefinition});`
-    );
+    await db.query(`CREATE TABLE ${tableName} (${columnsDefinition});`);
     console.log(`Table "${tableName}" created successfully.`);
   } catch (err) {
     console.error(`Error creating table ${tableName}:`, err);
@@ -88,7 +86,7 @@ const seedTable = async (tableData) => {
 
   try {
     for (let singleEntryValues of entriesToAdd) {
-      await eventsAndUsersPool.query(query, singleEntryValues);
+      await db.query(query, singleEntryValues);
     }
     console.log("Data inserted successfully");
   } catch (error) {
