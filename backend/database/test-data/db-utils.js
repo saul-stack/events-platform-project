@@ -67,8 +67,10 @@ const getDataFromJSON = async (filePath) => {
 };
 
 const seedTable = async (tableData) => {
-  const { tableName, columns } = tableData.schema;
-  const queryString = `INSERT INTO ${tableName} (${columns
+  const { entries, schema } = tableData;
+  const { tableName, columns } = schema;
+  const entriesToAdd = [];
+  const query = `INSERT INTO ${tableName} (${columns
     .slice(1)
     .map((col) => col.name)
     .join(", ")}) VALUES (${columns
@@ -76,19 +78,19 @@ const seedTable = async (tableData) => {
     .map((col, index) => `$${index + 1}`)
     .join(", ")})`;
 
-  let valuesArray = [];
-  tableData.data.forEach((row) => {
-    const values = columns.slice(1).map((col) => row[col.name]);
-    valuesArray.push(values);
+  entries.map((entry) => {
+    let singleEntryValues = [];
+    Object.keys(entry).forEach((property) => {
+      singleEntryValues.push(entry[property]);
+    });
+    entriesToAdd.push(singleEntryValues);
   });
 
   try {
-    const result = await eventsAndUsersPool.query(
-      queryString,
-      valuesArray.flat()
-    );
+    for (let singleEntryValues of entriesToAdd) {
+      await eventsAndUsersPool.query(query, singleEntryValues);
+    }
     console.log("Data inserted successfully");
-    return result;
   } catch (error) {
     console.error("Error inserting data:", error);
     throw error;
