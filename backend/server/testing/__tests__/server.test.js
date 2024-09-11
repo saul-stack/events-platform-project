@@ -6,6 +6,9 @@ const {
   fetchEventsData,
   fetchEventById,
 } = require("../test-utils.js");
+const {
+  seedTestTable,
+} = require("../../../database/test-data/seed-test-db.js");
 
 const newEvent = {
   title: "POST Test Event",
@@ -28,6 +31,10 @@ let defaultEventsArray = [];
 beforeAll(async () => {
   expectedEndpoints = await fetchEndpointsData();
   defaultEventsArray = await fetchEventsData();
+});
+
+beforeEach(async () => {
+  await seedTestTable();
 });
 
 afterAll(async () => {
