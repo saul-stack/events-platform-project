@@ -23,6 +23,8 @@ const fetchEventsData = async () => {
   } catch (error) {
     console.error("Error fetching events data:", error);
     throw error;
+  } finally {
+    db.end();
   }
 };
 
@@ -34,6 +36,8 @@ const fetchEventById = async (id) => {
   } catch (error) {
     console.error("Error fetching event data:", error);
     throw error;
+  } finally {
+    db.end();
   }
 };
 
