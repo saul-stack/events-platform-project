@@ -16,7 +16,7 @@ const seedTestTable = async () => {
     tableData = await getDataFromJSON(testDataPath);
   } catch (error) {
     console.error(`Error reading JSON file: ${error}`);
-    return;
+    return error;
   }
 
   const { tableName } = tableData.schema;
@@ -25,7 +25,7 @@ const seedTestTable = async () => {
     tableExists = await checkIfTableExists(tableName);
   } catch (error) {
     console.error(`Error checking if table exists: ${error}`);
-    return;
+    return error;
   }
 
   if (!tableExists) {
@@ -33,7 +33,7 @@ const seedTestTable = async () => {
       await createTable(tableData);
     } catch (error) {
       console.error(`Error creating table: ${error}`);
-      return;
+      return error;
     }
   }
 
@@ -41,14 +41,14 @@ const seedTestTable = async () => {
     await truncateTable(tableName);
   } catch (error) {
     console.error(`Error truncating table: ${error}`);
-    return;
+    return error;
   }
 
   try {
     await resetEntryIdSequence(tableName);
   } catch (error) {
     console.error(`Error resetting ID sequence for table: ${error}`);
-    return;
+    return error;
   }
 
   try {
@@ -56,7 +56,7 @@ const seedTestTable = async () => {
     console.log("Table seeded successfully.");
   } catch (error) {
     console.error(`Error seeding table: ${error}`);
-    return;
+    return error;
   } finally {
     db.end();
   }
