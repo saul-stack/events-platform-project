@@ -61,3 +61,4 @@ const seedTestTable = async () => {
 };
 
 seedTestTable();
+module.exports = { seedTestTable };
