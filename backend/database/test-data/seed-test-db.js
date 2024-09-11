@@ -53,11 +53,11 @@ const seedTestTable = async () => {
 
   try {
     await seedTable(tableData);
+    console.log("Table seeded successfully.");
   } catch (error) {
     console.error(`Error seeding table: ${error}`);
     return;
   } finally {
-    console.log("Table seeded successfully.");
     eventsAndUsersPool.end();
   }
 };
