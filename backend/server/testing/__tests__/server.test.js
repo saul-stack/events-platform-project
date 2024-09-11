@@ -6,6 +6,7 @@ const {
   fetchEventsData,
   fetchEventById,
 } = require("../test-utils.js");
+
 const newEvent = {
   title: "POST Test Event",
   date: "2022-12-31",
@@ -20,6 +21,9 @@ const newEvent = {
   is_ticketed: true,
   is_recurring: false,
 };
+
+let expectedEndpoints = {};
+let defaultEventsArray = [];
 
 beforeAll(async () => {
   expectedEndpoints = await fetchEndpointsData();
