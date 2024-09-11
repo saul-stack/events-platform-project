@@ -6,6 +6,7 @@ const {
   truncateTable,
   createTable,
   seedTable,
+  resetEntryIdSequence,
 } = require("./db-utils");
 const testDataPath = path.join(__dirname, "test-data.json");
 
@@ -40,6 +41,13 @@ const seedTestTable = async () => {
     await truncateTable(tableName);
   } catch (error) {
     console.error(`Error truncating table: ${error}`);
+    return;
+  }
+
+  try {
+    await resetEntryIdSequence(tableName);
+  } catch (error) {
+    console.error(`Error resetting ID sequence for table: ${error}`);
     return;
   }
 
