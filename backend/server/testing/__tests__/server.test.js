@@ -32,150 +32,134 @@ afterAll(() => {
 
 describe("/api", () => {
   test("GET: responds (200) with expected JSON object", async () => {
-    return request(server)
-      .get("/api")
-      .expect(200)
-      .then(async (response) => {
-        expect(response.body).toEqual(expectedEndpoints);
-      });
+    const response = await request(server).get("/api");
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(expectedEndpoints);
   });
 
-  test("POST: responds (405) with expected JSON error object", () => {
-    return request(server)
-      .post("/api")
-      .expect(405)
-      .then((response) => {
-        expect(response.body).toEqual({
-          error: "POST Method Not Allowed on /api",
-        });
-      });
+  test("POST: responds (405) with expected JSON error object", async () => {
+    const response = await request(server).post("/api");
+    expect(response.status).toBe(405);
+    expect(response.body).toEqual({ error: "POST Method Not Allowed on /api" });
   });
 
-  test("PUT: responds (405) with expected JSON error object", () => {
-    return request(server)
-      .put("/api")
-      .expect(405)
-      .then((response) => {
-        expect(response.body).toEqual({
-          error: "PUT Method Not Allowed on /api",
-        });
-      });
+  test("PUT: responds (405) with expected JSON error object", async () => {
+    const response = await request(server).put("/api");
+    expect(response.status).toBe(405);
+    expect(response.body).toEqual({ error: "PUT Method Not Allowed on /api" });
   });
 
-  test("DELETE: responds (405) with expected JSON error object", () => {
-    return request(server)
-      .delete("/api")
-      .expect(405)
-      .then((response) => {
-        expect(response.body).toEqual({
-          error: "DELETE Method Not Allowed on /api",
-        });
-      });
+  test("PATCH: responds (405) with expected JSON error object", async () => {
+    const response = await request(server).patch("/api");
+    expect(response.status).toBe(405);
+    expect(response.body).toEqual({
+      error: "PATCH Method Not Allowed on /api",
+    });
   });
 
-  test("PATCH: responds (405) with expected JSON error object", () => {
-    return request(server)
-      .patch("/api")
-      .expect(405)
-      .then((response) => {
-        expect(response.body).toEqual({
-          error: "PATCH Method Not Allowed on /api",
-        });
-      });
+  test("DELETE: responds (405) with expected JSON error object", async () => {
+    const response = await request(server).delete("/api");
+    expect(response.status).toBe(405);
+    expect(response.body).toEqual({
+      error: "DELETE Method Not Allowed on /api",
+    });
   });
 });
 
 describe("/api/events", () => {
   test("GET: responds (200) with expected JSON object", async () => {
-    return request(server)
-      .get("/api/events")
-      .expect(200)
-      .then((response) => {
-        expect(response.body.events).toEqual(defaultEventsArray);
-      });
+    const response = await request(server).get("/api/events");
+    expect(response.status).toBe(200);
+    expect(response.body.events).toEqual(defaultEventsArray);
   });
 
-  test("POST: responds (200) and successfully updates table", () => {
+  test("POST: responds (200) and successfully updates table", async () => {
     const updatedEventsArray = defaultEventsArray;
     updatedEventsArray.push(newEvent);
-    return request(server)
-      .post("/api/events", newEvent)
-      .expect(200)
-      .then((response) => {
-        expect(response.body.events).toEqual(updatedEventsArray);
-      });
+    const response = await request(server).post("/api/events").send(newEvent);
+    expect(response.status).toBe(200);
+    expect(response.body.events).toEqual(updatedEventsArray);
   });
 
-  describe("/api/events/:id", () => {
-    describe("GET", () => {
-      test("Event exists -> responds (200) with expected JSON object", async () => {
-        const eventId = 1;
-        const eventData = await fetchEventById(eventId);
-        return request(server)
-          .get(`/api/events/${eventId}`)
-          .expect(200)
-          .then((response) => {
-            expect(response.body.event).toEqual(eventData);
-          });
-      });
+  test("DELETE: responds (405) Method Not Allowed", async () => {
+    const response = await request(server).delete("/api/events");
+    expect(response.status).toBe(405);
+    expect(response.body).toEqual({
+      error: "DELETE Method Not Allowed on /api/events",
+    });
+  });
 
-      test("Event does not exist -> responds (404) with expected JSON error object", () => {
-        const eventId = 99999;
-        return request(server)
-          .get(`/api/events/${eventId}`)
-          .expect(404)
-          .then((response) => {
-            expect(response.body).toEqual({
-              error: `Event with ID ${eventId} not found.`,
-            });
-          });
-      });
+  test("PUT: responds (405) Method Not Allowed", async () => {
+    const response = await request(server).put("/api/events");
+    expect(response.status).toBe(405);
+    expect(response.body).toEqual({
+      error: "PUT Method Not Allowed on /api/events",
+    });
+  });
 
-      test("Invalid request format -> responds (400) with expected JSON error object", () => {
-        const eventId = "invalid_event_id";
-        return request(server)
-          .get(`/api/events/${eventId}`)
-          .expect(400)
-          .then((response) => {
-            expect(response.body).toEqual({
-              error: "Invalid request.",
-            });
-          });
+  test("PATCH: responds (405) Method Not Allowed", async () => {
+    const response = await request(server).patch("/api/events");
+    expect(response.status).toBe(405);
+    expect(response.body).toEqual({
+      error: "PATCH Method Not Allowed on /api/events",
+    });
+  });
+});
+
+describe("/api/events/:id", () => {
+  describe("GET", () => {
+    test("Event exists -> responds (200) with expected JSON object", async () => {
+      const eventId = 1;
+      const eventData = await fetchEventById(eventId);
+      const response = await request(server).get(`/api/events/${eventId}`);
+      expect(response.status).toBe(200);
+      expect(response.body.event).toEqual(eventData);
+    });
+
+    test("Event does not exist -> responds (404) with expected JSON error object", async () => {
+      const eventId = 99999;
+      const response = await request(server).get(`/api/events/${eventId}`);
+      expect(response.status).toBe(404);
+      expect(response.body).toEqual({
+        error: `Event with ID ${eventId} not found.`,
       });
     });
 
-    describe("DELETE", () => {
-      test("Event exists -> responds (200) and successfully updates table", async () => {
-        const eventId = 1;
-        const response = await request(server).delete(`/api/events/${eventId}`);
-        const eventsArray = await fetchEventsData();
-        const eventExists = eventsArray.some((event) => event.id === eventId);
-        expect(response.status).toBe(200);
-        expect(eventExists).toBe(false);
+    test("Invalid request format -> responds (400) with expected JSON error object", async () => {
+      const eventId = "invalid_event_id";
+      const response = await request(server).get(`/api/events/${eventId}`);
+      expect(response.status).toBe(400);
+      expect(response.body).toEqual({
+        error: "Invalid request.",
       });
+    });
+  });
 
-      test("Event does not exist -> responds (404) with expected JSON error object", () => {
-        const eventId = 99999;
-        return request(server)
-          .delete(`/api/events/${eventId}`)
-          .expect(404)
-          .then((response) => {
-            expect(response.body).toEqual({
-              error: `Event with ID ${eventId} not found.`,
-            });
-          });
+  describe("DELETE", () => {
+    test("Event exists -> responds (200) and successfully updates table", async () => {
+      const eventId = 1;
+      const response = await request(server).delete(`/api/events/${eventId}`);
+      const eventsArray = await fetchEventsData();
+      const eventExists = eventsArray.some((event) => event.id === eventId);
+      expect(response.status).toBe(200);
+      expect(eventExists).toBe(false);
+    });
+
+    test("Event does not exist -> responds (404) with expected JSON error object", async () => {
+      const eventId = 99999;
+      const response = await request(server).delete(`/api/events/${eventId}`);
+      expect(response.status).toBe(404);
+      expect(response.body).toEqual({
+        error: `Event with ID ${eventId} not found.`,
       });
+    });
 
-      test("Invalid request format -> responds (400) with expected JSON error object", () => {
-        const eventId = "invalid_event_id";
-        return request(server)
-          .delete(`/api/events/${eventId}`)
-          .expect(400)
-          .then((response) => {
-            expect(response.body).toEqual({
-              error: "Invalid request.",
-            });
-          });
+    test("Invalid request format -> responds (400) with expected JSON error object", async () => {
+      const eventId = "invalid_event_id";
+      const response = await request(server).delete(`/api/events/${eventId}`);
+      expect(response.status).toBe(400);
+      expect(response.body).toEqual({
+        error: "Invalid request.",
       });
     });
   });
