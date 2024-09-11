@@ -91,6 +91,7 @@ const seedTable = async (tableData) => {
     return result;
   } catch (error) {
     console.error("Error inserting data:", error);
+    throw error;
   }
 };
 
