@@ -45,13 +45,6 @@ const seedTestTable = async () => {
   }
 
   try {
-    await resetEntryIdSequence(tableName);
-  } catch (error) {
-    console.error(`Error resetting ID sequence for table: ${error}`);
-    return error;
-  }
-
-  try {
     await seedTable(tableData);
     console.log("Table seeded successfully.");
   } catch (error) {

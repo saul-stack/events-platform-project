@@ -18,18 +18,8 @@ const checkIfTableExists = async (tableName) => {
   }
 };
 
-const resetEntryIdSequence = async (tableName) => {
-  const resetIdSequenceQuery = `ALTER SEQUENCE ${tableName}_id_seq RESTART WITH 1;`;
-  try {
-    await db.query(resetIdSequenceQuery);
-    console.log(`ID sequence for table "${tableName}" reset successfully.`);
-  } catch (err) {
-    console.error(`Error resetting ID sequence for table ${tableName}:`, err);
-  }
-};
-
 const truncateTable = async (tableName) => {
-  const truncateQuery = `TRUNCATE TABLE ${tableName};`;
+  const truncateQuery = `TRUNCATE TABLE ${tableName} RESTART IDENTITY CASCADE;`;
   try {
     await db.query(truncateQuery);
     console.log(`Table "${tableName}" truncated successfully.`);
@@ -101,5 +91,4 @@ module.exports = {
   createTable,
   seedTable,
   getDataFromJSON,
-  resetEntryIdSequence,
 };
