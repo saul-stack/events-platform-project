@@ -84,11 +84,11 @@ describe("/api/events", () => {
     expect(response.body.events).toEqual(defaultEventsArray);
   });
 
-  test("POST: responds (200) and successfully updates table", async () => {
+  test("POST: responds (201) and successfully updates table", async () => {
     const updatedEventsArray = defaultEventsArray;
     updatedEventsArray.push(newEvent);
     const response = await request(server).post("/api/events").send(newEvent);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(201);
     expect(response.body.events).toEqual(updatedEventsArray);
   });
 
@@ -171,6 +171,101 @@ describe("/api/events/:id", () => {
       expect(response.status).toBe(400);
       expect(response.body).toEqual({
         error: "Invalid request.",
+      });
+    });
+  });
+
+  describe("POST", () => {
+    test("POST: responds (405) Method Not Allowed", async () => {
+      const eventId = 1;
+      const response = await request(server).post(`/api/events/${eventId}`);
+      expect(response.status).toBe(405);
+      expect(response.body).toEqual({
+        error: "POST Method Not Allowed on /api/events/:id",
+      });
+    });
+  });
+
+  describe("PUT", () => {
+    test("PUT: responds (405) Method Not Allowed", async () => {
+      const eventId = 1;
+      const response = await request(server).put(`/api/events/${eventId}`);
+      expect(response.status).toBe(405);
+      expect(response.body).toEqual({
+        error: "PUT Method Not Allowed on /api/events/:id",
+      });
+    });
+  });
+
+  describe("PATCH", () => {
+    describe("Valid Request", () => {
+      test("Event exists, valid property value -> responds (200) and successfully updates table", async () => {
+        const eventId = 5,
+          patchProperty = "tickets_sold",
+          patchValue = 3;
+
+        const patchData = { [patchProperty]: patchValue };
+
+        const response = await request(server)
+          .patch(`/api/events/${eventId}`)
+          .send(patchData);
+        expect(response.status).toBe(200);
+        const tableData = await fetchEventsData();
+        const eventData = tableData.find((event) => event.id === eventId);
+        const eventTitle = eventData.title;
+        expect(eventData[patchProperty]).toBe(patchValue);
+        expect(response.body.event).toEqual({
+          message: `Event #${eventId} (${eventTitle}) updated ${patchProperty} to ${patchValue} successfully.`,
+        });
+      });
+    });
+    describe("Invalid request", () => {
+      test("Invalid property name -> responds (400) with expected JSON error object", async () => {
+        const eventId = 5,
+          patchProperty = "invalid_property",
+          patchValue = 3;
+
+        const patchData = { [patchProperty]: patchValue };
+
+        const response = await request(server)
+          .patch(`/api/events/${eventId}`)
+          .send(patchData);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "Invalid request.",
+        });
+      });
+      test("Invalid property value -> responds (400) with expected JSON error object", async () => {
+        const eventId = 5,
+          patchProperty = "tickets_sold",
+          patchValue = "invalid_value";
+
+        const patchData = { [patchProperty]: patchValue };
+
+        const response = await request(server)
+          .patch(`/api/events/${eventId}`)
+          .send(patchData);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "Invalid request.",
+        });
+      });
+      test("Event does not exist -> responds (404) with expected JSON error object", async () => {
+        const eventId = 99999;
+        const response = await request(server).patch(`/api/events/${eventId}`);
+        expect(response.status).toBe(404);
+        expect(response.body).toEqual({
+          error: `Event with ID ${eventId} not found.`,
+        });
+      });
+
+      test("Invalid event ID format ->  responds (400) with expected JSON error object", async () => {
+        const eventId = "invalid_event_id";
+        const response = await request(server).patch(`/api/events/${eventId}`);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "Invalid event ID format.",
+        });
       });
     });
   });
