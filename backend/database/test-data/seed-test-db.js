@@ -57,6 +57,8 @@ const seedTestTable = async () => {
   } catch (error) {
     console.error(`Error seeding table: ${error}`);
     return error;
+  } finally {
+    db.end();
   }
 };
 
