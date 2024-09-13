@@ -6,7 +6,6 @@ const {
   truncateTable,
   createTable,
   seedTable,
-  resetEntryIdSequence,
 } = require("./db-utils");
 const testDataPath = path.join(__dirname, "test-data.json");
 
