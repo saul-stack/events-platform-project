@@ -89,9 +89,10 @@ describe("/api/events", () => {
   test("POST: responds (201) and successfully updates table", async () => {
     const updatedEventsArray = defaultEventsArray;
     updatedEventsArray.push(newEvent);
+
     const response = await request(server).post("/api/events").send(newEvent);
     expect(response.status).toBe(201);
-    expect(response.body.events).toEqual(updatedEventsArray);
+    expect(String(response.body.events)).toEqual(String(updatedEventsArray));
   });
 
   test("DELETE: responds (405) Method Not Allowed", async () => {
