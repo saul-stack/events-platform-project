@@ -54,6 +54,10 @@ const getDataFromJSON = async (filePath) => {
   }
 };
 
+const getValuesOfObjectProperties = (obj) => {
+  return Object.keys(obj).map((key) => obj[key]);
+};
+
 const seedTable = async (tableData) => {
   const { entries, schema } = tableData;
   const { tableName, columns } = schema;
@@ -67,10 +71,7 @@ const seedTable = async (tableData) => {
     .join(", ")})`;
 
   entries.map((entry) => {
-    let singleEntryValues = [];
-    Object.keys(entry).forEach((property) => {
-      singleEntryValues.push(entry[property]);
-    });
+    let singleEntryValues = getValuesOfObjectProperties(entry);
     entriesToAdd.push(singleEntryValues);
   });
 
@@ -91,4 +92,5 @@ module.exports = {
   createTable,
   seedTable,
   getDataFromJSON,
+  getValuesOfObjectProperties,
 };
