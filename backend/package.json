@@ -8,8 +8,7 @@
   "scripts": {
     "start": "node ./server/start-server.js",
     "dev": "nodemon ./server/start-server.js",
-    "test": "jest",
-    "test-api": "node ./database/test-data/seed-test-db.js && jest"
+    "test": "jest"
   },
   "devDependencies": {
     "jest": "^29.7.0",
