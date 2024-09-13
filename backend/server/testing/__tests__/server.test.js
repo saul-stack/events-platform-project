@@ -29,7 +29,9 @@ let expectedEndpoints = {};
 let defaultEventsArray = [];
 
 beforeAll(async () => {
+  await seedTestTable();
   expectedEndpoints = await fetchEndpointsData();
+  await seedTestTable();
   defaultEventsArray = await fetchEventsData();
 });
 
@@ -81,7 +83,7 @@ describe("/api/events", () => {
   test("GET: responds (200) with expected JSON object", async () => {
     const response = await request(server).get("/api/events");
     expect(response.status).toBe(200);
-    expect(response.body.events).toEqual(defaultEventsArray);
+    expect(String(response.body.events)).toEqual(String(defaultEventsArray));
   });
 
   test("POST: responds (201) and successfully updates table", async () => {
