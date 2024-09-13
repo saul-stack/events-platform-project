@@ -4,7 +4,6 @@ const server = express();
 const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
 
 const rejectRequestMethod = (req, res) => {
-  console.log("hi");
   const METHOD = req.method;
   const ENDPOINT = req.originalUrl;
   console.error(` ${METHOD} Method Not Allowed on ${ENDPOINT}`);
@@ -18,5 +17,9 @@ server.delete("/api", rejectRequestMethod);
 server.put("/api", rejectRequestMethod);
 server.post("/api", rejectRequestMethod);
 server.patch("/api", rejectRequestMethod);
+
+server.delete("/api/events", rejectRequestMethod);
+server.put("/api/events", rejectRequestMethod);
+server.patch("/api/events", rejectRequestMethod);
 
 module.exports = server;
