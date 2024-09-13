@@ -48,19 +48,19 @@ describe("/api", () => {
     expect(response.body).toEqual(expectedEndpoints);
   });
 
-  test("POST: responds (405) with expected JSON error object", async () => {
+  test("POST: responds (405) Method Not Allowed", async () => {
     const response = await request(server).post("/api");
     expect(response.status).toBe(405);
     expect(response.body).toEqual({ error: "POST Method Not Allowed on /api" });
   });
 
-  test("PUT: responds (405) with expected JSON error object", async () => {
+  test("PUT: responds (405) Method Not Allowed", async () => {
     const response = await request(server).put("/api");
     expect(response.status).toBe(405);
     expect(response.body).toEqual({ error: "PUT Method Not Allowed on /api" });
   });
 
-  test("PATCH: responds (405) with expected JSON error object", async () => {
+  test("PATCH: responds (405) Method Not Allowed", async () => {
     const response = await request(server).patch("/api");
     expect(response.status).toBe(405);
     expect(response.body).toEqual({
@@ -68,7 +68,7 @@ describe("/api", () => {
     });
   });
 
-  test("DELETE: responds (405) with expected JSON error object", async () => {
+  test("DELETE: responds (405) Method Not Allowed", async () => {
     const response = await request(server).delete("/api");
     expect(response.status).toBe(405);
     expect(response.body).toEqual({
@@ -127,7 +127,7 @@ describe("/api/events/:id", () => {
       expect(response.body.event).toEqual(eventData);
     });
 
-    test("Event does not exist -> responds (404) with expected JSON error object", async () => {
+    test("Event does not exist -> responds (404) Not Found", async () => {
       const eventId = 99999;
       const response = await request(server).get(`/api/events/${eventId}`);
       expect(response.status).toBe(404);
@@ -136,12 +136,12 @@ describe("/api/events/:id", () => {
       });
     });
 
-    test("Invalid request format -> responds (400) with expected JSON error object", async () => {
+    test("Invalid request format -> responds (400) Bad Request", async () => {
       const eventId = "invalid_event_id";
       const response = await request(server).get(`/api/events/${eventId}`);
       expect(response.status).toBe(400);
       expect(response.body).toEqual({
-        error: "Invalid request.",
+        error: "Bad request.",
       });
     });
   });
@@ -156,7 +156,7 @@ describe("/api/events/:id", () => {
       expect(eventExists).toBe(false);
     });
 
-    test("Event does not exist -> responds (404) with expected JSON error object", async () => {
+    test("Event does not exist -> responds (404) Not Found", async () => {
       const eventId = 99999;
       const response = await request(server).delete(`/api/events/${eventId}`);
       expect(response.status).toBe(404);
@@ -165,12 +165,12 @@ describe("/api/events/:id", () => {
       });
     });
 
-    test("Invalid request format -> responds (400) with expected JSON error object", async () => {
+    test("Invalid request format -> responds (400) Bad Request", async () => {
       const eventId = "invalid_event_id";
       const response = await request(server).delete(`/api/events/${eventId}`);
       expect(response.status).toBe(400);
       expect(response.body).toEqual({
-        error: "Invalid request.",
+        error: "Bad request.",
       });
     });
   });
