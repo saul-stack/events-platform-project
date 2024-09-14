@@ -1,4 +1,9 @@
-const { fetchAllEvents, postNewEvent } = require("../models/events.models");
+const { checkIfEntryExistsById } = require("../../database/test-data/db-utils");
+const {
+  fetchAllEvents,
+  postNewEvent,
+  fetchEventById,
+} = require("../models/events.models");
 
 exports.getAllEvents = async (req, res) => {
   try {
@@ -18,5 +23,16 @@ exports.postToEvents = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Failed to Post Event" });
+  }
+};
+
+exports.getEventById = async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const event = await fetchEventById(eventId);
+    return res.status(200).json({ event });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Failed to Fetch Event" });
   }
 };

@@ -3,7 +3,10 @@ const bodyParser = require("body-parser");
 const server = express();
 
 const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
-const { getAllEvents } = require("../MVC/controllers/events.controllers.js");
+const {
+  getAllEvents,
+  getEventById,
+} = require("../MVC/controllers/events.controllers.js");
 const { postToEvents } = require("../MVC/controllers/events.controllers.js");
 
 const rejectRequestMethod = (req, res) => {
@@ -29,5 +32,7 @@ server.post("/api/events", postToEvents);
 server.delete("/api/events", rejectRequestMethod);
 server.put("/api/events", rejectRequestMethod);
 server.patch("/api/events", rejectRequestMethod);
+
+server.get("/api/events/:id", getEventById);
 
 module.exports = server;
