@@ -2,7 +2,7 @@ const { checkIfEntryExistsById } = require("../../database/test-data/db-utils");
 const {
   fetchAllEvents,
   postNewEvent,
-  fetchEventById,
+  fetchEvent,
 } = require("../models/events.models");
 
 exports.getAllEvents = async (req, res) => {
@@ -32,7 +32,7 @@ exports.getEventById = async (req, res) => {
     return res.status(400).send({ error: "Invalid event ID format." });
   }
   try {
-    const event = await fetchEventById(eventId);
+    const event = await fetchEvent(eventId);
     res.status(200).json({ event });
   } catch (error) {
     console.log(error.status);

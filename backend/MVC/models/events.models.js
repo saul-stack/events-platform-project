@@ -33,7 +33,7 @@ exports.postNewEvent = async (newEvent) => {
   }
 };
 
-exports.fetchEventById = async (eventId) => {
+exports.fetchEvent = async (eventId) => {
   try {
     const tableExists = await checkIfTableExists("events");
     if (!tableExists) {
