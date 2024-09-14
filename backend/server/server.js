@@ -7,6 +7,7 @@ const {
   getAllEvents,
   getEventById,
   deleteEventById,
+  patchEventById,
 } = require("../MVC/controllers/events.controllers.js");
 const { postToEvents } = require("../MVC/controllers/events.controllers.js");
 const { deleteEvent } = require("../MVC/models/events.models.js");
@@ -37,6 +38,7 @@ server.patch("/api/events", rejectRequestMethod);
 
 server.get("/api/events/:id", getEventById);
 server.delete("/api/events/:id", deleteEventById);
+server.patch("/api/events/:id", patchEventById);
 server.post("/api/events/:id", rejectRequestMethod);
 server.put("/api/events/:id", rejectRequestMethod);
 
