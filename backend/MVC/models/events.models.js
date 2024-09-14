@@ -41,7 +41,9 @@ exports.fetchEventById = async (eventId) => {
     }
     const eventExists = await checkIfEntryExistsById("events", eventId);
     if (!eventExists) {
-      throw new Error(`Event with id ${eventID} does not exist`);
+      const error = new Error(`Event with ID ${eventId} not found.`);
+      error.status = 404;
+      throw error;
     }
 
     const result = await db.query("SELECT * FROM events WHERE id = $1", [

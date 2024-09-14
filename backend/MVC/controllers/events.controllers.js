@@ -27,12 +27,15 @@ exports.postToEvents = async (req, res) => {
 };
 
 exports.getEventById = async (req, res) => {
+  const eventId = req.params.id;
   try {
-    const eventId = req.params.id;
     const event = await fetchEventById(eventId);
-    return res.status(200).json({ event });
+    res.status(200).json({ event });
   } catch (error) {
-    console.error(error);
+    console.log(error.status);
+    if (error.status === 404) {
+      return res.status(404).send({ error: error.message });
+    }
     res.status(500).send({ error: "Failed to Fetch Event" });
   }
 };
