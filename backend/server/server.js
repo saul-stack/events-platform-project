@@ -37,5 +37,7 @@ server.patch("/api/events", rejectRequestMethod);
 
 server.get("/api/events/:id", getEventById);
 server.delete("/api/events/:id", deleteEventById);
+server.post("/api/events/:id", rejectRequestMethod);
+server.put("/api/events/:id", rejectRequestMethod);
 
 module.exports = server;
