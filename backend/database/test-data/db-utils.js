@@ -18,6 +18,23 @@ const checkIfTableExists = async (tableName) => {
   }
 };
 
+const checkIfEntryExistsById = async (tableName, id) => {
+  const query = `
+    SELECT EXISTS (
+      SELECT FROM ${tableName}
+      WHERE id = $1
+    );
+  `;
+  try {
+    const result = await db.query(query, [id]);
+    const entryExists = result.rows[0].exists;
+    return entryExists;
+  } catch {
+    console.error(`Error checking if entry with id ${id} exists:`, err);
+    throw err;
+  }
+};
+
 const truncateTable = async (tableName) => {
   const truncateQuery = `TRUNCATE TABLE ${tableName} RESTART IDENTITY CASCADE;`;
   try {
@@ -93,4 +110,5 @@ module.exports = {
   seedTable,
   getDataFromJSON,
   getValuesOfObjectProperties,
+  checkIfEntryExistsById,
 };
