@@ -3,6 +3,7 @@ const {
   fetchAllEvents,
   postEvent,
   fetchEvent,
+  deleteEvent,
 } = require("../models/events.models");
 
 exports.getAllEvents = async (req, res) => {
@@ -40,5 +41,26 @@ exports.getEventById = async (req, res) => {
       return res.status(404).send({ error: error.message });
     }
     res.status(500).send({ error: "Failed to Fetch Event" });
+  }
+};
+
+exports.deleteEventById = async (req, res) => {
+  const eventId = req.params.id;
+  if (isNaN(eventId)) {
+    return res.status(400).send({ error: "Invalid event ID format." });
+  }
+  try {
+    const eventExists = await checkIfEntryExistsById("events", eventId);
+    if (!eventExists) {
+      return res
+        .status(404)
+        .send({ error: `Event with ID ${eventId} not found.` });
+    }
+    await deleteEvent(eventId);
+    const events = await fetchAllEvents();
+    res.status(200).json({ events });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Failed to Delete Event" });
   }
 };

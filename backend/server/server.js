@@ -6,8 +6,10 @@ const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
 const {
   getAllEvents,
   getEventById,
+  deleteEventById,
 } = require("../MVC/controllers/events.controllers.js");
 const { postToEvents } = require("../MVC/controllers/events.controllers.js");
+const { deleteEvent } = require("../MVC/models/events.models.js");
 
 const rejectRequestMethod = (req, res) => {
   const METHOD = req.method;
@@ -34,5 +36,6 @@ server.put("/api/events", rejectRequestMethod);
 server.patch("/api/events", rejectRequestMethod);
 
 server.get("/api/events/:id", getEventById);
+server.delete("/api/events/:id", deleteEventById);
 
 module.exports = server;
