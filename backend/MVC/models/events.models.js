@@ -5,7 +5,7 @@ const {
   checkIfEntryExistsById,
 } = require("../../database/test-data/db-utils.js");
 
-exports.fetchAllEvents = async () => {
+const fetchAllEvents = async () => {
   const tableExists = await checkIfTableExists("events");
   if (!tableExists) {
     throw new Error("Table does not exist");
@@ -14,7 +14,7 @@ exports.fetchAllEvents = async () => {
   return result.rows;
 };
 
-exports.postEvent = async (newEvent) => {
+const postEvent = async (newEvent) => {
   try {
     const tableExists = await checkIfTableExists("events");
     if (!tableExists) {
@@ -33,7 +33,7 @@ exports.postEvent = async (newEvent) => {
   }
 };
 
-exports.fetchEvent = async (eventId) => {
+const fetchEvent = async (eventId) => {
   try {
     const tableExists = await checkIfTableExists("events");
     if (!tableExists) {
@@ -57,7 +57,7 @@ exports.fetchEvent = async (eventId) => {
   }
 };
 
-exports.deleteEvent = async (eventId) => {
+const deleteEvent = async (eventId) => {
   try {
     const tableExists = await checkIfTableExists("events");
     if (!tableExists) {
@@ -74,4 +74,40 @@ exports.deleteEvent = async (eventId) => {
     console.error(error);
     throw error;
   }
+};
+
+const patchEvent = async (eventId, patchObject) => {
+  try {
+    const tableExists = await checkIfTableExists("events");
+    if (!tableExists) {
+      throw new Error("Table does not exist");
+    }
+    const eventExists = await checkIfEntryExistsById("events", eventId);
+    if (!eventExists) {
+      const error = new Error(`Event with ID ${eventId} not found.`);
+      error.status = 404;
+      throw error;
+    }
+
+    const propertyToPatch = Object.keys(patchObject)[0];
+
+    const valueToPatch = patchObject[propertyToPatch];
+
+    const query = `UPDATE events SET ${propertyToPatch} = $1 WHERE id = $2`;
+
+    await db.query(query, [valueToPatch, eventId]);
+    const updatedEvent = await fetchEvent(eventId);
+    return updatedEvent;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+module.exports = {
+  fetchEvent,
+  deleteEvent,
+  patchEvent,
+  postEvent,
+  fetchAllEvents,
 };

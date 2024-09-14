@@ -4,6 +4,7 @@ const {
   postEvent,
   fetchEvent,
   deleteEvent,
+  patchEvent,
 } = require("../models/events.models");
 
 exports.getAllEvents = async (req, res) => {
@@ -62,5 +63,26 @@ exports.deleteEventById = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Failed to Delete Event" });
+  }
+};
+
+exports.patchEventById = async (req, res) => {
+  const eventId = req.params.id;
+  try {
+    if (isNaN(eventId)) {
+      return res.status(400).send({ error: "Invalid event ID format." });
+    }
+    await patchEvent(eventId, req.body);
+
+    propertyToPatch = Object.keys(req.body)[0];
+
+    const event = await fetchEvent(eventId);
+    const eventTitle = event.title;
+    res.status(200).json({
+      message: `Event #${eventId} (${eventTitle}) updated ${propertyToPatch} to ${req.body[propertyToPatch]} successfully.`,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Failed to Patch Event" });
   }
 };
