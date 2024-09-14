@@ -14,7 +14,7 @@ exports.fetchAllEvents = async () => {
   return result.rows;
 };
 
-exports.postNewEvent = async (newEvent) => {
+exports.postEvent = async (newEvent) => {
   try {
     const tableExists = await checkIfTableExists("events");
     if (!tableExists) {

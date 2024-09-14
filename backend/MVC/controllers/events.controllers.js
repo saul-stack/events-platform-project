@@ -1,7 +1,7 @@
 const { checkIfEntryExistsById } = require("../../database/test-data/db-utils");
 const {
   fetchAllEvents,
-  postNewEvent,
+  postEvent,
   fetchEvent,
 } = require("../models/events.models");
 
@@ -17,7 +17,7 @@ exports.getAllEvents = async (req, res) => {
 
 exports.postToEvents = async (req, res) => {
   try {
-    await postNewEvent(req.body);
+    await postEvent(req.body);
     const events = await fetchAllEvents();
     res.status(201).json({ events });
   } catch (error) {
