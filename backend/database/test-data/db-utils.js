@@ -29,9 +29,9 @@ const checkIfEntryExistsById = async (tableName, id) => {
     const result = await db.query(query, [id]);
     const entryExists = result.rows[0].exists;
     return entryExists;
-  } catch {
-    console.error(`Error checking if entry with id ${id} exists:`, err);
-    throw err;
+  } catch (error) {
+    console.error(`Error checking if entry with id ${id} exists:`, error);
+    throw error;
   }
 };
 
