@@ -144,7 +144,7 @@ describe("/api/events/:id", () => {
       const response = await request(server).get(`/api/events/${eventId}`);
       expect(response.status).toBe(400);
       expect(response.body).toEqual({
-        error: "Bad request.",
+        error: "Invalid event ID format.",
       });
     });
   });

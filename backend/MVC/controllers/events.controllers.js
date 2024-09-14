@@ -28,6 +28,9 @@ exports.postToEvents = async (req, res) => {
 
 exports.getEventById = async (req, res) => {
   const eventId = req.params.id;
+  if (isNaN(eventId)) {
+    return res.status(400).send({ error: "Invalid event ID format." });
+  }
   try {
     const event = await fetchEventById(eventId);
     res.status(200).json({ event });
