@@ -26,7 +26,7 @@ const fetchEventsData = async () => {
   }
 };
 
-const fetchEventById = async (id) => {
+const fetchEvent = async (id) => {
   try {
     const query = "SELECT * FROM events WHERE id = $1";
     const result = await db.query(query, [id]);
@@ -37,4 +37,4 @@ const fetchEventById = async (id) => {
   }
 };
 
-module.exports = { fetchEndpointsData, fetchEventsData, fetchEventById };
+module.exports = { fetchEndpointsData, fetchEventsData, fetchEvent };
