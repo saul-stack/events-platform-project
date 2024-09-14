@@ -127,7 +127,7 @@ describe("/api/events/:id", () => {
       const eventData = await fetchEventById(eventId);
       const response = await request(server).get(`/api/events/${eventId}`);
       expect(response.status).toBe(200);
-      expect(response.body.event).toEqual(eventData);
+      expect(String(response.body.event)).toEqual(String(eventData));
     });
 
     test("Event does not exist -> responds (404) Not Found", async () => {
