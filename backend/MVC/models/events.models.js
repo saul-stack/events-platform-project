@@ -48,7 +48,6 @@ exports.fetchEventById = async (eventId) => {
       eventId,
     ]);
     const event = result.rows[0];
-    console.log(event);
     return event;
   } catch (error) {
     console.error(error);
