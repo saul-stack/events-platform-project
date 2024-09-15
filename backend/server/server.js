@@ -1,16 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const server = express();
 
 const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
+const { postToEvents } = require("../MVC/controllers/events.controllers.js");
 const {
   getAllEvents,
   getEventById,
   deleteEventById,
   patchEventById,
 } = require("../MVC/controllers/events.controllers.js");
-const { postToEvents } = require("../MVC/controllers/events.controllers.js");
-const { deleteEvent } = require("../MVC/models/events.models.js");
 
 const rejectRequestMethod = (req, res) => {
   const METHOD = req.method;
@@ -20,6 +18,8 @@ const rejectRequestMethod = (req, res) => {
     .status(405)
     .json({ error: `${METHOD} Method Not Allowed on ${ENDPOINT}` });
 };
+
+const server = express();
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
