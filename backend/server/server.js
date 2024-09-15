@@ -11,7 +11,10 @@ const {
   patchEventById,
 } = require("../MVC/controllers/events.controllers.js");
 
-const { getAllUsers } = require("../MVC/controllers/users.controllers.js");
+const {
+  getAllUsers,
+  postToUsers,
+} = require("../MVC/controllers/users.controllers.js");
 
 const rejectRequestMethod = (req, res) => {
   const METHOD = req.method;
@@ -48,5 +51,9 @@ server.post("/api/events/:id", rejectRequestMethod);
 server.put("/api/events/:id", rejectRequestMethod);
 
 server.get("/api/users", getAllUsers);
+server.delete("/api/users", rejectRequestMethod);
+server.put("/api/users", rejectRequestMethod);
+server.patch("/api/users", rejectRequestMethod);
+server.post("/api/users", postToUsers);
 
 module.exports = server;
