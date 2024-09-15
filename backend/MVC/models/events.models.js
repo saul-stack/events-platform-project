@@ -1,12 +1,12 @@
 const db = require("../../database/connection.js");
 const {
-  checkIfTableExists,
-  getValuesOfObjectProperties,
-  checkIfEntryExistsById,
+  verifyTableExists,
+  extractValues,
+  verifyEntryExists,
 } = require("../../database/test-data/db-utils.js");
 
 const fetchAllEvents = async () => {
-  const tableExists = await checkIfTableExists("events");
+  const tableExists = await verifyTableExists("events");
   if (!tableExists) {
     throw new Error("Table does not exist");
   }
@@ -16,12 +16,12 @@ const fetchAllEvents = async () => {
 
 const postEvent = async (newEvent) => {
   try {
-    const tableExists = await checkIfTableExists("events");
+    const tableExists = await verifyTableExists("events");
     if (!tableExists) {
       throw new Error("Table does not exist");
     }
 
-    const singleEntryValues = getValuesOfObjectProperties(newEvent);
+    const singleEntryValues = extractValues(newEvent);
 
     await db.query(
       "INSERT INTO events (title, date, day_of_week, time, description, advance_price, door_price, tickets_total, tickets_sold, is_seated, is_ticketed, is_recurring) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)",
@@ -35,11 +35,11 @@ const postEvent = async (newEvent) => {
 
 const fetchTableEntry = async (tableName, eventId) => {
   try {
-    const tableExists = await checkIfTableExists(tableName);
+    const tableExists = await verifyTableExists(tableName);
     if (!tableExists) {
       throw new Error("Table does not exist");
     }
-    const eventExists = await checkIfEntryExistsById(tableName, eventId);
+    const eventExists = await verifyEntryExists(tableName, eventId);
     if (!eventExists) {
       const error = new Error(`Event with ID ${eventId} not found.`);
       error.status = 404;
@@ -59,11 +59,11 @@ const fetchTableEntry = async (tableName, eventId) => {
 
 const deleteEvent = async (eventId) => {
   try {
-    const tableExists = await checkIfTableExists("events");
+    const tableExists = await verifyTableExists("events");
     if (!tableExists) {
       throw new Error("Table does not exist");
     }
-    const eventExists = await checkIfEntryExistsById("events", eventId);
+    const eventExists = await verifyEntryExists("events", eventId);
     if (!eventExists) {
       const error = new Error(`Event with ID ${eventId} not found.`);
       error.status = 404;
@@ -78,11 +78,11 @@ const deleteEvent = async (eventId) => {
 
 const patchEvent = async (eventId, patchObject) => {
   try {
-    const tableExists = await checkIfTableExists("events");
+    const tableExists = await verifyTableExists("events");
     if (!tableExists) {
       throw new Error("Table does not exist");
     }
-    const eventExists = await checkIfEntryExistsById("events", eventId);
+    const eventExists = await verifyEntryExists("events", eventId);
     if (!eventExists) {
       const error = new Error(`Event with ID ${eventId} not found.`);
       error.status = 404;

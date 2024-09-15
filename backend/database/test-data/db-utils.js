@@ -1,7 +1,7 @@
 const db = require("../connection");
 const fs = require("fs").promises;
 
-const checkIfTableExists = async (tableName) => {
+const verifyTableExists = async (tableName) => {
   const query = `
     SELECT EXISTS (
       SELECT FROM information_schema.tables 
@@ -18,7 +18,7 @@ const checkIfTableExists = async (tableName) => {
   }
 };
 
-const checkIfEntryExistsById = async (tableName, id) => {
+const verifyEntryExists = async (tableName, id) => {
   const query = `
     SELECT EXISTS (
       SELECT FROM ${tableName}
@@ -60,7 +60,7 @@ const createTable = async (data) => {
   }
 };
 
-const getDataFromJSON = async (filePath) => {
+const fetchJson = async (filePath) => {
   try {
     const data = await fs.readFile(filePath, "utf-8");
     const jsonData = JSON.parse(data);
@@ -71,7 +71,7 @@ const getDataFromJSON = async (filePath) => {
   }
 };
 
-const getValuesOfObjectProperties = (obj) => {
+const extractValues = (obj) => {
   return Object.keys(obj).map((key) => obj[key]);
 };
 
@@ -88,7 +88,7 @@ const seedTable = async (tableData) => {
     .join(", ")})`;
 
   entries.map((entry) => {
-    let singleEntryValues = getValuesOfObjectProperties(entry);
+    let singleEntryValues = extractValues(entry);
     entriesToAdd.push(singleEntryValues);
   });
 
@@ -105,7 +105,7 @@ const seedTable = async (tableData) => {
 
 const getEntryPropertyValue = async (tableName, id, propertyName) => {
   try {
-    const tableExists = await checkIfTableExists(tableName);
+    const tableExists = await verifyTableExists(tableName);
     if (!tableExists) {
       throw new Error("Table does not exist");
     }
@@ -120,12 +120,12 @@ const getEntryPropertyValue = async (tableName, id, propertyName) => {
 };
 
 module.exports = {
-  checkIfTableExists,
+  verifyTableExists,
   truncateTable,
   createTable,
   seedTable,
-  getDataFromJSON,
-  getValuesOfObjectProperties,
-  checkIfEntryExistsById,
+  fetchJson,
+  extractValues,
+  verifyEntryExists,
   getEntryPropertyValue,
 };

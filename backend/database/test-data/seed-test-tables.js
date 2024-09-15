@@ -1,8 +1,8 @@
 const db = require("../connection");
 const path = require("path");
 const {
-  getDataFromJSON,
-  checkIfTableExists,
+  fetchJson,
+  verifyTableExists,
   truncateTable,
   createTable,
   seedTable,
@@ -27,7 +27,7 @@ const seedTestTable = async (tableName) => {
 
   let tableData = null;
   try {
-    tableData = await getDataFromJSON(tableDataPath);
+    tableData = await fetchJson(tableDataPath);
   } catch (error) {
     console.error(`Error reading JSON file: ${error}`);
     return error;
@@ -35,7 +35,7 @@ const seedTestTable = async (tableName) => {
 
   let tableExists;
   try {
-    tableExists = await checkIfTableExists(tableName);
+    tableExists = await verifyTableExists(tableName);
   } catch (error) {
     console.error(`Error checking if table exists: ${error}`);
     return error;
