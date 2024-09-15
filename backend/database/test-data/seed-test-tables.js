@@ -7,18 +7,32 @@ const {
   createTable,
   seedTable,
 } = require("./db-utils");
-const eventsTestDataPath = path.join(__dirname, "events-test-data.json");
 
-const seedTestEvents = async () => {
+const eventsTestDataPath = path.join(__dirname, "events-test-data.json");
+const usersTestDataPath = path.join(__dirname, "users-test-data.json");
+
+const seedTestTable = async (tableName) => {
+  let tableDataPath;
+  switch (tableName) {
+    case "events":
+      tableDataPath = path.join(__dirname, "events-test-data.json");
+      break;
+    case "users":
+      tableDataPath = path.join(__dirname, "users-test-data.json");
+      break;
+    default:
+      console.error(`Unknown table name: ${tableName}`);
+      return;
+  }
+
   let tableData = null;
   try {
-    tableData = await getDataFromJSON(eventsTestDataPath);
+    tableData = await getDataFromJSON(tableDataPath);
   } catch (error) {
     console.error(`Error reading JSON file: ${error}`);
     return error;
   }
 
-  const { tableName } = tableData.schema;
   let tableExists;
   try {
     tableExists = await checkIfTableExists(tableName);
@@ -30,7 +44,7 @@ const seedTestEvents = async () => {
   if (tableExists) {
     try {
       await truncateTable(tableName);
-      console.log("Table truncated successfully");
+      console.log(`Table "${tableName}" truncated successfully`);
     } catch (error) {
       console.error(`Error truncating table: ${error}`);
       return error;
@@ -38,7 +52,7 @@ const seedTestEvents = async () => {
   } else {
     try {
       await createTable(tableData.schema);
-      console.log("Table created successfully");
+      console.log(`Table "${tableName}" created successfully`);
     } catch (error) {
       console.error(`Error creating table: ${error}`);
       return error;
@@ -47,11 +61,11 @@ const seedTestEvents = async () => {
 
   try {
     await seedTable(tableData);
-    console.log("Table seeded successfully");
+    console.log(`Table "${tableName}" seeded successfully`);
   } catch (error) {
     console.error(`Error seeding table: ${error}`);
     return error;
   }
 };
 
-module.exports = { seedTestEvents };
+module.exports = { seedTestTable };
