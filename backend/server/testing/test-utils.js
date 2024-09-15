@@ -15,7 +15,7 @@ const fetchEndpointsData = async () => {
   }
 };
 
-const fetchTableData = async (tableName) => {
+const fetchTable = async (tableName) => {
   try {
     const query = `SELECT * FROM ${tableName}`;
     const result = await db.query(query);
@@ -37,4 +37,4 @@ const fetchTableEntry = async (tableName, entryId) => {
   }
 };
 
-module.exports = { fetchEndpointsData, fetchTableData, fetchTableEntry };
+module.exports = { fetchEndpointsData, fetchTable, fetchTableEntry };
