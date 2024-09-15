@@ -8,7 +8,7 @@ const {
 } = require("../test-utils.js");
 const {
   seedTestTable,
-} = require("../../../database/test-data/seed-test-db.js");
+} = require("../../../database/test-data/seed-test-events-db.js");
 
 //prettier-ignore
 const newEvent = {
