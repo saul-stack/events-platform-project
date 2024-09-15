@@ -1,13 +1,5 @@
-const server = require("../../server.js");
-const request = require("supertest");
-const db = require("../../../database/connection.js");
-const {
-  fetchTable,
-  fetchTableEntry,
-} = require("../../../database/db-utils.js");
-const {
-  seedTestTable,
-} = require("../../../database/test-data/seed-test-tables.js");
+const { server, request, db } = require("./index.js");
+const { fetchTable, fetchTableEntry, seedTestTable } = require("./index.js");
 
 //prettier-ignore
 const newEvent = {
