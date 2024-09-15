@@ -26,10 +26,10 @@ const fetchTableData = async (tableName) => {
   }
 };
 
-const fetchEvent = async (id) => {
+const fetchTableEntry = async (tableName, entryId) => {
   try {
-    const query = "SELECT * FROM events WHERE id = $1";
-    const result = await db.query(query, [id]);
+    const query = `SELECT * FROM ${tableName} WHERE ${entryId} = $1`;
+    const result = await db.query(query, [entryId]);
     return result.rows[0];
   } catch (error) {
     console.error("Error fetching event data:", error);
@@ -37,4 +37,4 @@ const fetchEvent = async (id) => {
   }
 };
 
-module.exports = { fetchEndpointsData, fetchTableData, fetchEvent };
+module.exports = { fetchEndpointsData, fetchTableData, fetchTableEntry };

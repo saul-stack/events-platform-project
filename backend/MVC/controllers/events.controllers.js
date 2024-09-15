@@ -2,7 +2,7 @@ const { checkIfEntryExistsById } = require("../../database/test-data/db-utils");
 const {
   fetchAllEvents,
   postEvent,
-  fetchEvent,
+  fetchTableEntry,
   deleteEvent,
   patchEvent,
 } = require("../models/events.models");
@@ -36,7 +36,7 @@ exports.getEventById = async (req, res) => {
     return res.status(400).send({ error: "Invalid event ID format." });
   }
   try {
-    const event = await fetchEvent(eventId);
+    const event = await fetchTableEntry("events", eventId);
     res.status(200).json({ event });
   } catch (error) {
     if (error.status === 404) {
@@ -92,11 +92,12 @@ exports.patchEventById = async (req, res) => {
       return res.status(400).send({ error: "Invalid event ID format." });
     }
 
-    const event = await fetchEvent(eventId);
+    const event = await fetchTableEntry("events", eventId);
+    const oldTitle = event.title;
     await patchEvent(eventId, patchObject);
-    const eventTitle = event.title;
+    const updatedTitle = event.title;
     res.status(200).json({
-      message: `Event #${eventId} (${eventTitle}) updated ${propertyToPatch} to '${patchObject[propertyToPatch]}' successfully.`,
+      message: `Event #${eventId} (${oldTitle}) updated ${propertyToPatch} to '${patchObject[propertyToPatch]}' successfully.`,
     });
   } catch (error) {
     if (error.status === 404) {

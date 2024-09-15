@@ -33,20 +33,20 @@ const postEvent = async (newEvent) => {
   }
 };
 
-const fetchEvent = async (eventId) => {
+const fetchTableEntry = async (tableName, eventId) => {
   try {
-    const tableExists = await checkIfTableExists("events");
+    const tableExists = await checkIfTableExists(tableName);
     if (!tableExists) {
       throw new Error("Table does not exist");
     }
-    const eventExists = await checkIfEntryExistsById("events", eventId);
+    const eventExists = await checkIfEntryExistsById(tableName, eventId);
     if (!eventExists) {
       const error = new Error(`Event with ID ${eventId} not found.`);
       error.status = 404;
       throw error;
     }
 
-    const result = await db.query("SELECT * FROM events WHERE id = $1", [
+    const result = await db.query(`SELECT * FROM ${tableName} WHERE id = $1`, [
       eventId,
     ]);
     const event = result.rows[0];
@@ -96,7 +96,7 @@ const patchEvent = async (eventId, patchObject) => {
     const query = `UPDATE events SET ${propertyToPatch} = $1 WHERE id = $2`;
 
     await db.query(query, [valueToPatch, eventId]);
-    const updatedEvent = await fetchEvent(eventId);
+    const updatedEvent = await fetchTableEntry("events", eventId);
     return updatedEvent;
   } catch (error) {
     console.error(error);
@@ -105,7 +105,7 @@ const patchEvent = async (eventId, patchObject) => {
 };
 
 module.exports = {
-  fetchEvent,
+  fetchTableEntry,
   deleteEvent,
   patchEvent,
   postEvent,
