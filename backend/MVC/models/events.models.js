@@ -3,7 +3,7 @@ const {
   verifyTableExists,
   extractValues,
   verifyEntryExists,
-} = require("../../database/test-data/db-utils.js");
+} = require("../../database/db-utils.js");
 
 const fetchAllEvents = async () => {
   const tableExists = await verifyTableExists("events");

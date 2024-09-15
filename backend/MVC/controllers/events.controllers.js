@@ -1,4 +1,4 @@
-const { verifyEntryExists } = require("../../database/test-data/db-utils");
+const { verifyEntryExists } = require("../../database/db-utils");
 const {
   fetchAllEvents,
   postEvent,

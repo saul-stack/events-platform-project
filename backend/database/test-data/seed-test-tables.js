@@ -6,7 +6,7 @@ const {
   truncateTable,
   createTable,
   seedTable,
-} = require("./db-utils");
+} = require("../db-utils");
 
 const eventsTestDataPath = path.join(__dirname, "events-test-data.json");
 const usersTestDataPath = path.join(__dirname, "users-test-data.json");

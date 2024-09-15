@@ -4,7 +4,7 @@ const db = require("../../../database/connection.js");
 const {
   fetchTable,
   fetchTableEntry,
-} = require("../../../database/test-data/db-utils.js");
+} = require("../../../database/db-utils.js");
 const {
   seedTestTable,
 } = require("../../../database/test-data/seed-test-tables.js");

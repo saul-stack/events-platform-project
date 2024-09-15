@@ -1,4 +1,4 @@
-const db = require("../connection");
+const db = require("./connection");
 const fs = require("fs").promises;
 const path = require("path");
 
