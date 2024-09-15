@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
 const { postToEvents } = require("../MVC/controllers/events.controllers.js");
@@ -22,6 +23,7 @@ const rejectRequestMethod = (req, res) => {
 const server = express();
 
 server.use(cors());
+
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
