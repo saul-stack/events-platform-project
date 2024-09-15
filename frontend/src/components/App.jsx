@@ -10,7 +10,7 @@ import {
 } from "./pages";
 
 import React from "react";
-import Navbar from "./global/Navbar";
+import Navbar from "./global-components/Navbar";
 
 function App() {
   const navigate = useNavigate();
