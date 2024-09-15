@@ -29,8 +29,6 @@ let defaultEventsArray = [];
 
 beforeAll(async () => {
   await seedTestEvents();
-  expectedEndpoints = await fetchEndpointsData();
-  await seedTestEvents();
   defaultEventsArray = await fetchEventsData();
 });
 
