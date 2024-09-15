@@ -23,6 +23,17 @@ const newEvent = {
   "is_recurring": "false",
 };
 
+const newUser = {
+  "first_name": "Test",
+  "last_name": "User",
+  "user_name": "TestUser123",
+  "watched_events": "[1]",
+  "events_booked": "[2, 4]",
+  "email": "post@test.com",
+  "password": "postTest",
+  "role": "user",
+};
+
 module.exports = {
   server,
   request,
@@ -31,4 +42,5 @@ module.exports = {
   fetchTableEntry,
   seedTestTable,
   newEvent,
+  newUser,
 };
