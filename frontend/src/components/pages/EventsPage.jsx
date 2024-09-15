@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { getAllEvents } from "../../../api-functions";
+import EventCard from "../global/EventCard";
 
 function EventsPage() {
   const [events, setEvents] = useState([]);
@@ -25,13 +26,7 @@ function EventsPage() {
       </p>
       <div>
         {events.map((event) => (
-          <div key={event.id}>
-            <h2>{event.title}</h2>
-            <p>{event.description}</p>
-            <p>{event.date}</p>
-            <p>{event.time}</p>
-            <p>{event.location}</p>
-          </div>
+          <EventCard key={event.id} event={event} />
         ))}
       </div>
     </div>
