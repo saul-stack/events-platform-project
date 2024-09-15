@@ -9,7 +9,7 @@ const {
 } = require("./db-utils");
 const eventsTestDataPath = path.join(__dirname, "events-test-data.json");
 
-const seedTestTable = async () => {
+const seedTestEvents = async () => {
   let tableData = null;
   try {
     tableData = await getDataFromJSON(eventsTestDataPath);
@@ -52,5 +52,5 @@ const seedTestTable = async () => {
   }
 };
 
-seedTestTable();
-module.exports = { seedTestTable };
+seedTestEvents();
+module.exports = { seedTestEvents };

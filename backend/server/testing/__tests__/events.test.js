@@ -7,7 +7,7 @@ const {
   fetchEvent,
 } = require("../test-utils.js");
 const {
-  seedTestTable,
+  seedTestEvents,
 } = require("../../../database/test-data/seed-test-events-db.js");
 
 //prettier-ignore
@@ -28,14 +28,14 @@ const newEvent = {
 let defaultEventsArray = [];
 
 beforeAll(async () => {
-  await seedTestTable();
+  await seedTestEvents();
   expectedEndpoints = await fetchEndpointsData();
-  await seedTestTable();
+  await seedTestEvents();
   defaultEventsArray = await fetchEventsData();
 });
 
 beforeEach(async () => {
-  await seedTestTable();
+  await seedTestEvents();
 });
 
 afterAll(async () => {
