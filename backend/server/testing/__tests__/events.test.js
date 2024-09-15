@@ -1,9 +1,9 @@
 const server = require("../../server.js");
 const request = require("supertest");
 const db = require("../../../database/connection.js");
-const { fetchEventsData, fetchEvent } = require("../test-utils.js");
+const { fetchTableData, fetchTableEntry } = require("../test-utils.js");
 const {
-  seedTestEvents,
+  seedTestTable,
 } = require("../../../database/test-data/seed-test-tables.js");
 
 //prettier-ignore
@@ -24,12 +24,12 @@ const newEvent = {
 let defaultEventsArray = [];
 
 beforeAll(async () => {
-  await seedTestEvents();
-  defaultEventsArray = await fetchEventsData();
+  await seedTestTable("events");
+  defaultEventsArray = await fetchTableData("events");
 });
 
 beforeEach(async () => {
-  await seedTestEvents();
+  await seedTestTable("events");
 });
 
 afterAll(async () => {
@@ -50,7 +50,7 @@ describe("/api/events", () => {
     updatedEventsArray.push(newEvent);
 
     const response = await request(server).post("/api/events").send(newEvent);
-    const updatedEventsData = await fetchEventsData();
+    const updatedEventsData = await fetchTableData("events");
 
     const eventExists = updatedEventsData.some(
       (event) =>
@@ -94,7 +94,7 @@ describe("/api/events/:id", () => {
   describe("GET", () => {
     test("Event exists -> responds (200) with expected JSON object", async () => {
       const eventId = 1;
-      const eventData = await fetchEvent(eventId);
+      const eventData = await fetchTableEntry("events", eventId);
       const response = await request(server).get(`/api/events/${eventId}`);
       expect(response.status).toBe(200);
       expect(String(response.body.event)).toEqual(String(eventData));
@@ -123,7 +123,7 @@ describe("/api/events/:id", () => {
     test("Event exists -> responds (200) and successfully updates table", async () => {
       const eventId = 1;
       const response = await request(server).delete(`/api/events/${eventId}`);
-      const eventsArray = await fetchEventsData();
+      const eventsArray = await fetchTableData("events");
       const eventExists = eventsArray.some((event) => event.id === eventId);
       expect(response.status).toBe(200);
       expect(eventExists).toBe(false);
@@ -173,18 +173,18 @@ describe("/api/events/:id", () => {
   describe("PATCH", () => {
     describe("Valid Request", () => {
       test("Event exists, valid property value -> responds (200) and successfully updates table", async () => {
-        const eventId = 5,
+        const eventId = 1,
           patchProperty = "title",
           patchValue = "new title";
 
-        const oldEvent = await fetchEvent(eventId);
+        const oldEvent = await fetchTableEntry("events", eventId);
         const patchData = { [patchProperty]: patchValue };
 
         const response = await request(server)
           .patch(`/api/events/${eventId}`)
           .send(patchData);
         expect(response.status).toBe(200);
-        const tableData = await fetchEventsData();
+        const tableData = await fetchTableData("events");
         const eventData = tableData.find((event) => event.id === eventId);
         expect(eventData[patchProperty]).toBe(patchValue);
         expect(response.body).toEqual({
