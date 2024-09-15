@@ -1,7 +1,7 @@
 const server = require("../../server.js");
 const request = require("supertest");
 const db = require("../../../database/connection.js");
-const { fetchEndpointsData } = require("../test-utils.js");
+const { fetchEndpointsData } = require("../db-utils.js");
 
 let expectedEndpoints = {};
 beforeAll(async () => {

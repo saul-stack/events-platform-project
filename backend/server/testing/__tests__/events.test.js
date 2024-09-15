@@ -1,7 +1,10 @@
 const server = require("../../server.js");
 const request = require("supertest");
 const db = require("../../../database/connection.js");
-const { fetchTable, fetchTableEntry } = require("../test-utils.js");
+const {
+  fetchTable,
+  fetchTableEntry,
+} = require("../../../database/test-data/db-utils.js");
 const {
   seedTestTable,
 } = require("../../../database/test-data/seed-test-tables.js");
