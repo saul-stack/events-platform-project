@@ -21,7 +21,9 @@ exports.postToEvents = async (req, res) => {
   try {
     await postEvent(req.body);
     const events = await fetchAllEvents();
-    res.status(201).json({ events });
+    res.status(201).json({
+      message: `Event posted successfully: ${req.body.title}`,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Failed to Post Event" });
