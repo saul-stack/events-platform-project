@@ -2,6 +2,7 @@
   "GET /api": {
     "description": "Serves a json object of all available endpoints of the api"
   },
+
   "GET /api/events": {
     "description": "By default serves an array of all events, sorted by date ascending. Events can be filtered and sorted with queries",
     "queries": [
@@ -34,6 +35,7 @@
       ]
     }
   },
+
   "GET /api/events/:id": {
     "description": "Serves an object of a single event by its unique id",
     "exampleResponse": {
@@ -51,6 +53,22 @@
         "is_ticketed": false,
         "is_recurring": true
       }
+    }
+  },
+
+  "DELETE /api/events/:id": {
+    "description": "Deletes an event by its unique id"
+  },
+
+  "PATCH /api/events/:id": {
+    "description": "Updates an event by its unique id",
+
+    "exampleRequest": {
+      "title": "Wednesday evening book club"
+    },
+
+    "exampleResponse": {
+      "message": "Event #4 (Test Event #4) updated title to 'Wednesday evening book club' successfully."
     }
   },
 
@@ -73,20 +91,8 @@
       }
     },
     "exampleResponse": {
-      "event": {
-        "id": 1234,
-        "title": "Tuesday morning yoga class",
-        "date": "2018-05-29",
-        "day_of_week": "Tuesday",
-        "time": "11:00",
-        "description": "A fun yoga class to start your day",
-        "advance_price": 5.0,
-        "door_price": 5.0,
-        "tickets_total": 20,
-        "tickets_sold": 0,
-        "is_seated": false,
-        "is_ticketed": true,
-        "is_recurring": true
+      {
+        "message": "Event posted successfully: Tuesday morning yoga class"
       }
     }
   }
