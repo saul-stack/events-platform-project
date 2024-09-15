@@ -1,5 +1,7 @@
+require("dotenv").config();
+
 const server = require("./server");
-const PORT = 9090;
+const PORT = process.env.PORT || 9090;
 
 server.listen(PORT, (error) => {
   if (error) console.log(error);

@@ -5,7 +5,7 @@ dotenv.config({ path: `${__dirname}/../.env.development` });
 if (!process.env.PGDATABASE) {
   throw new Error("PGDATABASE not set");
 }
-const eventsAndUsersPool = new Pool({
+const db = new Pool({
   user: process.env.PGUSER,
   host: process.env.PGHOST,
   database: process.env.PGDATABASE,
@@ -13,4 +13,4 @@ const eventsAndUsersPool = new Pool({
   port: process.env.PGPORT,
 });
 
-module.exports = eventsAndUsersPool;
+module.exports = db;
