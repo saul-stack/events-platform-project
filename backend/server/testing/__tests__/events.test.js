@@ -8,7 +8,7 @@ const {
 } = require("../test-utils.js");
 const {
   seedTestEvents,
-} = require("../../../database/test-data/seed-test-events-db.js");
+} = require("../../../database/test-data/seed-test-events-table.js");
 
 //prettier-ignore
 const newEvent = {
@@ -44,6 +44,8 @@ describe("/api/events", () => {
   test("GET: responds (200) with expected JSON object", async () => {
     const response = await request(server).get("/api/events");
     expect(response.status).toBe(200);
+    console.log(response.body.events);
+    console.log(defaultEventsArray);
     expect(String(response.body.events)).toEqual(String(defaultEventsArray));
   });
 

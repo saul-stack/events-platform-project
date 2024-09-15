@@ -27,9 +27,18 @@ const seedTestEvents = async () => {
     return error;
   }
 
-  if (!tableExists) {
+  if (tableExists) {
     try {
-      await createTable(tableData);
+      await truncateTable(tableName);
+      console.log("Table truncated successfully");
+    } catch (error) {
+      console.error(`Error truncating table: ${error}`);
+      return error;
+    }
+  } else {
+    try {
+      await createTable(tableData.schema);
+      console.log("Table created successfully");
     } catch (error) {
       console.error(`Error creating table: ${error}`);
       return error;
@@ -37,20 +46,12 @@ const seedTestEvents = async () => {
   }
 
   try {
-    await truncateTable(tableName);
-  } catch (error) {
-    console.error(`Error truncating table: ${error}`);
-    return error;
-  }
-
-  try {
     await seedTable(tableData);
-    console.log("Table seeded successfully.");
+    console.log("Table seeded successfully");
   } catch (error) {
     console.error(`Error seeding table: ${error}`);
     return error;
   }
 };
 
-seedTestEvents();
 module.exports = { seedTestEvents };
