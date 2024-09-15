@@ -92,8 +92,19 @@ describe("/api/events", () => {
     updatedEventsArray.push(newEvent);
 
     const response = await request(server).post("/api/events").send(newEvent);
+    const updatedEventsData = await fetchEventsData();
+
+    const eventExists = updatedEventsData.some(
+      (event) =>
+        event.title === newEvent.title &&
+        event.description === newEvent.description
+    );
+
     expect(response.status).toBe(201);
-    expect(String(response.body.events)).toEqual(String(updatedEventsArray));
+    expect(response.body.message).toBe(
+      `Event posted successfully: ${newEvent.title}`
+    );
+    expect(eventExists).toBe(true);
   });
 
   test("DELETE: responds (405) Method Not Allowed", async () => {
