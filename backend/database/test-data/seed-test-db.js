@@ -7,7 +7,7 @@ const {
   createTable,
   seedTable,
 } = require("./db-utils");
-const eventsTestDataPath = path.join(__dirname, "test-data.json");
+const eventsTestDataPath = path.join(__dirname, "events-test-data.json");
 
 const seedTestTable = async () => {
   let tableData = null;
