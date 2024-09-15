@@ -3,8 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
-const { postToEvents } = require("../MVC/controllers/events.controllers.js");
 const {
+  postToEvents,
   getAllEvents,
   getEventById,
   deleteEventById,
