@@ -8,9 +8,6 @@ const {
   seedTable,
 } = require("../db-utils");
 
-const eventsTestDataPath = path.join(__dirname, "events-test-data.json");
-const usersTestDataPath = path.join(__dirname, "users-test-data.json");
-
 const seedTestTable = async (tableName) => {
   let tableDataPath;
   switch (tableName) {
