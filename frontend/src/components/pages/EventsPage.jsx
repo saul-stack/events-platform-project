@@ -1,4 +1,21 @@
+import React, { useEffect, useState } from "react";
+
+import { getAllEvents } from "../../../api-functions";
+import EventsGrid from "../EventsPage/EventsGrid";
+
 function EventsPage() {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchAllEvents = async () => {
+      const result = await getAllEvents();
+      console.log("result", result);
+      setEvents(result);
+    };
+
+    fetchAllEvents();
+  }, []);
+
   return (
     <div>
       <h1>EventsPage is here</h1>
@@ -7,7 +24,9 @@ function EventsPage() {
         interactions include viewing details about the event, adding it to
         "my-calendar" and purchasing tickets.
       </p>
+      <EventsGrid events={events} />
     </div>
   );
 }
+
 export default EventsPage;
