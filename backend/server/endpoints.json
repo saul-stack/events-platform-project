@@ -91,9 +91,7 @@
       }
     },
     "exampleResponse": {
-      {
-        "message": "Event posted successfully: Tuesday morning yoga class"
-      }
+      "message": "Event posted successfully: Tuesday morning yoga class"
     }
   }
 }
