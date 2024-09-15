@@ -103,6 +103,22 @@ const seedTable = async (tableData) => {
   }
 };
 
+const getEntryPropertyValue = async (tableName, id, propertyName) => {
+  try {
+    const tableExists = await checkIfTableExists(tableName);
+    if (!tableExists) {
+      throw new Error("Table does not exist");
+    }
+
+    const query = `SELECT ${propertyName} FROM ${tableName} WHERE id = $1`;
+    const result = await db.query(query, [id]);
+    return result.rows[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 module.exports = {
   checkIfTableExists,
   truncateTable,
@@ -111,4 +127,5 @@ module.exports = {
   getDataFromJSON,
   getValuesOfObjectProperties,
   checkIfEntryExistsById,
+  getEntryPropertyValue,
 };
