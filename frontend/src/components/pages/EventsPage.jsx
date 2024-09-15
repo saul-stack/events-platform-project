@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { getAllEvents } from "../../../api-functions";
-import EventCard from "../global-components/EventCard";
+import EventsGrid from "../EventsPage/EventsGrid";
 
 function EventsPage() {
   const [events, setEvents] = useState([]);
@@ -24,11 +24,7 @@ function EventsPage() {
         interactions include viewing details about the event, adding it to
         "my-calendar" and purchasing tickets.
       </p>
-      <div>
-        {events.map((event) => (
-          <EventCard key={event.id} event={event} />
-        ))}
-      </div>
+      <EventsGrid events={events} />
     </div>
   );
 }
