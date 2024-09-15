@@ -7,12 +7,12 @@ const {
   createTable,
   seedTable,
 } = require("./db-utils");
-const testDataPath = path.join(__dirname, "test-data.json");
+const eventsTestDataPath = path.join(__dirname, "test-data.json");
 
 const seedTestTable = async () => {
   let tableData = null;
   try {
-    tableData = await getDataFromJSON(testDataPath);
+    tableData = await getDataFromJSON(eventsTestDataPath);
   } catch (error) {
     console.error(`Error reading JSON file: ${error}`);
     return error;
