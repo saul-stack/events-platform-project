@@ -4,25 +4,26 @@ const db = require("../../../database/connection.js");
 const {
   fetchEndpointsData,
   fetchEventsData,
-  fetchEventById,
+  fetchEvent,
 } = require("../test-utils.js");
 const {
   seedTestTable,
 } = require("../../../database/test-data/seed-test-db.js");
 
+//prettier-ignore
 const newEvent = {
-  title: "POST Test Event",
-  date: "2022-12-31",
-  day_of_week: "Saturday",
-  time: "18:00:00",
-  description: "This is a test event created by a POST request.",
-  advance_price: 10.0,
-  door_price: 15.0,
-  tickets_total: 100,
-  tickets_sold: 0,
-  is_seated: true,
-  is_ticketed: true,
-  is_recurring: false,
+  "title": "POST Test Event",
+  "date": "2022-12-31",
+  "day_of_week": "Saturday",
+  "time": "18:00:00",
+  "description": "This is a test event created by a POST request.",
+  "advance_price": "10.0",
+  "door_price": "15.0",
+  "tickets_total": "100",
+  "tickets_sold": "0",
+  "is_seated": "true",
+  "is_ticketed": "true",
+  "is_recurring": "false"
 };
 
 let expectedEndpoints = {};
@@ -124,7 +125,7 @@ describe("/api/events/:id", () => {
   describe("GET", () => {
     test("Event exists -> responds (200) with expected JSON object", async () => {
       const eventId = 1;
-      const eventData = await fetchEventById(eventId);
+      const eventData = await fetchEvent(eventId);
       const response = await request(server).get(`/api/events/${eventId}`);
       expect(response.status).toBe(200);
       expect(String(response.body.event)).toEqual(String(eventData));
@@ -173,7 +174,7 @@ describe("/api/events/:id", () => {
       const response = await request(server).delete(`/api/events/${eventId}`);
       expect(response.status).toBe(400);
       expect(response.body).toEqual({
-        error: "Bad request.",
+        error: "Invalid event ID format.",
       });
     });
   });
@@ -184,7 +185,7 @@ describe("/api/events/:id", () => {
       const response = await request(server).post(`/api/events/${eventId}`);
       expect(response.status).toBe(405);
       expect(response.body).toEqual({
-        error: "POST Method Not Allowed on /api/events/:id",
+        error: `POST Method Not Allowed on /api/events/${eventId}`,
       });
     });
   });
@@ -195,7 +196,7 @@ describe("/api/events/:id", () => {
       const response = await request(server).put(`/api/events/${eventId}`);
       expect(response.status).toBe(405);
       expect(response.body).toEqual({
-        error: "PUT Method Not Allowed on /api/events/:id",
+        error: `PUT Method Not Allowed on /api/events/${eventId}`,
       });
     });
   });
@@ -204,9 +205,10 @@ describe("/api/events/:id", () => {
     describe("Valid Request", () => {
       test("Event exists, valid property value -> responds (200) and successfully updates table", async () => {
         const eventId = 5,
-          patchProperty = "tickets_sold",
-          patchValue = 3;
+          patchProperty = "title",
+          patchValue = "new title";
 
+        const oldEvent = await fetchEvent(eventId);
         const patchData = { [patchProperty]: patchValue };
 
         const response = await request(server)
@@ -215,15 +217,53 @@ describe("/api/events/:id", () => {
         expect(response.status).toBe(200);
         const tableData = await fetchEventsData();
         const eventData = tableData.find((event) => event.id === eventId);
-        const eventTitle = eventData.title;
         expect(eventData[patchProperty]).toBe(patchValue);
-        expect(response.body.event).toEqual({
-          message: `Event #${eventId} (${eventTitle}) updated ${patchProperty} to ${patchValue} successfully.`,
+        expect(response.body).toEqual({
+          message: `Event #${eventId} (${oldEvent.title}) updated ${patchProperty} to '${patchValue}' successfully.`,
         });
       });
     });
+
     describe("Invalid request", () => {
-      test("Invalid property name -> responds (400) with expected JSON error object", async () => {
+      test("Invalid patch format -> responds (400) Bad Request", async () => {
+        const eventId = "1";
+        let response = await request(server)
+          .patch(`/api/events/${eventId}`)
+          .send([{ tickets_sold: 3 }]);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "Invalid patch format.",
+        });
+
+        response = await request(server).patch(`/api/events/${eventId}`).send({
+          "day_of_week": "Saturday",
+          "time": "18:00:00",
+        });
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "Invalid patch format.",
+        });
+      });
+
+      test("Invalid event ID format ->  responds (400) Bad Request", async () => {
+        const eventId = "invalid_event_id";
+        const response = await request(server).patch(`/api/events/${eventId}`);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "Invalid event ID format.",
+        });
+      });
+
+      test("Event does not exist -> responds (404) Event Not Found", async () => {
+        const eventId = 99999;
+        const response = await request(server).patch(`/api/events/${eventId}`);
+        expect(response.status).toBe(404);
+        expect(response.body).toEqual({
+          error: `Event with ID ${eventId} not found.`,
+        });
+      });
+
+      test("Property not exist -> responds (400) Bad Request", async () => {
         const eventId = 5,
           patchProperty = "invalid_property",
           patchValue = 3;
@@ -235,39 +275,48 @@ describe("/api/events/:id", () => {
           .send(patchData);
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
-          error: "Invalid request.",
+          error: `Invalid property: ${patchProperty}.`,
         });
       });
-      test("Invalid property value -> responds (400) with expected JSON error object", async () => {
+
+      test("Invalid property value format -> responds (400) Bad Request", async () => {
         const eventId = 5,
           patchProperty = "tickets_sold",
-          patchValue = "invalid_value";
+          patchValue = "invalid_type_value";
 
         const patchData = { [patchProperty]: patchValue };
 
-        const response = await request(server)
+        let response = await request(server)
           .patch(`/api/events/${eventId}`)
           .send(patchData);
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
-          error: "Invalid request.",
+          error: "Invalid patch value datatype.",
         });
-      });
-      test("Event does not exist -> responds (404) with expected JSON error object", async () => {
-        const eventId = 99999;
-        const response = await request(server).patch(`/api/events/${eventId}`);
-        expect(response.status).toBe(404);
+
+        response = await request(server)
+          .patch(`/api/events/${eventId}`)
+          .send({ "date": "this is my favourite" });
+        expect(response.status).toBe(400);
         expect(response.body).toEqual({
-          error: `Event with ID ${eventId} not found.`,
+          error: "Invalid patch value datatype.",
         });
       });
 
-      test("Invalid event ID format ->  responds (400) with expected JSON error object", async () => {
-        const eventId = "invalid_event_id";
-        const response = await request(server).patch(`/api/events/${eventId}`);
+      test("Patch 'id' property -> responds (400) Request Not Allowed", async () => {
+        const eventId = 5,
+          patchProperty = "id",
+          patchValue = 99999;
+
+        const patchData = { [`${patchProperty}`]: patchValue };
+
+        const response = await request(server)
+          .patch(`/api/events/${eventId}`)
+          .send(patchData);
+
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
-          error: "Invalid event ID format.",
+          error: "Request refused - Patching ID is disallowed.",
         });
       });
     });
