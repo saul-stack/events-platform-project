@@ -27,8 +27,6 @@ describe("/api/events", () => {
   test("GET: responds (200) with expected JSON object", async () => {
     const response = await request(server).get("/api/events");
     expect(response.status).toBe(200);
-    console.log(response.body.events);
-    console.log(defaultEventsArray);
     expect(String(response.body.events)).toEqual(String(defaultEventsArray));
   });
 
