@@ -5,12 +5,15 @@
       { "name": "id", "type": "SERIAL PRIMARY KEY" },
       { "name": "first_name", "type": "VARCHAR NOT NULL" },
       { "name": "last_name", "type": "VARCHAR NOT NULL" },
-      { "name": "user_name", "type": "VARCHAR NOT NULL" },
+      { "name": "user_name", "type": "VARCHAR NOT NULL UNIQUE" },
       { "name": "events_watched", "type": "JSONB NOT NULL DEFAULT '[]'" },
       { "name": "events_booked", "type": "JSONB NOT NULL DEFAULT '[]'" },
-      { "name": "email", "type": "VARCHAR NOT NULL " },
+      { "name": "email", "type": "VARCHAR NOT NULL UNIQUE" },
       { "name": "password", "type": "VARCHAR NOT NULL" },
-      { "name": "role", "type": "VARCHAR NOT NULL" }
+      {
+        "name": "role",
+        "type": "VARCHAR (10) CHECK (role IN ('admin', 'user')) DEFAULT 'user'"
+      }
     ]
   },
 
