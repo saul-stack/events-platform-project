@@ -39,8 +39,8 @@
       "first_name": "Admin",
       "last_name": "Admin",
       "user_name": "admin",
-      "events_watched": [],
-      "events_booked": [],
+      "events_watched": "[]",
+      "events_booked": "[]",
       "email": "admin",
       "password": "password",
       "role": "admin"
