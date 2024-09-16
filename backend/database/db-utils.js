@@ -196,7 +196,7 @@ const fetchTable = async (tableName) => {
     const result = await db.query(query);
     return result.rows;
   } catch (error) {
-    console.error("Error fetching events data:", error);
+    console.error("Error fetching table data:", error);
     throw error;
   }
 };
@@ -207,7 +207,7 @@ const fetchTableEntry = async (tableName, entryId) => {
     const result = await db.query(query, [entryId]);
     return result.rows[0];
   } catch (error) {
-    console.error("Error fetching event data:", error);
+    console.error("Error fetching table data:", error);
     throw error;
   }
 };
