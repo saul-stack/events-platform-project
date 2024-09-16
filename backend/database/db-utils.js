@@ -213,6 +213,25 @@ const fetchTableEntry = async (tableName, entryId) => {
   }
 };
 
+const verifyValidEmailAddress = async (email) => {
+  console.log(email);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const isEmailValidFormat = emailRegex.test(email);
+  let isEmailAvailable = true;
+
+  if (isEmailValidFormat) {
+    const query = "SELECT 1 FROM users WHERE email = $1";
+    const result = await db.query(query, [email]);
+
+    if (result.rowCount > 0) {
+      isEmailAvailable = false;
+    }
+  }
+
+  return isEmailAvailable && isEmailValidFormat;
+};
+
 module.exports = {
   verifyTableExists,
   truncateTable,
@@ -226,4 +245,5 @@ module.exports = {
   fetchTable,
   fetchTableEntry,
   seedTestTable,
+  verifyValidEmailAddress,
 };
