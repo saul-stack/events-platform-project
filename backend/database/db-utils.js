@@ -184,16 +184,7 @@ const fetchTableEntry = async (tableName, entryId) => {
 const verifyValidEmailAddress = async (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isEmailValidFormat = emailRegex.test(email);
-
-  if (!isEmailValidFormat) return false;
-
-  const query = "SELECT 1 FROM users WHERE email = $1";
-  try {
-    const result = await db.query(query, [email]);
-    return result.rowCount === 0;
-  } catch (error) {
-    handleError(`Error verifying email address ${email}`, error);
-  }
+  return isEmailValidFormat;
 };
 
 module.exports = {

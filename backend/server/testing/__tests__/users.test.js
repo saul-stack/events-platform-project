@@ -163,7 +163,7 @@ describe("/api/users/:id", () => {
         const response = await request(server).get(`/api/users/${userId}`);
         expect(response.status).toBe(404);
         expect(response.body).toEqual({
-          error: `User with ID ${userId} not found.`,
+          error: `User not found.`,
         });
       });
 
@@ -257,6 +257,37 @@ describe("/api/users/:id", () => {
     });
 
     describe("Invalid request", () => {
+      test("Email taken: Responds (400) Bad Request", async () => {
+        const userId = 1,
+          patchProperty = "email",
+          patchValue = "generic@email.com";
+
+        const patchData = { [patchProperty]: patchValue };
+
+        const response = await request(server)
+          .patch(`/api/users/${userId}`)
+          .send(patchData);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "User with this email address already exists.",
+        });
+      });
+      test("Username taken: Responds (400) Bad Request", async () => {
+        const userId = 1,
+          patchProperty = "user_name",
+          patchValue = "generic_user";
+
+        const patchData = { [patchProperty]: patchValue };
+
+        const response = await request(server)
+          .patch(`/api/users/${userId}`)
+          .send(patchData);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "User with this username already exists.",
+        });
+      });
+
       test("Invalid patch format: Responds (400) Bad Request", async () => {
         const userId = "1";
         let response = await request(server)
@@ -291,7 +322,7 @@ describe("/api/users/:id", () => {
         const response = await request(server).patch(`/api/users/${userId}`);
         expect(response.status).toBe(404);
         expect(response.body).toEqual({
-          error: `User with ID ${userId} not found.`,
+          error: `User not found.`,
         });
       });
 
@@ -354,7 +385,10 @@ describe("/api/users/:id", () => {
 });
 
 //post and patch shouldn't allow duplicate email addresses or user_names
+
 //don't allow duplicate events_watched or events_booked
+
 //post and patch should abide by rules of psql value types - dont allow
 //duplicate events titles
+
 //minimum/maximum length of each entry in the table
