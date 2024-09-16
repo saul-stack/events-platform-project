@@ -33,7 +33,7 @@ const postEvent = async (newEvent) => {
   }
 };
 
-const fetchTableEntry = async (tableName, eventId) => {
+const fetchEvent = async (tableName, eventId) => {
   try {
     const tableExists = await verifyTableExists(tableName);
     if (!tableExists) {
@@ -49,6 +49,7 @@ const fetchTableEntry = async (tableName, eventId) => {
     const result = await db.query(`SELECT * FROM ${tableName} WHERE id = $1`, [
       eventId,
     ]);
+
     const event = result.rows[0];
     return event;
   } catch (error) {
@@ -96,7 +97,7 @@ const patchEvent = async (eventId, patchObject) => {
     const query = `UPDATE events SET ${propertyToPatch} = $1 WHERE id = $2`;
 
     await db.query(query, [valueToPatch, eventId]);
-    const updatedEvent = await fetchTableEntry("events", eventId);
+    const updatedEvent = await fetchEvent("events", eventId);
     return updatedEvent;
   } catch (error) {
     console.error(error);
@@ -105,7 +106,7 @@ const patchEvent = async (eventId, patchObject) => {
 };
 
 module.exports = {
-  fetchTableEntry,
+  fetchEvent,
   deleteEvent,
   patchEvent,
   postEvent,
