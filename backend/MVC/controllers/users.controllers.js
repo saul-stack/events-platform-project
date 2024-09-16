@@ -7,6 +7,7 @@ const {
   postUser,
   fetchUser,
   deleteUser,
+  patchUser,
 } = require("../models/users.models");
 
 exports.getAllUsers = async (req, res) => {
@@ -27,6 +28,20 @@ exports.postToUsers = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+    if (error.code === "08P01") {
+      return res.status(400).send({ error: "Invalid Request Format." });
+    }
+    if (error.code === "23505") {
+      const detail = error.detail;
+      let violatedProperty = detail.match(/\(([^)]+)\)/)[1];
+
+      if (violatedProperty === "email") violatedProperty = "email address";
+      if (violatedProperty === "user_name") violatedProperty = "username";
+
+      return res
+        .status(400)
+        .send({ error: `User with this ${violatedProperty} already exists.` });
+    }
     res.status(500).send({ error: "Failed to Post User" });
   }
 };
@@ -66,5 +81,63 @@ exports.deleteUserById = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Failed to Delete User" });
+  }
+};
+
+exports.patchUserById = async (req, res) => {
+  const userId = req.params.id;
+  const patchObject = req.body;
+  const propertyToPatch = Object.keys(req.body)[0];
+
+  if (Array.isArray(patchObject) || typeof patchObject !== "object") {
+    return res.status(400).send({ error: "Invalid patch format." });
+  }
+
+  if (Object.keys(patchObject).length > 1) {
+    return res.status(400).send({ error: "Invalid patch format." });
+  }
+
+  if (propertyToPatch === "id") {
+    return res
+      .status(400)
+      .send({ error: "Request refused - Patching ID is disallowed." });
+  }
+
+  try {
+    if (propertyToPatch === "email") {
+      const emailIsValid = await verifyValidEmailAddress(patchObject.email);
+      if (!emailIsValid) {
+        return res.status(400).send({ error: "Invalid email address." });
+      }
+    }
+    if (isNaN(userId)) {
+      return res.status(400).send({ error: "Invalid user ID format." });
+    }
+    const user = await fetchUser("users", userId);
+    const oldUsername = user.user_name;
+    await patchUser(userId, patchObject);
+    res.status(200).json({
+      message: `User #${userId} (${oldUsername}) updated ${propertyToPatch} to '${patchObject[propertyToPatch]}' successfully.`,
+    });
+  } catch (error) {
+    if (error.status === 404) {
+      return res.status(404).send({ error: error.message });
+    }
+    if (Number(error.code) === 42703) {
+      if (propertyToPatch === undefined) {
+        return res.status(400).send({ error: "Invalid patch format." });
+      }
+      return res
+        .status(400)
+        .send({ error: `Invalid property: ${propertyToPatch}.` });
+    }
+    if (error.code === "22P02" || error.code === "22007") {
+      return res.status(400).send({ error: "Invalid patch value datatype." });
+    }
+    if (error.message === "Invalid email address") {
+      return res.status(400).send({ error: "Invalid email address." });
+    }
+    console.error(error);
+    res.status(500).send({ error: "Failed to update user" });
   }
 };
