@@ -4,10 +4,10 @@
     "columns": [
       { "name": "id", "type": "SERIAL PRIMARY KEY" },
       { "name": "first_name", "type": "VARCHAR NOT NULL" },
-      { "name": "last_name", "type": "VARCHAR NOT NULL" },
+      { "name": "last_name", "type": "VARCHAR" },
       { "name": "user_name", "type": "VARCHAR NOT NULL UNIQUE" },
-      { "name": "events_watched", "type": "JSONB NOT NULL DEFAULT '[]'" },
-      { "name": "events_booked", "type": "JSONB NOT NULL DEFAULT '[]'" },
+      { "name": "events_watched", "type": "INTEGER []" },
+      { "name": "events_booked", "type": "INTEGER []" },
       { "name": "email", "type": "VARCHAR NOT NULL UNIQUE" },
       { "name": "password", "type": "VARCHAR NOT NULL" },
       {
