@@ -95,7 +95,6 @@ exports.patchEventById = async (req, res) => {
     const event = await fetchEvent("events", eventId);
     const oldTitle = event.title;
     await patchEvent(eventId, patchObject);
-    const updatedTitle = event.title;
     res.status(200).json({
       message: `Event #${eventId} (${oldTitle}) updated ${propertyToPatch} to '${patchObject[propertyToPatch]}' successfully.`,
     });

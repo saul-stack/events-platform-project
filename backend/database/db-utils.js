@@ -42,7 +42,7 @@ const seedTestTable = async (tableName) => {
     }
   } else {
     try {
-      await createTable(tableData.schema);
+      await createTable(tableData);
       console.log(`Table "${tableName}" created successfully`);
     } catch (error) {
       console.error(`Error creating table: ${error}`);
@@ -136,6 +136,7 @@ const extractValues = (obj) => {
 const seedTable = async (tableData) => {
   const { entries, schema } = tableData;
   const { tableName, columns } = schema;
+
   const entriesToAdd = [];
   const query = `INSERT INTO ${tableName} (${columns
     .slice(1)
