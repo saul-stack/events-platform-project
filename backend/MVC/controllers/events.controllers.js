@@ -1,4 +1,4 @@
-const { verifyEntryExists } = require("../../database/db-utils");
+const { verifyExists } = require("../../database/db-utils");
 const {
   fetchAllEvents,
   postEvent,
@@ -52,7 +52,7 @@ exports.deleteEventById = async (req, res) => {
     return res.status(400).send({ error: "Invalid event ID format." });
   }
   try {
-    const eventExists = await verifyEntryExists("events", eventId);
+    const eventExists = await verifyExists("events", eventId);
     if (!eventExists) {
       return res
         .status(404)
