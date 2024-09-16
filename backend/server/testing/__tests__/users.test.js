@@ -20,115 +20,199 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
+  await seedTestTable("users");
   await db.end();
 });
 
 describe("/api/users", () => {
-  test("GET: responds (200) with expected JSON object", async () => {
-    const response = await request(server).get("/api/users");
-    expect(response.status).toBe(200);
-    expect(String(response.body.users)).toEqual(String(defaultUsersArray));
+  describe("GET", () => {
+    test("Responds (200) with all users", async () => {
+      const response = await request(server).get("/api/users");
+      expect(response.status).toBe(200);
+      expect(String(response.body.users)).toEqual(String(defaultUsersArray));
+    });
   });
 
-  test("DELETE: responds (405) with error message", async () => {
-    const response = await request(server).delete("/api/users");
-    expect(response.status).toBe(405);
-    expect(response.body.error).toBe("DELETE Method Not Allowed on /api/users");
+  describe("DELETE", () => {
+    test("Responds (405) Not Allowed", async () => {
+      const response = await request(server).delete("/api/users");
+      expect(response.status).toBe(405);
+      expect(response.body.error).toBe(
+        "DELETE Method Not Allowed on /api/users"
+      );
+    });
   });
 
-  test("PUT: responds (405) with error message", async () => {
-    const response = await request(server).put("/api/users");
-    expect(response.status).toBe(405);
-    expect(response.body.error).toBe("PUT Method Not Allowed on /api/users");
+  describe("PUT", () => {
+    test("Responds (405) Not Allowed", async () => {
+      const response = await request(server).put("/api/users");
+      expect(response.status).toBe(405);
+      expect(response.body.error).toBe("PUT Method Not Allowed on /api/users");
+    });
+  });
+  describe("PATCH", () => {
+    test("responds (405) Not Allowed", async () => {
+      const response = await request(server).patch("/api/users");
+      expect(response.status).toBe(405);
+      expect(response.body.error).toBe(
+        "PATCH Method Not Allowed on /api/users"
+      );
+    });
   });
 
-  test("PATCH: responds (405) with error message", async () => {
-    const response = await request(server).patch("/api/users");
-    expect(response.status).toBe(405);
-    expect(response.body.error).toBe("PATCH Method Not Allowed on /api/users");
-  });
+  describe("POST", () => {
+    describe("Valid request", () => {
+      test("Responds (201) and successfully updates table", async () => {
+        const updatedUsersArray = defaultUsersArray;
+        updatedUsersArray.push(newUser);
 
-  test("POST: responds (201) and successfully updates table", async () => {
-    const updatedUsersArray = defaultUsersArray;
-    updatedUsersArray.push(newUser);
+        const response = await request(server).post("/api/users").send(newUser);
+        const updatedUsersData = await fetchTable("users");
 
-    const response = await request(server).post("/api/users").send(newUser);
-    const updatedUsersData = await fetchTable("users");
+        const userExists = updatedUsersData.some(
+          (user) =>
+            user.title === newUser.title &&
+            user.description === newUser.description
+        );
 
-    const userExists = updatedUsersData.some(
-      (user) =>
-        user.title === newUser.title && user.description === newUser.description
-    );
+        expect(response.status).toBe(201);
+        expect(response.body.message).toBe(
+          `User posted successfully: ${newUser.title}`
+        );
+        expect(userExists).toBe(true);
+      });
+    });
 
-    expect(response.status).toBe(201);
-    expect(response.body.message).toBe(
-      `User posted successfully: ${newUser.title}`
-    );
-    expect(userExists).toBe(true);
+    describe("Invalid request", () => {
+      test("Invalid request format: Responds (400) Bad Request", async () => {
+        let response = await request(server).post("/api/users").send({
+          "first_name": "Generic",
+        });
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: `Invalid Request Format.`,
+        });
+
+        response = await request(server).post("/api/users").send({
+          "first_name": "Andy",
+          "last_name": "Carrington",
+          "user_name": "andy_carrington21",
+          "events_watched": "[2]",
+          "events_booked": "[1]",
+          "email": "a.carrington21@email.com",
+          "role": "user",
+        });
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: `Invalid Request Format.`,
+        });
+      });
+
+      test("Email taken: Responds (400) Bad Request", async () => {
+        const response = await request(server).post("/api/users").send({
+          "first_name": "Unique",
+          "last_name": "User",
+          "user_name": "unique_user21",
+          "events_watched": "[1, 2, 3]",
+          "events_booked": "[1]",
+          "email": "generic@email.com",
+          "password": "password",
+          "role": "user",
+        });
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "User with this email address already exists.",
+        });
+      });
+
+      test("Username taken: Responds (400) Bad Request", async () => {
+        const response = await request(server).post("/api/users").send({
+          "first_name": "Unique",
+          "last_name": "User",
+          "user_name": "generic_user",
+          "events_watched": "[1, 2, 3]",
+          "events_booked": "[1]",
+          "email": "unique-email-address@email.com",
+          "password": "password",
+          "role": "user",
+        });
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "User with this username already exists.",
+        });
+      });
+    });
   });
 });
 
 describe("/api/users/:id", () => {
   describe("GET", () => {
-    test("User exists -> responds (200) with expected JSON object", async () => {
-      const userId = 1;
-      const response = await request(server).get(`/api/users/${userId}`);
-      const expectedUser = await fetchTableEntry("users", userId);
-
-      expect(response.status).toBe(200);
-      expect(response.body.user).toEqual(expectedUser);
-    });
-
-    test("User does not exist -> responds (404) Not Found", async () => {
-      const userId = 99999;
-      const response = await request(server).get(`/api/users/${userId}`);
-      expect(response.status).toBe(404);
-      expect(response.body).toEqual({
-        error: `User with ID ${userId} not found.`,
+    describe("Valid request", () => {
+      test("Responds (200) with user object", async () => {
+        const userId = 1;
+        const response = await request(server).get(`/api/users/${userId}`);
+        const expectedUser = await fetchTableEntry("users", userId);
+        expect(response.status).toBe(200);
+        expect(response.body.user).toEqual(expectedUser);
       });
     });
 
-    test("Invalid request format -> responds (400) Bad Request", async () => {
-      const userId = "invalid_user_id";
-      const response = await request(server).get(`/api/users/${userId}`);
-      expect(response.status).toBe(400);
-      expect(response.body).toEqual({
-        error: "Invalid user ID format.",
+    describe("Invalid request", () => {
+      test("User does not exist: Responds (404) Not Found", async () => {
+        const userId = 99999;
+        const response = await request(server).get(`/api/users/${userId}`);
+        expect(response.status).toBe(404);
+        expect(response.body).toEqual({
+          error: `User with ID ${userId} not found.`,
+        });
+      });
+
+      test("Invalid request format: Responds (400) Bad Request", async () => {
+        const userId = "invalid_user_id";
+        const response = await request(server).get(`/api/users/${userId}`);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "Invalid user ID format.",
+        });
       });
     });
   });
 
   describe("DELETE", () => {
-    test("User exists -> responds (200) and successfully updates table", async () => {
-      const userId = 1;
-      const response = await request(server).delete(`/api/users/${userId}`);
-      const usersArray = await fetchTable("users");
-      const userExists = usersArray.some((user) => user.id === userId);
-      expect(response.status).toBe(200);
-      expect(userExists).toBe(false);
-    });
-
-    test("User does not exist -> responds (404) Not Found", async () => {
-      const userId = 99999;
-      const response = await request(server).delete(`/api/users/${userId}`);
-      expect(response.status).toBe(404);
-      expect(response.body).toEqual({
-        error: `User with ID ${userId} not found.`,
+    describe("Valid request", () => {
+      test("Responds (200) and successfully updates table", async () => {
+        const userId = 1;
+        const response = await request(server).delete(`/api/users/${userId}`);
+        const usersArray = await fetchTable("users");
+        const userExists = usersArray.some((user) => user.id === userId);
+        expect(response.status).toBe(200);
+        expect(userExists).toBe(false);
       });
     });
 
-    test("Invalid request format -> responds (400) Bad Request", async () => {
-      const eventId = "invalid_event_id";
-      const response = await request(server).delete(`/api/events/${eventId}`);
-      expect(response.status).toBe(400);
-      expect(response.body).toEqual({
-        error: "Invalid event ID format.",
+    describe("Invalid request", () => {
+      test("User does not exist: Responds (404) Not Found", async () => {
+        const userId = 99999;
+        const response = await request(server).delete(`/api/users/${userId}`);
+        expect(response.status).toBe(404);
+        expect(response.body).toEqual({
+          error: `User with ID ${userId} not found.`,
+        });
+      });
+
+      test("Invalid request format: Responds (400) Bad Request", async () => {
+        const eventId = "invalid_event_id";
+        const response = await request(server).delete(`/api/events/${eventId}`);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: "Invalid event ID format.",
+        });
       });
     });
   });
 
   describe("POST", () => {
-    test("POST: responds (405) Method Not Allowed", async () => {
+    test("Responds (405) Method Not Allowed", async () => {
       const userId = 1;
       const response = await request(server).post(`/api/users/${userId}`);
       expect(response.status).toBe(405);
@@ -139,7 +223,7 @@ describe("/api/users/:id", () => {
   });
 
   describe("PUT", () => {
-    test("PUT: responds (405) Method Not Allowed", async () => {
+    test("Responds (405) Method Not Allowed", async () => {
       const userId = 1;
       const response = await request(server).put(`/api/users/${userId}`);
       expect(response.status).toBe(405);
@@ -151,7 +235,7 @@ describe("/api/users/:id", () => {
 
   describe("PATCH", () => {
     describe("Valid Request", () => {
-      test("User exists, valid property value -> responds (200) and successfully updates table", async () => {
+      test("Responds (200) and successfully updates table", async () => {
         const userId = 1,
           patchProperty = "email",
           patchValue = "new-address@email.com";
@@ -173,7 +257,7 @@ describe("/api/users/:id", () => {
     });
 
     describe("Invalid request", () => {
-      test("Invalid patch format -> responds (400) Bad Request", async () => {
+      test("Invalid patch format: Responds (400) Bad Request", async () => {
         const userId = "1";
         let response = await request(server)
           .patch(`/api/users/${userId}`)
@@ -193,7 +277,7 @@ describe("/api/users/:id", () => {
         });
       });
 
-      test("Invalid user ID format ->  responds (400) Bad Request", async () => {
+      test("Invalid user ID format: Responds (400) Bad Request", async () => {
         const userId = "invalid_user_id";
         const response = await request(server).patch(`/api/users/${userId}`);
         expect(response.status).toBe(400);
@@ -202,7 +286,7 @@ describe("/api/users/:id", () => {
         });
       });
 
-      test("User does not exist -> responds (404) User Not Found", async () => {
+      test("User does not exist: Responds (404) Not Found", async () => {
         const userId = 99999;
         const response = await request(server).patch(`/api/users/${userId}`);
         expect(response.status).toBe(404);
@@ -211,7 +295,7 @@ describe("/api/users/:id", () => {
         });
       });
 
-      test("Property not exist -> responds (400) Bad Request", async () => {
+      test("Property not exist: Responds (400) Bad Request", async () => {
         const userId = 2,
           patchProperty = "invalid_property",
           patchValue = "new value";
@@ -227,7 +311,7 @@ describe("/api/users/:id", () => {
         });
       });
 
-      test("Invalid property value format -> responds (400) Bad Request", async () => {
+      test("Invalid property value format: Responds (400) Bad Request", async () => {
         const userId = 1;
         let response = await request(server)
           .patch(`/api/users/${userId}`)
@@ -238,7 +322,7 @@ describe("/api/users/:id", () => {
         });
       });
 
-      test("Invalid email address -> responds (400) Bad Request", async () => {
+      test("Invalid email address format: Responds (400) Bad Request", async () => {
         const userId = 1;
         let response = await request(server)
           .patch(`/api/users/${userId}`)
@@ -249,7 +333,7 @@ describe("/api/users/:id", () => {
         });
       });
 
-      test("Patch 'id' property -> responds (400) Request Not Allowed", async () => {
+      test("Attempt patch 'id' property: Responds (400) Bad Request", async () => {
         const userId = 2,
           patchProperty = "id",
           patchValue = 99999;
@@ -269,4 +353,8 @@ describe("/api/users/:id", () => {
   });
 });
 
-//post shouldn't allow duplicate email addresses or user_names
+//post and patch shouldn't allow duplicate email addresses or user_names
+//don't allow duplicate events_watched or events_booked
+//post and patch should abide by rules of psql value types - dont allow
+//duplicate events titles
+//minimum/maximum length of each entry in the table
