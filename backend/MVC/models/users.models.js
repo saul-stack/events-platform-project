@@ -1,15 +1,14 @@
 const db = require("../../database/connection.js");
 const {
-  verifyTableExists,
+  verifyExists,
   extractValues,
-  verifyEntryExists,
   verifyValidEmailAddress,
 } = require("../../database/db-utils.js");
 
 const fetchAllUsers = async () => {
-  const tableExists = await verifyTableExists("users");
+  const tableExists = await verifyExists("users");
   if (!tableExists) {
-    throw new Error("Table does not exist");
+    throw new Error("Table not found");
   }
   const result = await db.query("SELECT * FROM users");
   return result.rows;
@@ -17,9 +16,9 @@ const fetchAllUsers = async () => {
 
 const postUser = async (newUser) => {
   try {
-    const tableExists = await verifyTableExists("users");
+    const tableExists = await verifyExists("users");
     if (!tableExists) {
-      throw new Error("Table does not exist");
+      throw new Error("Table not found");
     }
 
     const values = extractValues(newUser);
@@ -35,13 +34,14 @@ const postUser = async (newUser) => {
 
 const fetchUser = async (tableName, userId) => {
   try {
-    const tableExists = await verifyTableExists(tableName);
+    const tableExists = await verifyExists(tableName);
+
     if (!tableExists) {
-      throw new Error("Table does not exist");
+      throw new Error("Table not found");
     }
-    const userExists = await verifyEntryExists(tableName, userId);
+    const userExists = await verifyExists(tableName, userId);
     if (!userExists) {
-      const error = new Error(`User with ID ${userId} not found.`);
+      const error = new Error(`User not found.`);
       error.status = 404;
       throw error;
     }
@@ -60,13 +60,13 @@ const fetchUser = async (tableName, userId) => {
 
 const deleteUser = async (userId) => {
   try {
-    const tableExists = await verifyTableExists("users");
+    const tableExists = await verifyExists("users");
     if (!tableExists) {
-      throw new Error("Table does not exist");
+      throw new Error("Table not found");
     }
-    const userExists = await verifyEntryExists("users", userId);
+    const userExists = await verifyExists("users", userId);
     if (!userExists) {
-      const error = new Error(`User with ID ${userId} not found.`);
+      const error = new Error(`User not found.`);
       error.status = 404;
       throw error;
     }
@@ -79,13 +79,13 @@ const deleteUser = async (userId) => {
 
 const patchUser = async (userId, patchObject) => {
   try {
-    const tableExists = await verifyTableExists("users");
+    const tableExists = await verifyExists("users");
     if (!tableExists) {
-      throw new Error("Table does not exist");
+      throw new Error("Table not found");
     }
-    const userExists = await verifyEntryExists("users", userId);
+    const userExists = await verifyExists("users", userId);
     if (!userExists) {
-      const error = new Error(`User with ID ${userId} not found.`);
+      const error = new Error(`User not found.`);
       error.status = 404;
       throw error;
     }
@@ -94,9 +94,7 @@ const patchUser = async (userId, patchObject) => {
     const valueToPatch = patchObject[propertyToPatch];
 
     if (propertyToPatch === "email") {
-      if (!verifyValidEmailAddress(valueToPatch)) {
-        throw new Error("Invalid email address");
-      }
+      verifyValidEmailAddress(valueToPatch);
     }
 
     const query = `UPDATE users SET ${propertyToPatch} = $1 WHERE id = $2`;
