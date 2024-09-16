@@ -19,7 +19,6 @@ exports.getAllUsers = async (req, res) => {
 exports.postToUsers = async (req, res) => {
   try {
     await postUser(req.body);
-    const users = await fetchAllUsers();
     res.status(201).json({
       message: `User posted successfully: ${req.body.title}`,
     });
