@@ -114,7 +114,7 @@ const seedTestTable = async (tableName) => {
 
   const tableDataPath = tableDataPaths[tableName];
   if (!tableDataPath) {
-    console.error(`Unknown table name: ${tableName}`);
+    console.error(`Test data not found for table: ${tableName}`);
     return;
   }
 
