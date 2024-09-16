@@ -3,6 +3,7 @@ const {
   verifyTableExists,
   extractValues,
   verifyEntryExists,
+  verifyValidEmailAddress,
 } = require("../../database/db-utils.js");
 
 const fetchAllUsers = async () => {
@@ -76,9 +77,43 @@ const deleteUser = async (userId) => {
   }
 };
 
+const patchUser = async (userId, patchObject) => {
+  try {
+    const tableExists = await verifyTableExists("users");
+    if (!tableExists) {
+      throw new Error("Table does not exist");
+    }
+    const userExists = await verifyEntryExists("users", userId);
+    if (!userExists) {
+      const error = new Error(`User with ID ${userId} not found.`);
+      error.status = 404;
+      throw error;
+    }
+
+    const propertyToPatch = Object.keys(patchObject)[0];
+    const valueToPatch = patchObject[propertyToPatch];
+
+    if (propertyToPatch === "email") {
+      if (!verifyValidEmailAddress(valueToPatch)) {
+        throw new Error("Invalid email address");
+      }
+    }
+
+    const query = `UPDATE users SET ${propertyToPatch} = $1 WHERE id = $2`;
+
+    await db.query(query, [valueToPatch, userId]);
+    const updatedUser = await fetchUser("users", userId);
+    return updatedUser;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 module.exports = {
   fetchAllUsers,
   postUser,
   fetchUser,
   deleteUser,
+  patchUser,
 };
