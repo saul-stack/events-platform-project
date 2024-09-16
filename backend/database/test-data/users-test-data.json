@@ -44,6 +44,16 @@
       "email": "admin",
       "password": "password",
       "role": "admin"
+    },
+    {
+      "first_name": "John",
+      "last_name": "Johnson",
+      "user_name": "generic_user",
+      "events_watched": "[1]",
+      "events_booked": "[1]",
+      "email": "generic@email.com",
+      "password": "password",
+      "role": "user"
     }
   ]
 }
