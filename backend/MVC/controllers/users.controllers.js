@@ -1,4 +1,7 @@
-const { verifyEntryExists } = require("../../database/db-utils");
+const {
+  verifyEntryExists,
+  verifyValidEmailAddress,
+} = require("../../database/db-utils");
 const {
   fetchAllUsers,
   postUser,
