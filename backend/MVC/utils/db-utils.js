@@ -121,9 +121,13 @@ exports.seedTestTable = async (tableName) => {
 };
 
 exports.fetchValidEventIds = async () => {
-  const query = "SELECT id FROM events";
-  const result = await db.query(query);
-  return result.rows.map((row) => row.id);
+  try {
+    const query = "SELECT id FROM events";
+    const result = await db.query(query);
+    return result.rows.map((row) => row.id);
+  } catch (error) {
+    handleError("Error fetching valid event ids", error);
+  }
 };
 
 exports.fetchTable = async (tableName) => {

@@ -52,8 +52,9 @@ exports.postToUsers = async (req, res) => {
       message: `User posted successfully: ${req.body.title}`,
     });
   } catch (error) {
-    console.error(error);
-
+    if (error.code === "42P01") {
+      return res.status(400).send({ error: "Events Table Not Found." });
+    }
     if (error.code === "08P01") {
       return res.status(400).send({ error: "Invalid Request Format." });
     }
@@ -78,57 +79,55 @@ exports.patchUserById = async (req, res) => {
   const propertyToPatch = Object.keys(req.body)[0];
   const valueToPatch = patchObject[propertyToPatch];
 
-  const { events_watched, events_booked } = req.body;
-  if (
-    (propertyToPatch === "events_watched" ||
-      propertyToPatch === "events_booked") &&
-    Array.isArray(valueToPatch)
-  ) {
-    const validEventIds = await fetchValidEventIds();
-    const eventsToCheck = valueToPatch;
-
-    const allEventsValid = eventsToCheck.every((eventId) =>
-      validEventIds.includes(eventId)
-    );
-    if (!allEventsValid) {
-      return res.status(400).send({
-        error: `Refused: ${propertyToPatch} contains non-existant event ids.`,
-      });
-    }
-  }
-  ////if propertyToPatch is events_watched or events_booked, check whether all the values in events_watched and events_booked are found as ids in the events table
-
-  if (Array.isArray(events_watched)) {
-    if (checkForDuplicates(events_watched)) {
-      return res
-        .status(400)
-        .send({ error: "Refused: Duplicate Events Values." });
-    }
-  }
-
-  if (Array.isArray(events_booked)) {
-    if (checkForDuplicates(events_booked)) {
-      return res
-        .status(400)
-        .send({ error: "Refused: Duplicate Events Values." });
-    }
-  }
-
-  if (Array.isArray(patchObject) || typeof patchObject !== "object") {
-    return res.status(400).send({ error: "Invalid patch format." });
-  }
-
-  if (Object.keys(patchObject).length > 1) {
-    return res.status(400).send({ error: "Invalid patch format." });
-  }
-
-  if (propertyToPatch === "id") {
-    return res
-      .status(400)
-      .send({ error: "Request refused - Patching ID is disallowed." });
-  }
-
   try {
+    const { events_watched, events_booked } = req.body;
+    if (
+      (propertyToPatch === "events_watched" ||
+        propertyToPatch === "events_booked") &&
+      Array.isArray(valueToPatch)
+    ) {
+      const validEventIds = await fetchValidEventIds();
+      const eventsToCheck = valueToPatch;
+
+      const allEventsValid = eventsToCheck.every((eventId) =>
+        validEventIds.includes(eventId)
+      );
+      if (!allEventsValid) {
+        return res.status(400).send({
+          error: `Refused: ${propertyToPatch} contains non-existant event ids.`,
+        });
+      }
+    }
+    if (Array.isArray(events_watched)) {
+      if (checkForDuplicates(events_watched)) {
+        return res
+          .status(400)
+          .send({ error: "Refused: Duplicate Events Values." });
+      }
+    }
+
+    if (Array.isArray(events_booked)) {
+      if (checkForDuplicates(events_booked)) {
+        return res
+          .status(400)
+          .send({ error: "Refused: Duplicate Events Values." });
+      }
+    }
+
+    if (Array.isArray(patchObject) || typeof patchObject !== "object") {
+      return res.status(400).send({ error: "Invalid patch format." });
+    }
+
+    if (Object.keys(patchObject).length > 1) {
+      return res.status(400).send({ error: "Invalid patch format." });
+    }
+
+    if (propertyToPatch === "id") {
+      return res
+        .status(400)
+        .send({ error: "Request refused - Patching ID is disallowed." });
+    }
+
     if (propertyToPatch === "email") {
       const emailIsValid = await verifyValidEmailAddress(patchObject.email);
       if (!emailIsValid) {
@@ -161,6 +160,10 @@ exports.patchUserById = async (req, res) => {
     }
     if (error.message === "Invalid email address") {
       return res.status(400).send({ error: "Invalid email address." });
+    }
+
+    if (error.code === "42P01") {
+      return res.status(400).send({ error: "Events Table Not Found." });
     }
 
     if (error.code === "23505") {
