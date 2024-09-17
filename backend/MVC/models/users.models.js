@@ -1,9 +1,10 @@
 const db = require("../../database/connection.js");
+const { verifyExists } = require("../utils/db-utils.js");
+
 const {
-  verifyExists,
   extractValues,
   verifyValidEmailAddress,
-} = require("../../database/db-utils.js");
+} = require("../utils/global-utils.js");
 
 const fetchAllUsers = async () => {
   const tableExists = await verifyExists("users");

@@ -1,5 +1,6 @@
 const db = require("../../database/connection.js");
-const { extractValues, verifyExists } = require("../../database/db-utils.js");
+const { verifyExists } = require("../utils/db-utils.js");
+const { extractValues } = require("../utils/global-utils.js");
 
 const fetchAllEvents = async () => {
   const tableExists = await verifyExists("events");

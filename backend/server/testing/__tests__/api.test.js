@@ -1,4 +1,5 @@
 const { server, db, request, fetchEndpointsData } = require("../db-utils.js");
+const fetchEndpointsData = require("../data-utils.js");
 
 let expectedEndpoints = {};
 

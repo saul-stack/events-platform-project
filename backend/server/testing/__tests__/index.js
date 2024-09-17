@@ -5,8 +5,8 @@ const db = require("../../../database/connection.js");
 const {
   fetchTable,
   fetchTableEntry,
-} = require("../../../database/db-utils.js");
-const { seedTestTable } = require("../../../database/db-utils.js");
+} = require("../../../MVC/utils/db-utils.js");
+const { seedTestTable } = require("../../../MVC/utils/db-utils.js");
 
 const newEvent = {
   "title": "POST Test Event",

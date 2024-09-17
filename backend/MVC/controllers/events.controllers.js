@@ -1,4 +1,4 @@
-const { verifyExists } = require("../../database/db-utils");
+const { verifyExists } = require("../utils/db-utils");
 const {
   fetchAllEvents,
   postEvent,

@@ -1,9 +1,10 @@
+const { verifyExists, fetchValidEventIds } = require("../utils/db-utils");
+
 const {
-  verifyExists,
+  checkForDuplicates,
   verifyValidEmailAddress,
-  hasDuplicates,
-  fetchValidEventIds,
-} = require("../../database/db-utils");
+} = require("../utils/global-utils");
+
 const {
   fetchAllUsers,
   postUser,
@@ -29,7 +30,7 @@ exports.postToUsers = async (req, res) => {
 
   try {
     if (Array.isArray(events_watched)) {
-      if (hasDuplicates(events_watched)) {
+      if (checkForDuplicates(events_watched)) {
         return res
           .status(400)
           .send({ error: "Refused: Duplicate Events Values." });
@@ -49,7 +50,7 @@ exports.postToUsers = async (req, res) => {
     }
 
     if (Array.isArray(events_booked)) {
-      if (hasDuplicates(events_booked)) {
+      if (checkForDuplicates(events_booked)) {
         return res
           .status(400)
           .send({ error: "Refused: Duplicate Events Values." });
@@ -118,7 +119,7 @@ exports.patchUserById = async (req, res) => {
   ////if propertyToPatch is events_watched or events_booked, check whether all the values in events_watched and events_booked are found as ids in the events table
 
   if (Array.isArray(events_watched)) {
-    if (hasDuplicates(events_watched)) {
+    if (checkForDuplicates(events_watched)) {
       return res
         .status(400)
         .send({ error: "Refused: Duplicate Events Values." });
@@ -126,7 +127,7 @@ exports.patchUserById = async (req, res) => {
   }
 
   if (Array.isArray(events_booked)) {
-    if (hasDuplicates(events_booked)) {
+    if (checkForDuplicates(events_booked)) {
       return res
         .status(400)
         .send({ error: "Refused: Duplicate Events Values." });
