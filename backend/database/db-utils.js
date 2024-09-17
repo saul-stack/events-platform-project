@@ -150,12 +150,9 @@ const getEntryPropertyValue = async (tableName, id, propertyName) => {
   }
 };
 
-const hasDuplicates = (arrayString) => {
-  if (arrayString) {
-    const array = JSON.parse(arrayString);
-
+const hasDuplicates = (array) => {
+  if (array) {
     const uniqueArrayEntries = new Set(array.flat());
-
     return uniqueArrayEntries.size !== array.length;
   }
 };
