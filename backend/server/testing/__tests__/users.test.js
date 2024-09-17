@@ -164,16 +164,18 @@ describe("/api/users", () => {
       });
 
       test("Email taken: Responds (400) Bad Request", async () => {
-        const response = await request(server).post("/api/users").send({
-          "first_name": "Unique",
-          "last_name": "User",
-          "user_name": "unique_user21",
-          "events_watched": "[1, 2, 3]",
-          "events_booked": "[1]",
-          "email": "generic@email.com",
-          "password": "password",
-          "role": "user",
-        });
+        const response = await request(server)
+          .post("/api/users")
+          .send({
+            "first_name": "Unique",
+            "last_name": "User",
+            "user_name": "unique_user21",
+            "events_watched": [1, 2, 3],
+            "events_booked": [1],
+            "email": "generic@email.com",
+            "password": "password",
+            "role": "user",
+          });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
           error: "User with this email address already exists.",
@@ -181,16 +183,18 @@ describe("/api/users", () => {
       });
 
       test("Username taken: Responds (400) Bad Request", async () => {
-        const response = await request(server).post("/api/users").send({
-          "first_name": "Unique",
-          "last_name": "User",
-          "user_name": "generic_user",
-          "events_watched": "[1, 2, 3]",
-          "events_booked": "[1]",
-          "email": "unique-email-address@email.com",
-          "password": "password",
-          "role": "user",
-        });
+        const response = await request(server)
+          .post("/api/users")
+          .send({
+            "first_name": "Unique",
+            "last_name": "User",
+            "user_name": "generic_user",
+            "events_watched": [1, 2, 3],
+            "events_booked": [1],
+            "email": "unique-email-address@email.com",
+            "password": "password",
+            "role": "user",
+          });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
           error: "User with this username already exists.",
