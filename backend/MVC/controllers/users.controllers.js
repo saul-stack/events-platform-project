@@ -2,6 +2,7 @@ const {
   verifyExists,
   verifyValidEmailAddress,
   hasDuplicates,
+  fetchValidEventIds,
 } = require("../../database/db-utils");
 const {
   fetchAllUsers,
@@ -33,6 +34,18 @@ exports.postToUsers = async (req, res) => {
           .status(400)
           .send({ error: "Refused: Duplicate Events Values." });
       }
+
+      const validEventIds = await fetchValidEventIds();
+      const eventsToCheck = events_watched;
+
+      const allEventsValid = eventsToCheck.every((eventId) =>
+        validEventIds.includes(eventId)
+      );
+      if (!allEventsValid) {
+        return res.status(400).send({
+          error: `Refused: events_watched contains non-existant event ids.`,
+        });
+      }
     }
 
     if (Array.isArray(events_booked)) {
@@ -40,6 +53,17 @@ exports.postToUsers = async (req, res) => {
         return res
           .status(400)
           .send({ error: "Refused: Duplicate Events Values." });
+      }
+      const validEventIds = await fetchValidEventIds();
+      const eventsToCheck = events_watched;
+
+      const allEventsValid = eventsToCheck.every((eventId) =>
+        validEventIds.includes(eventId)
+      );
+      if (!allEventsValid) {
+        return res.status(400).send({
+          error: `Refused: events_watched contains non-existant event ids.`,
+        });
       }
     }
 
@@ -71,7 +95,27 @@ exports.patchUserById = async (req, res) => {
   const userId = req.params.id;
   const patchObject = req.body;
   const propertyToPatch = Object.keys(req.body)[0];
+  const valueToPatch = patchObject[propertyToPatch];
+
   const { events_watched, events_booked } = req.body;
+  if (
+    (propertyToPatch === "events_watched" ||
+      propertyToPatch === "events_booked") &&
+    Array.isArray(valueToPatch)
+  ) {
+    const validEventIds = await fetchValidEventIds();
+    const eventsToCheck = valueToPatch;
+
+    const allEventsValid = eventsToCheck.every((eventId) =>
+      validEventIds.includes(eventId)
+    );
+    if (!allEventsValid) {
+      return res.status(400).send({
+        error: `Refused: ${propertyToPatch} contains non-existant event ids.`,
+      });
+    }
+  }
+  ////if propertyToPatch is events_watched or events_booked, check whether all the values in events_watched and events_booked are found as ids in the events table
 
   if (Array.isArray(events_watched)) {
     if (hasDuplicates(events_watched)) {
