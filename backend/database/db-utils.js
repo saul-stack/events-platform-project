@@ -150,6 +150,16 @@ const getEntryPropertyValue = async (tableName, id, propertyName) => {
   }
 };
 
+const hasDuplicates = (arrayString) => {
+  if (arrayString) {
+    const array = JSON.parse(arrayString);
+
+    const uniqueArrayEntries = new Set(array.flat());
+
+    return uniqueArrayEntries.size !== array.length;
+  }
+};
+
 const fetchEndpointsData = async () => {
   try {
     return await fetchJson(path.join(__dirname, "../endpoints.json"));
@@ -200,4 +210,5 @@ module.exports = {
   seedTestTable,
   verifyValidEmailAddress,
   verifyExists,
+  hasDuplicates,
 };
