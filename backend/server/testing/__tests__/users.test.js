@@ -84,6 +84,61 @@ describe("/api/users", () => {
     });
 
     describe("Invalid request", () => {
+      test("Attempt to post user with non-existant event ids", async () => {
+        let response = await request(server)
+          .post("/api/users")
+          .send({
+            "first_name": "Lewis",
+            "last_name": "Stephens",
+            "user_name": "Lewie21",
+            "events_watched": [1, 9999],
+            "events_booked": [2],
+            "email": "lewie-is-cool@email.com",
+            "password": "password",
+            "role": "user",
+          });
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: `Refused: events_watched contains non-existant event ids.`,
+        });
+      });
+
+      test("Attempt to post user with duplicate events", async () => {
+        let response = await request(server)
+          .post("/api/users")
+          .send({
+            "first_name": "David",
+            "last_name": "Jones",
+            "user_name": "d.jones1",
+            "events_watched": [1, 1],
+            "events_booked": [2],
+            "email": "davey21@email.com",
+            "password": "password",
+            "role": "user",
+          });
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: `Refused: Duplicate Events Values.`,
+        });
+        response = await request(server)
+          .post("/api/users")
+          .send({
+            "first_name": "David",
+            "last_name": "Jones",
+            "user_name": "d.jones1",
+            "events_watched": [1],
+            "events_booked": [2, 2],
+            "email": "davey21@email.com",
+            "password": "password",
+            "role": "user",
+          });
+        console.log(response.body);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: `Refused: Duplicate Events Values.`,
+        });
+      });
+
       test("Invalid request format: Responds (400) Bad Request", async () => {
         let response = await request(server).post("/api/users").send({
           "first_name": "Generic",
@@ -257,6 +312,38 @@ describe("/api/users/:id", () => {
     });
 
     describe("Invalid request", () => {
+      test("Attempting to patch user with non-existant event ids", async () => {
+        const userId = 1;
+        const eventId = 99999;
+        let response = await request(server)
+          .patch(`/api/users/${userId}`)
+          .send({ events_watched: [1, 2, 3, 99999] });
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: `Refused: events_watched contains non-existant event ids.`,
+        });
+
+        response = await request(server)
+          .patch(`/api/users/${userId}`)
+          .send({ events_booked: [1, 2, 3, 99999] });
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: `Refused: events_booked contains non-existant event ids.`,
+        });
+      });
+
+      test("Attempting to patch user with duplicate events_booked or events_watched.", async () => {
+        const userId = 1;
+
+        const response = await request(server)
+          .patch(`/api/users/${userId}`)
+          .send({ events_booked: [1, 1, 2, 5] });
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+          error: `Refused: Duplicate Events Values.`,
+        });
+      });
+
       test("Email taken: Responds (400) Bad Request", async () => {
         const userId = 1,
           patchProperty = "email",
@@ -384,11 +471,6 @@ describe("/api/users/:id", () => {
   });
 });
 
-//post and patch shouldn't allow duplicate email addresses or user_names
-
-//don't allow duplicate events_watched or events_booked
-
-//post and patch should abide by rules of psql value types - dont allow
-//duplicate events titles
-
+//post and patch should abide by rules of psql value types -
+//dont allow duplicate events titles
 //minimum/maximum length of each entry in the table
