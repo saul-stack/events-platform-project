@@ -11,6 +11,7 @@ const {
 let defaultUsersArray = [];
 
 beforeAll(async () => {
+  await seedTestTable("events");
   await seedTestTable("users");
   defaultUsersArray = await fetchTable("users");
 });
