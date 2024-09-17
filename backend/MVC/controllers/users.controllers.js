@@ -22,13 +22,25 @@ exports.getAllUsers = async (req, res) => {
 };
 
 exports.postToUsers = async (req, res) => {
-  try {
-    const { events_watched, events_booked } = req.body;
+  const { events_watched, events_booked } = req.body;
 
-    if (hasDuplicates(events_watched) || hasDuplicates(events_booked)) {
-      return res
-        .status(400)
-        .send({ error: "Refused: Duplicate Events Values." });
+  console.log(events_watched, "<<<<<<here");
+
+  try {
+    if (Array.isArray(events_watched)) {
+      if (hasDuplicates(events_watched)) {
+        return res
+          .status(400)
+          .send({ error: "Refused: Duplicate Events Values." });
+      }
+    }
+
+    if (Array.isArray(events_booked)) {
+      if (hasDuplicates(events_booked)) {
+        return res
+          .status(400)
+          .send({ error: "Refused: Duplicate Events Values." });
+      }
     }
 
     await postUser(req.body);
@@ -59,6 +71,23 @@ exports.patchUserById = async (req, res) => {
   const userId = req.params.id;
   const patchObject = req.body;
   const propertyToPatch = Object.keys(req.body)[0];
+  const { events_watched, events_booked } = req.body;
+
+  if (Array.isArray(events_watched)) {
+    if (hasDuplicates(events_watched)) {
+      return res
+        .status(400)
+        .send({ error: "Refused: Duplicate Events Values." });
+    }
+  }
+
+  if (Array.isArray(events_booked)) {
+    if (hasDuplicates(events_booked)) {
+      return res
+        .status(400)
+        .send({ error: "Refused: Duplicate Events Values." });
+    }
+  }
 
   if (Array.isArray(patchObject) || typeof patchObject !== "object") {
     return res.status(400).send({ error: "Invalid patch format." });
