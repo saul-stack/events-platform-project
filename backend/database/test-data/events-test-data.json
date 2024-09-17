@@ -3,7 +3,7 @@
     "tableName": "events",
     "columns": [
       { "name": "id", "type": "SERIAL PRIMARY KEY" },
-      { "name": "title", "type": "VARCHAR(255) NOT NULL" },
+      { "name": "title", "type": "VARCHAR(255) NOT NULL UNIQUE" },
       { "name": "date", "type": "DATE NOT NULL" },
       { "name": "day_of_week", "type": "VARCHAR(255) NOT NULL" },
       { "name": "time", "type": "TIME NOT NULL" },
