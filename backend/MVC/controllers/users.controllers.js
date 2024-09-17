@@ -24,47 +24,26 @@ exports.getAllUsers = async (req, res) => {
 };
 
 exports.postToUsers = async (req, res) => {
-  const { events_watched, events_booked } = req.body;
-
-  console.log(events_watched, "<<<<<<here");
-
+  const user = req.body;
   try {
-    if (Array.isArray(events_watched)) {
-      if (checkForDuplicates(events_watched)) {
-        return res
-          .status(400)
-          .send({ error: "Refused: Duplicate Events Values." });
-      }
+    const validEventIds = await fetchValidEventIds();
+    for (eventsArray of ["events_watched", "events_booked"]) {
+      if (Array.isArray(user[eventsArray])) {
+        if (checkForDuplicates(user[eventsArray])) {
+          return res
+            .status(400)
+            .send({ error: "Refused: Duplicate Events Values." });
+        }
 
-      const validEventIds = await fetchValidEventIds();
-      const eventsToCheck = events_watched;
+        const allEventsValid = user[eventsArray].every((eventId) =>
+          validEventIds.includes(eventId)
+        );
 
-      const allEventsValid = eventsToCheck.every((eventId) =>
-        validEventIds.includes(eventId)
-      );
-      if (!allEventsValid) {
-        return res.status(400).send({
-          error: `Refused: events_watched contains non-existant event ids.`,
-        });
-      }
-    }
-
-    if (Array.isArray(events_booked)) {
-      if (checkForDuplicates(events_booked)) {
-        return res
-          .status(400)
-          .send({ error: "Refused: Duplicate Events Values." });
-      }
-      const validEventIds = await fetchValidEventIds();
-      const eventsToCheck = events_watched;
-
-      const allEventsValid = eventsToCheck.every((eventId) =>
-        validEventIds.includes(eventId)
-      );
-      if (!allEventsValid) {
-        return res.status(400).send({
-          error: `Refused: events_watched contains non-existant event ids.`,
-        });
+        if (!allEventsValid) {
+          return res.status(400).send({
+            error: `Refused: ${eventsArray} contains non-existant event ids.`,
+          });
+        }
       }
     }
 
@@ -74,6 +53,7 @@ exports.postToUsers = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+
     if (error.code === "08P01") {
       return res.status(400).send({ error: "Invalid Request Format." });
     }
