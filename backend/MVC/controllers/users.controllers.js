@@ -1,6 +1,7 @@
 const {
   verifyExists,
   verifyValidEmailAddress,
+  hasDuplicates,
 } = require("../../database/db-utils");
 const {
   fetchAllUsers,
@@ -22,6 +23,14 @@ exports.getAllUsers = async (req, res) => {
 
 exports.postToUsers = async (req, res) => {
   try {
+    const { events_watched, events_booked } = req.body;
+
+    if (hasDuplicates(events_watched) || hasDuplicates(events_booked)) {
+      return res
+        .status(400)
+        .send({ error: "Refused: Duplicate Events Values." });
+    }
+
     await postUser(req.body);
     res.status(201).json({
       message: `User posted successfully: ${req.body.title}`,
