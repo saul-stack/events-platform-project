@@ -150,6 +150,12 @@ const getEntryPropertyValue = async (tableName, id, propertyName) => {
   }
 };
 
+async function fetchValidEventIds() {
+  const query = "SELECT id FROM events";
+  const result = await db.query(query);
+  return result.rows.map((row) => row.id);
+}
+
 const hasDuplicates = (array) => {
   if (array) {
     const uniqueArrayEntries = new Set(array.flat());
@@ -208,4 +214,5 @@ module.exports = {
   verifyValidEmailAddress,
   verifyExists,
   hasDuplicates,
+  fetchValidEventIds,
 };
