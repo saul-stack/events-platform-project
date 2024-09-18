@@ -26,7 +26,23 @@ exports.postToEvents = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: "Failed to Post Event" });
+    if (error.code === "23505") {
+      return res
+        .status(400)
+        .send({ error: "Event with this title already exists." });
+    }
+    if (
+      error.message ===
+      "Refused: Cannot post non-ticketed event with ticket values."
+    ) {
+      return res.status(400).send({ error: error.message });
+    }
+
+    if (error.code === "23514") {
+      return res.status(400).send({ error: "Invalid ticket or price values." });
+    }
+
+    return res.status(500).send({ error: "Failed to Post Event" });
   }
 };
 
