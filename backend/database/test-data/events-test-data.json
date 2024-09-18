@@ -43,7 +43,7 @@
       "tickets_total": 200,
       "tickets_sold": 100,
       "is_seated": false,
-      "is_ticketed": true,
+      "is_ticketed": false,
       "is_recurring": true
     },
     {
