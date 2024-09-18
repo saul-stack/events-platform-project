@@ -13,6 +13,19 @@ const fetchAllEvents = async () => {
 
 const postEvent = async (newEvent) => {
   try {
+    if (newEvent.is_ticketed === false) {
+      if (
+        newEvent.tickets_total > 0 ||
+        newEvent.tickets_sold > 0 ||
+        newEvent.advance_price > 0 ||
+        newEvent.door_price > 0
+      ) {
+        throw new Error(
+          "Refused: Cannot post non-ticketed event with ticket values."
+        );
+      }
+    }
+
     const tableExists = await verifyExists("events");
     if (!tableExists) {
       throw new Error("Table does not exist");
@@ -21,7 +34,7 @@ const postEvent = async (newEvent) => {
     const values = extractValues(newEvent);
 
     await db.query(
-      "INSERT INTO events (title, date, day_of_week, time, description, advance_price, door_price, tickets_total, tickets_sold, is_seated, is_ticketed, is_recurring) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)",
+      "INSERT INTO events (title, date, time, description, advance_price, door_price, tickets_total, tickets_sold, is_seated, is_ticketed, is_recurring) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
       values
     );
   } catch (error) {
