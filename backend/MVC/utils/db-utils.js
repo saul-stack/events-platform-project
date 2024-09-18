@@ -36,13 +36,7 @@ exports.verifyExists = async (tableName, id = null) => {
     );
     return exists;
   } catch (error) {
-    console.error(
-      `Error checking if ${id === null ? "table" : "entry"} ${
-        id === null ? tableName : id
-      } exists:`,
-      error
-    );
-    throw error;
+    handleError("Error checking if exists", error);
   }
 };
 
