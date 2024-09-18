@@ -10,8 +10,8 @@
       { "name": "description", "type": "TEXT NOT NULL" },
       { "name": "advance_price", "type": "DECIMAL(10, 2) NOT NULL" },
       { "name": "door_price", "type": "DECIMAL(10, 2) NOT NULL" },
-      { "name": "tickets_total", "type": "INT NOT NULL" },
-      { "name": "tickets_sold", "type": "INT NOT NULL" },
+      { "name": "tickets_total", "type": "INT NOT NULL DEFAULT 0" },
+      { "name": "tickets_sold", "type": "INT NOT NULL DEFAULT 0" },
       { "name": "is_seated", "type": "BOOLEAN NOT NULL" },
       { "name": "is_ticketed", "type": "BOOLEAN NOT NULL" },
       { "name": "is_recurring", "type": "BOOLEAN NOT NULL" }
