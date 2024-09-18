@@ -1,5 +1,5 @@
-const { server, db, request, fetchEndpointsData } = require("../db-utils.js");
-const fetchEndpointsData = require("../data-utils.js");
+const { server, db, request } = require("./index");
+const { fetchEndpointsData } = require("../../../MVC/utils/data-utils");
 
 let expectedEndpoints = {};
 
