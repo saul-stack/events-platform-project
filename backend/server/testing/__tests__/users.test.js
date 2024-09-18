@@ -342,7 +342,7 @@ describe("/api/users/:id", () => {
 
         const response = await request(server)
           .patch(`/api/users/${userId}`)
-          .send({ events_booked: [1, 1, 2, 5] });
+          .send({ events_booked: [1, 1, 2] });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
           error: `Refused: Duplicate Events Values.`,
