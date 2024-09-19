@@ -15,6 +15,7 @@ function LoginPage() {
   return (
     <div className="main-content">
       <h1>You are not logged in.</h1>
+      <p>Login to watch and book events, and manage your booked events.</p>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
