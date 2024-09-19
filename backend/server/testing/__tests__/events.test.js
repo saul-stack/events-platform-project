@@ -100,6 +100,7 @@ describe("POST", () => {
         "is_seated": false,
         "is_ticketed": true,
         "is_recurring": true,
+        "image_url": "https://placehold.co/1920x1080",
       });
       expect(response.status).toBe(400);
       expect(response.body).toEqual({
@@ -121,6 +122,7 @@ describe("POST", () => {
         "is_seated": false,
         "is_ticketed": false,
         "is_recurring": true,
+        "image_url": "https://placehold.co/1920x1080",
       });
 
       expect(response.status).toBe(400);
@@ -162,6 +164,7 @@ describe("POST", () => {
           "is_seated": true,
           "is_ticketed": true,
           "is_recurring": false,
+          "image_url": "https://placehold.co/1920x1080",
         });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
@@ -180,6 +183,7 @@ describe("POST", () => {
           "is_seated": true,
           "is_ticketed": true,
           "is_recurring": false,
+          "image_url": "https://placehold.co/1920x1080",
         });
 
         expect(response.status).toBe(400);
@@ -201,6 +205,7 @@ describe("POST", () => {
           "is_seated": true,
           "is_ticketed": true,
           "is_recurring": false,
+          "image_url": "https://placehold.co/1920x1080",
         });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
@@ -219,6 +224,7 @@ describe("POST", () => {
           "is_seated": true,
           "is_ticketed": true,
           "is_recurring": false,
+          "image_url": "https://placehold.co/1920x1080",
         });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
