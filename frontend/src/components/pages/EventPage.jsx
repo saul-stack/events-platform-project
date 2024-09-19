@@ -32,9 +32,7 @@ const EventPage = () => {
       <p>{event.description}</p>
       <p>Date: {new Date(event.date).toLocaleDateString()}</p>
       <p>Time: {event.time}</p>
-      <p>Location: {event.location}</p>
       <p>Advance Price: {event.advance_price}</p>
-      <p>Door Price: {event.door_price}</p>
       <p>
         Tickets Sold: {event.tickets_sold} / {event.tickets_total}
       </p>
