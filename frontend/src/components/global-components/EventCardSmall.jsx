@@ -1,3 +1,5 @@
+import "../../styles/EventCardSmall.css";
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -9,21 +11,28 @@ const EventCardSmall = ({ event }) => {
     navigate(`/events/${id}`);
   };
 
-  const cardStyle = {
-    backgroundImage: `url(${event.image_url})`,
+  const dateOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   };
-
-  const date = new Date(event.date).toLocaleDateString();
+  const date = new Date(event.date).toLocaleDateString(undefined, dateOptions);
 
   return (
-    <div
-      className="event-card-small"
-      style={cardStyle}
-      onClick={() => handleClick(event.id)}
-    >
-      <h2>{event.title}</h2>
-      <p>{date}</p>
-      <p>{event.time}</p>
+    <div className="event-card-small" onClick={() => handleClick(event.id)}>
+      <div
+        className="event-image"
+        style={{ backgroundImage: `url(${event.image_url})` }}
+      ></div>
+      <div className="event-details">
+        <p className="event-date">{date}</p>
+        <h1 className="event-title">{event.title}</h1>
+        <p className="event-time">{event.time}</p>
+      </div>
+      <a href="#" className="event-button">
+        MORE INFO
+      </a>
     </div>
   );
 };
