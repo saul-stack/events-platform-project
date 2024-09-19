@@ -12,3 +12,12 @@ export const getAllEvents = async () => {
     return (error = error.response.data.error);
   }
 };
+
+export const getUserByUsername = async (username) => {
+  try {
+    const result = await api.get(`/users/username/${username}`);
+    const user = result.data.user;
+  } catch (error) {
+    throw error;
+  }
+};
