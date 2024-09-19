@@ -13,7 +13,7 @@ function LoginPage() {
     navigate("/my-account");
   };
   return (
-    <div>
+    <div className="main-content">
       <h1>You are not logged in.</h1>
       <form onSubmit={handleSubmit}>
         <div>

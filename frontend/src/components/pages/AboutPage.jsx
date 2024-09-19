@@ -1,6 +1,6 @@
 function AboutPage() {
   return (
-    <div>
+    <div className="main-content">
       <h1>Bar-None Club</h1>
       <p>
         Bar-None Club is a community-led Bristol venue known for hosting live
