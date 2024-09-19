@@ -13,6 +13,7 @@ const newEvent = {
   "date": "2022-12-31",
   "time": "18:00:00",
   "description": "This is a test event created by a POST request.",
+  "event_type": "test",
   "advance_price": 0.0,
   "door_price": 0.0,
   "tickets_total": 0,
