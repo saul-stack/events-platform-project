@@ -21,3 +21,13 @@ export const getUserByUsername = async (username) => {
     throw error;
   }
 };
+
+export const getEventById = async (eventId) => {
+  try {
+    const result = await api.get(`/events/${eventId}`);
+    const event = result.data.event;
+    return event;
+  } catch (error) {
+    throw error;
+  }
+};
