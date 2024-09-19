@@ -8,9 +8,10 @@ const {
 const {
   fetchAllUsers,
   postUser,
-  fetchUser,
+  fetchUserById,
   deleteUser,
   patchUser,
+  fetchUserByUsername,
 } = require("../models/users.models");
 
 exports.getAllUsers = async (req, res) => {
@@ -137,7 +138,7 @@ exports.patchUserById = async (req, res) => {
     if (isNaN(userId)) {
       return res.status(400).send({ error: "Invalid user ID format." });
     }
-    const user = await fetchUser("users", userId);
+    const user = await fetchUserById("users", userId);
     const oldUsername = user.user_name;
     await patchUser(userId, patchObject);
     res.status(200).json({
@@ -189,7 +190,21 @@ exports.getUserById = async (req, res) => {
     return res.status(400).send({ error: "Invalid user ID format." });
   }
   try {
-    const user = await fetchUser("users", userId);
+    const user = await fetchUserById("users", userId);
+    res.status(200).json({ user });
+  } catch (error) {
+    if (error.status === 404) {
+      return res.status(404).send({ error: error.message });
+    }
+    res.status(500).send({ error: "Failed to Fetch User" });
+  }
+};
+
+exports.getUserByUsername = async (req, res) => {
+  const username = req.params.username;
+
+  try {
+    const user = await fetchUserByUsername("users", username);
     res.status(200).json({ user });
   } catch (error) {
     if (error.status === 404) {
