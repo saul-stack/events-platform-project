@@ -75,10 +75,10 @@ button:focus-visible {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 #events-grid {
+  margin-top: 20px;
   width: 98%;
   position: relative;
   top: 4%;
