@@ -25,7 +25,7 @@ const EventCardLarge = () => {
   }
 
   return (
-    <div>
+    <div className="event-card-large">
       <h1>{event.title}</h1>
       <p>{event.description}</p>
       <p>Date: {new Date(event.date).toLocaleDateString()}</p>
