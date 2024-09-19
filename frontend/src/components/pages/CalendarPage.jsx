@@ -1,4 +1,8 @@
 function CalendarPage() {
-  return <h1>CalendarPage is here</h1>;
+  return (
+    <div className="main-content">
+      <h1>My Calendar</h1>
+    </div>
+  );
 }
 export default CalendarPage;
