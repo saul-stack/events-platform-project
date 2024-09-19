@@ -28,6 +28,7 @@ const EventCardSmall = ({ event }) => {
       <div className="event-details">
         <p className="event-date">{date}</p>
         <h1 className="event-title">{event.title}</h1>
+        <p className="event-type">{event.event_type}</p>
         <p className="event-time">{event.time}</p>
       </div>
       <a href="#" className="event-button">
