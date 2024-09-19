@@ -100,7 +100,8 @@ describe("POST", () => {
         "is_seated": false,
         "is_ticketed": true,
         "is_recurring": true,
-        "image_url": "https://placehold.co/1920x1080",
+        "image_url":
+          "https://images.pexels.com/photos/1864639/pexels-photo-1864639.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
       });
       expect(response.status).toBe(400);
       expect(response.body).toEqual({
@@ -122,7 +123,8 @@ describe("POST", () => {
         "is_seated": false,
         "is_ticketed": false,
         "is_recurring": true,
-        "image_url": "https://placehold.co/1920x1080",
+        "image_url":
+          "https://images.pexels.com/photos/3984830/pexels-photo-3984830.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
       });
 
       expect(response.status).toBe(400);
@@ -164,7 +166,8 @@ describe("POST", () => {
           "is_seated": true,
           "is_ticketed": true,
           "is_recurring": false,
-          "image_url": "https://placehold.co/1920x1080",
+          "image_url":
+            "https://images.pexels.com/photos/10168230/pexels-photo-10168230.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
         });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({

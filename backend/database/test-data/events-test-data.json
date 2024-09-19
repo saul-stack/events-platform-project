@@ -42,7 +42,7 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://placehold.co/1920x1080"
+      "image_url": "https://images.pexels.com/photos/1283219/pexels-photo-1283219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
       "title": "Test Event #2",
@@ -56,7 +56,7 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://placehold.co/1920x1080"
+      "image_url": "https://images.pexels.com/photos/274192/pexels-photo-274192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
       "title": "Test Event #3",
@@ -70,7 +70,7 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://placehold.co/1920x1080"
+      "image_url": "https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
       "title": "Test Event #4",
@@ -84,7 +84,7 @@
       "is_seated": true,
       "is_ticketed": false,
       "is_recurring": false,
-      "image_url": "https://placehold.co/1920x1080"
+      "image_url": "https://images.pexels.com/photos/3540/restaurant-alcohol-bar-drinks.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
       "title": "Test Event #5",
@@ -98,7 +98,7 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://placehold.co/1920x1080"
+      "image_url": "https://images.pexels.com/photos/10175905/pexels-photo-10175905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
       "title": "Test Event #6",
@@ -112,7 +112,7 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://placehold.co/1920x1080"
+      "image_url": "https://images.pexels.com/photos/5547060/pexels-photo-5547060.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
       "title": "Test Event #7",
@@ -126,7 +126,7 @@
       "is_seated": true,
       "is_ticketed": false,
       "is_recurring": true,
-      "image_url": "https://placehold.co/1920x1080"
+      "image_url": "https://images.pexels.com/photos/287615/pexels-photo-287615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
       "title": "Test Event #8",
@@ -140,7 +140,7 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://placehold.co/1920x1080"
+      "image_url": "https://images.pexels.com/photos/16360910/pexels-photo-16360910/free-photo-of-cabot-tower-in-bristol.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
       "title": "Test Event #9",
@@ -154,7 +154,7 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://placehold.co/1920x1080"
+      "image_url": "https://images.pexels.com/photos/3469692/pexels-photo-3469692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
       "title": "Test Event #10",
@@ -168,7 +168,7 @@
       "is_seated": false,
       "is_ticketed": false,
       "is_recurring": false,
-      "image_url": "https://placehold.co/1920x1080"
+      "image_url": "https://images.pexels.com/photos/3984831/pexels-photo-3984831.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
     }
   ]
 }
