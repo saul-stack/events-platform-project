@@ -20,6 +20,7 @@ const newEvent = {
   "is_seated": true,
   "is_ticketed": false,
   "is_recurring": false,
+  "image_url": "https://via.placeholder.com/150",
 };
 
 const newUser = {
