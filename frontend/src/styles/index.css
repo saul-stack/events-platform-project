@@ -66,12 +66,12 @@ button:focus-visible {
 }
 .main-content {
   padding-top: 2%;
-  width: 90%;
+  width: 98%;
   min-height: 90vh;
   border: 1px solid #000000;
   position: absolute;
   top: 10%;
-  left: 5%;
+  left: 1%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
