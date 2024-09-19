@@ -4,27 +4,27 @@ import { getAllEvents } from "../../../api-functions";
 import EventsGrid from "../EventsPage/EventsGrid";
 
 function EventsPage() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchAllEvents = async () => {
       const result = await getAllEvents();
-      console.log("result", result);
-      setEvents(result);
+
+      if (Array.isArray(result)) {
+        setEvents(result);
+      } else {
+        setError(result);
+      }
     };
 
     fetchAllEvents();
   }, []);
 
   return (
-    <div>
-      <h1>EventsPage is here</h1>
-      <p>
-        This page will display upcoming events as cards in a grid. Possible user
-        interactions include viewing details about the event, adding it to
-        "my-calendar" and purchasing tickets.
-      </p>
-      <EventsGrid events={events} />
+    <div className="main-content">
+      <h1>Upcoming Events</h1>
+      <EventsGrid events={events} error={error} />
     </div>
   );
 }
