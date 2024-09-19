@@ -22,7 +22,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <div className="navbar-content">
         {menuItems.map((item, index) => (
           <Link to={item.route} key={index} className="navbar-button">
@@ -30,7 +30,7 @@ const Navbar = () => {
           </Link>
         ))}
       </div>
-    </div>
+    </nav>
   );
 };
 

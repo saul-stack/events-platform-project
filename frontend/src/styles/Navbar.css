@@ -1,26 +1,19 @@
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background-color: black;
-  color: white;
+  border: 1px solid #000000;
   display: flex;
+  width: 80vw;
+  justify-content: space-between;
+  height: 2%;
   align-items: center;
-  justify-content: center;
-  z-index: 1000;
+
+  background-color: white;
+  padding: 12px 10px;
 }
 
 .navbar-content {
-  width: 90%;
-  max-width: 1200px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   align-items: center;
-}
-
-h1 {
-  margin: 0;
-  font-size: 1.5rem;
+  height: 100%;
+  width: 100%;
 }
