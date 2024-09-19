@@ -42,7 +42,7 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://via.placeholder.com/300"
+      "image_url": "https://placehold.co/1920x1080"
     },
     {
       "title": "Test Event #2",
@@ -56,7 +56,7 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://via.placeholder.com/300"
+      "image_url": "https://placehold.co/1920x1080"
     },
     {
       "title": "Test Event #3",
@@ -70,7 +70,7 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://via.placeholder.com/300"
+      "image_url": "https://placehold.co/1920x1080"
     },
     {
       "title": "Test Event #4",
@@ -84,7 +84,7 @@
       "is_seated": true,
       "is_ticketed": false,
       "is_recurring": false,
-      "image_url": "https://via.placeholder.com/300"
+      "image_url": "https://placehold.co/1920x1080"
     }
   ]
 }
