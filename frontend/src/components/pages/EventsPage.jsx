@@ -4,13 +4,18 @@ import { getAllEvents } from "../../../api-functions";
 import EventsGrid from "../EventsPage/EventsGrid";
 
 function EventsPage() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchAllEvents = async () => {
       const result = await getAllEvents();
-      console.log("result", result);
-      setEvents(result);
+
+      if (Array.isArray(result)) {
+        setEvents(result);
+      } else {
+        setError(result);
+      }
     };
 
     fetchAllEvents();
@@ -19,7 +24,7 @@ function EventsPage() {
   return (
     <div className="main-content">
       <h1>Upcoming Events</h1>
-      <EventsGrid events={events} />
+      <EventsGrid events={events} error={error} />
     </div>
   );
 }
