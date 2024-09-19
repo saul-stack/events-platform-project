@@ -31,7 +31,7 @@
   },
   "entries": [
     {
-      "title": "Test Event #1",
+      "title": "New Year's Resolutions",
       "date": "2023-01-01",
       "time": "12:00:00",
       "description": "This is the first test event.",
@@ -45,7 +45,7 @@
       "image_url": "https://images.pexels.com/photos/1283219/pexels-photo-1283219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
-      "title": "Test Event #2",
+      "title": "Distillery Social 1",
       "date": "2023-02-01",
       "time": "12:00:00",
       "description": "This is the second test event.",
@@ -59,7 +59,7 @@
       "image_url": "https://images.pexels.com/photos/274192/pexels-photo-274192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
-      "title": "Test Event #3",
+      "title": "Distillery Social 2",
       "date": "2023-03-01",
       "time": "14:00:00",
       "description": "This is the third test event.",
@@ -73,7 +73,7 @@
       "image_url": "https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
-      "title": "Test Event #4",
+      "title": "Something Else",
       "date": "2023-04-01",
       "time": "16:00:00",
       "description": "This is the fourth test event.",
@@ -87,7 +87,7 @@
       "image_url": "https://images.pexels.com/photos/3540/restaurant-alcohol-bar-drinks.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
-      "title": "Test Event #5",
+      "title": "Blue Velvet Quintet",
       "date": "2023-05-01",
       "time": "18:00:00",
       "description": "This is the fifth test event.",
@@ -101,7 +101,7 @@
       "image_url": "https://images.pexels.com/photos/10175905/pexels-photo-10175905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
-      "title": "Test Event #6",
+      "title": "Skeletons in the Closet",
       "date": "2023-06-01",
       "time": "20:00:00",
       "description": "This is the sixth test event.",
@@ -115,7 +115,7 @@
       "image_url": "https://images.pexels.com/photos/5547060/pexels-photo-5547060.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
-      "title": "Test Event #7",
+      "title": "Swings and Roundabout with Joanne Lineham",
       "date": "2023-07-01",
       "time": "10:00:00",
       "description": "This is the seventh test event.",
@@ -129,7 +129,7 @@
       "image_url": "https://images.pexels.com/photos/287615/pexels-photo-287615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
-      "title": "Test Event #8",
+      "title": "Park Walk",
       "date": "2023-08-01",
       "time": "22:00:00",
       "description": "This is the eighth test event.",
@@ -143,7 +143,7 @@
       "image_url": "https://images.pexels.com/photos/16360910/pexels-photo-16360910/free-photo-of-cabot-tower-in-bristol.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
-      "title": "Test Event #9",
+      "title": "Joe Taylor",
       "date": "2023-09-01",
       "time": "09:00:00",
       "description": "This is the ninth test event.",
@@ -157,7 +157,7 @@
       "image_url": "https://images.pexels.com/photos/3469692/pexels-photo-3469692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
-      "title": "Test Event #10",
+      "title": "Cruel To Be Kind",
       "date": "2023-10-01",
       "time": "11:00:00",
       "description": "This is the tenth test event.",

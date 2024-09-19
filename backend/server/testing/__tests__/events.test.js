@@ -89,7 +89,7 @@ describe("POST", () => {
   describe("Invalid Request", () => {
     test("Title already exists", async () => {
       const response = await request(server).post("/api/events").send({
-        "title": "Test Event #2",
+        "title": "Distillery Social 1",
         "date": "2023-02-01",
         "time": "18:00:00",
         "description": "This is an event with a duplicate title.",
