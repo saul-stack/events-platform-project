@@ -17,7 +17,7 @@ const EventCardSmall = ({ event }) => {
 
   return (
     <div
-      id="event-card"
+      id="event-card-small"
       style={cardStyle}
       onClick={() => handleClick(event.id)}
     >

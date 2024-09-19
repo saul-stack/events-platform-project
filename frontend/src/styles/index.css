@@ -89,7 +89,7 @@ button:focus-visible {
   gap: 10px;
 }
 
-#event-card {
+#event-card-small {
   width: 100%;
   height: 100%;
   border: 1px solid #bed12b;
