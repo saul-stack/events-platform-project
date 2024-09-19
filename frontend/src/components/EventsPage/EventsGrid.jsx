@@ -1,9 +1,10 @@
-import EventCard from "../global-components/EventCard";
+import EventCardSmall from "../global-components/EventCardSmall";
+
 const EventsGrid = ({ events, error }) => {
   return (
     <div id="events-grid">
       {events ? (
-        events.map((event) => <EventCard key={event.id} event={event} />)
+        events.map((event) => <EventCardSmall key={event.id} event={event} />)
       ) : (
         <div>{error}</div>
       )}

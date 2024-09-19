@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const EventCard = ({ event, eventId }) => {
+const EventCardSmall = ({ event, eventId }) => {
   const navigate = useNavigate();
 
   const cardStyle = {
@@ -22,9 +22,8 @@ const EventCard = ({ event, eventId }) => {
       <h2>{event.title}</h2>
       <p>{event.date}</p>
       <p>{event.time}</p>
-      <p>{event.location}</p>
     </div>
   );
 };
 
-export default EventCard;
+export default EventCardSmall;
