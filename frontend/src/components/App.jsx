@@ -1,5 +1,6 @@
 import "../styles/App.css";
 
+import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   AboutPage,
@@ -10,17 +11,15 @@ import {
   LoginPage,
 } from "./pages";
 
-import React from "react";
 import Navbar from "./global-components/Navbar";
 
 function App() {
   const navigate = useNavigate();
 
-  /* Temporarily disabled automatic navigation on page mount */
-  /*  useEffect(() => {
+  useEffect(() => {
     navigate("/events");
   }, []);
- */
+
   return (
     <>
       <Navbar />
