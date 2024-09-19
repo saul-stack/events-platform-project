@@ -3,13 +3,21 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
-const { postToEvents } = require("../MVC/controllers/events.controllers.js");
 const {
+  postToEvents,
   getAllEvents,
   getEventById,
   deleteEventById,
   patchEventById,
 } = require("../MVC/controllers/events.controllers.js");
+
+const {
+  getAllUsers,
+  postToUsers,
+  getUserById,
+  deleteUserById,
+  patchUserById,
+} = require("../MVC/controllers/users.controllers.js");
 
 const rejectRequestMethod = (req, res) => {
   const METHOD = req.method;
@@ -45,4 +53,15 @@ server.patch("/api/events/:id", patchEventById);
 server.post("/api/events/:id", rejectRequestMethod);
 server.put("/api/events/:id", rejectRequestMethod);
 
+server.get("/api/users", getAllUsers);
+server.delete("/api/users", rejectRequestMethod);
+server.put("/api/users", rejectRequestMethod);
+server.patch("/api/users", rejectRequestMethod);
+server.post("/api/users", postToUsers);
+
+server.get("/api/users/:id", getUserById);
+server.delete("/api/users/:id", deleteUserById);
+server.post("/api/users/:id", rejectRequestMethod);
+server.put("/api/users/:id", rejectRequestMethod);
+server.patch("/api/users/:id", patchUserById);
 module.exports = server;

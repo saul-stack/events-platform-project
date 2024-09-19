@@ -21,7 +21,6 @@
           "id": 1282,
           "title": "My event",
           "date": "2018-05-30",
-          "day_of_week": "Wednesday",
           "time": "18:00",
           "description": "This will be a fun event",
           "advance_price": 10.0,
@@ -42,7 +41,6 @@
       "event": {
         "title": "Wednesday evening book club",
         "date": "2018-05-30",
-        "day_of_week": "Wednesday",
         "time": "18:00",
         "description": "We will read books and discuss them",
         "advance_price": null,
@@ -78,7 +76,6 @@
       "event": {
         "title": "Tuesday morning yoga class",
         "date": "2018-05-29",
-        "day_of_week": "Tuesday",
         "time": "11:00",
         "description": "A fun yoga class to start your day",
         "advance_price": 5.0,

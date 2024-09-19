@@ -1,4 +1,4 @@
-const { checkIfEntryExistsById } = require("../../database/test-data/db-utils");
+const { verifyExists } = require("../utils/db-utils");
 const {
   fetchAllEvents,
   postEvent,
@@ -26,7 +26,23 @@ exports.postToEvents = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: "Failed to Post Event" });
+    if (error.code === "23505") {
+      return res
+        .status(400)
+        .send({ error: "Event with this title already exists." });
+    }
+    if (
+      error.message ===
+      "Refused: Cannot post non-ticketed event with ticket values."
+    ) {
+      return res.status(400).send({ error: error.message });
+    }
+
+    if (error.code === "23514") {
+      return res.status(400).send({ error: "Invalid ticket or price values." });
+    }
+
+    return res.status(500).send({ error: "Failed to Post Event" });
   }
 };
 
@@ -36,7 +52,7 @@ exports.getEventById = async (req, res) => {
     return res.status(400).send({ error: "Invalid event ID format." });
   }
   try {
-    const event = await fetchEvent(eventId);
+    const event = await fetchEvent("events", eventId);
     res.status(200).json({ event });
   } catch (error) {
     if (error.status === 404) {
@@ -52,7 +68,7 @@ exports.deleteEventById = async (req, res) => {
     return res.status(400).send({ error: "Invalid event ID format." });
   }
   try {
-    const eventExists = await checkIfEntryExistsById("events", eventId);
+    const eventExists = await verifyExists("events", eventId);
     if (!eventExists) {
       return res
         .status(404)
@@ -92,11 +108,11 @@ exports.patchEventById = async (req, res) => {
       return res.status(400).send({ error: "Invalid event ID format." });
     }
 
-    const event = await fetchEvent(eventId);
+    const event = await fetchEvent("events", eventId);
+    const oldTitle = event.title;
     await patchEvent(eventId, patchObject);
-    const eventTitle = event.title;
     res.status(200).json({
-      message: `Event #${eventId} (${eventTitle}) updated ${propertyToPatch} to '${patchObject[propertyToPatch]}' successfully.`,
+      message: `Event #${eventId} (${oldTitle}) updated ${propertyToPatch} to '${patchObject[propertyToPatch]}' successfully.`,
     });
   } catch (error) {
     if (error.status === 404) {

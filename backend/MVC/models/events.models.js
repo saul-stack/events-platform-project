@@ -1,12 +1,9 @@
 const db = require("../../database/connection.js");
-const {
-  checkIfTableExists,
-  getValuesOfObjectProperties,
-  checkIfEntryExistsById,
-} = require("../../database/test-data/db-utils.js");
+const { verifyExists } = require("../utils/db-utils.js");
+const { extractValues } = require("../utils/global-utils.js");
 
 const fetchAllEvents = async () => {
-  const tableExists = await checkIfTableExists("events");
+  const tableExists = await verifyExists("events");
   if (!tableExists) {
     throw new Error("Table does not exist");
   }
@@ -16,16 +13,29 @@ const fetchAllEvents = async () => {
 
 const postEvent = async (newEvent) => {
   try {
-    const tableExists = await checkIfTableExists("events");
+    if (newEvent.is_ticketed === false) {
+      if (
+        newEvent.tickets_total > 0 ||
+        newEvent.tickets_sold > 0 ||
+        newEvent.advance_price > 0 ||
+        newEvent.door_price > 0
+      ) {
+        throw new Error(
+          "Refused: Cannot post non-ticketed event with ticket values."
+        );
+      }
+    }
+
+    const tableExists = await verifyExists("events");
     if (!tableExists) {
       throw new Error("Table does not exist");
     }
 
-    const singleEntryValues = getValuesOfObjectProperties(newEvent);
+    const values = extractValues(newEvent);
 
     await db.query(
-      "INSERT INTO events (title, date, day_of_week, time, description, advance_price, door_price, tickets_total, tickets_sold, is_seated, is_ticketed, is_recurring) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)",
-      singleEntryValues
+      "INSERT INTO events (title, date, time, description, advance_price, door_price, tickets_total, tickets_sold, is_seated, is_ticketed, is_recurring) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
+      values
     );
   } catch (error) {
     console.error("Error inserting data:", error);
@@ -33,22 +43,23 @@ const postEvent = async (newEvent) => {
   }
 };
 
-const fetchEvent = async (eventId) => {
+const fetchEvent = async (tableName, eventId) => {
   try {
-    const tableExists = await checkIfTableExists("events");
+    const tableExists = await verifyExists(tableName);
     if (!tableExists) {
       throw new Error("Table does not exist");
     }
-    const eventExists = await checkIfEntryExistsById("events", eventId);
+    const eventExists = await verifyExists(tableName, eventId);
     if (!eventExists) {
       const error = new Error(`Event with ID ${eventId} not found.`);
       error.status = 404;
       throw error;
     }
 
-    const result = await db.query("SELECT * FROM events WHERE id = $1", [
+    const result = await db.query(`SELECT * FROM ${tableName} WHERE id = $1`, [
       eventId,
     ]);
+
     const event = result.rows[0];
     return event;
   } catch (error) {
@@ -59,11 +70,11 @@ const fetchEvent = async (eventId) => {
 
 const deleteEvent = async (eventId) => {
   try {
-    const tableExists = await checkIfTableExists("events");
+    const tableExists = await verifyExists("events");
     if (!tableExists) {
       throw new Error("Table does not exist");
     }
-    const eventExists = await checkIfEntryExistsById("events", eventId);
+    const eventExists = await verifyExists("events", eventId);
     if (!eventExists) {
       const error = new Error(`Event with ID ${eventId} not found.`);
       error.status = 404;
@@ -78,11 +89,11 @@ const deleteEvent = async (eventId) => {
 
 const patchEvent = async (eventId, patchObject) => {
   try {
-    const tableExists = await checkIfTableExists("events");
+    const tableExists = await verifyExists("events");
     if (!tableExists) {
       throw new Error("Table does not exist");
     }
-    const eventExists = await checkIfEntryExistsById("events", eventId);
+    const eventExists = await verifyExists("events", eventId);
     if (!eventExists) {
       const error = new Error(`Event with ID ${eventId} not found.`);
       error.status = 404;
@@ -96,7 +107,7 @@ const patchEvent = async (eventId, patchObject) => {
     const query = `UPDATE events SET ${propertyToPatch} = $1 WHERE id = $2`;
 
     await db.query(query, [valueToPatch, eventId]);
-    const updatedEvent = await fetchEvent(eventId);
+    const updatedEvent = await fetchEvent("events", eventId);
     return updatedEvent;
   } catch (error) {
     console.error(error);

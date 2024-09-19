@@ -1,0 +1,62 @@
+{
+  "schema": {
+    "tableName": "users",
+    "columns": [
+      { "name": "id", "type": "SERIAL PRIMARY KEY" },
+      { "name": "first_name", "type": "VARCHAR NOT NULL" },
+      { "name": "last_name", "type": "VARCHAR" },
+      { "name": "user_name", "type": "VARCHAR NOT NULL UNIQUE" },
+      { "name": "events_watched", "type": "INTEGER []" },
+      { "name": "events_booked", "type": "INTEGER []" },
+      { "name": "email", "type": "VARCHAR NOT NULL UNIQUE" },
+      { "name": "password", "type": "VARCHAR NOT NULL" },
+      {
+        "name": "role",
+        "type": "VARCHAR (10) CHECK (role IN ('admin', 'user')) DEFAULT 'user'"
+      }
+    ]
+  },
+
+  "entries": [
+    {
+      "first_name": "John",
+      "last_name": "Doe",
+      "user_name": "johndoe",
+      "events_watched": [1, 2, 5],
+      "events_booked": [2],
+      "email": "johndoe@email.com",
+      "password": "password",
+      "role": "user"
+    },
+    {
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "user_name": "janedoe",
+      "events_watched": [3, 4, 6],
+      "events_booked": [1, 3],
+      "email": "janedoe@email.com",
+      "password": "password",
+      "role": "user"
+    },
+    {
+      "first_name": "Admin",
+      "last_name": "Admin",
+      "user_name": "admin",
+      "events_watched": [],
+      "events_booked": [],
+      "email": "admin",
+      "password": "password",
+      "role": "admin"
+    },
+    {
+      "first_name": "Steve",
+      "last_name": "Johnson",
+      "user_name": "generic_user",
+      "events_watched": [1],
+      "events_booked": [1],
+      "email": "generic@email.com",
+      "password": "password",
+      "role": "user"
+    }
+  ]
+}
