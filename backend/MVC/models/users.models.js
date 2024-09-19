@@ -4,6 +4,7 @@ const { verifyExists } = require("../utils/db-utils.js");
 const {
   extractValues,
   verifyValidEmailAddress,
+  handleError,
 } = require("../utils/global-utils.js");
 
 const fetchAllUsers = async () => {
@@ -33,7 +34,7 @@ const postUser = async (newUser) => {
   }
 };
 
-const fetchUser = async (tableName, userId) => {
+const fetchUserById = async (tableName, userId) => {
   try {
     const tableExists = await verifyExists(tableName);
 
@@ -55,6 +56,33 @@ const fetchUser = async (tableName, userId) => {
     return user;
   } catch (error) {
     console.error(error);
+    throw error;
+  }
+};
+
+const fetchUserByUsername = async (tableName, username) => {
+  try {
+    const tableExists = await verifyExists(tableName);
+
+    if (!tableExists) {
+      throw new Error("Table not found");
+    }
+
+    const result = await db.query(
+      `SELECT * FROM ${tableName} WHERE user_name = $1`,
+      [username]
+    );
+
+    const user = result.rows[0];
+
+    if (user === undefined) {
+      const error = new Error(`User not found.`);
+      error.status = 404;
+      throw error;
+    }
+
+    return user;
+  } catch (error) {
     throw error;
   }
 };
@@ -101,7 +129,7 @@ const patchUser = async (userId, patchObject) => {
     const query = `UPDATE users SET ${propertyToPatch} = $1 WHERE id = $2`;
 
     await db.query(query, [valueToPatch, userId]);
-    const updatedUser = await fetchUser("users", userId);
+    const updatedUser = await fetchUserById("users", userId);
     return updatedUser;
   } catch (error) {
     console.error(error);
@@ -112,7 +140,8 @@ const patchUser = async (userId, patchObject) => {
 module.exports = {
   fetchAllUsers,
   postUser,
-  fetchUser,
+  fetchUserById,
   deleteUser,
   patchUser,
+  fetchUserByUsername,
 };

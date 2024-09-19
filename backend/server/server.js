@@ -17,6 +17,7 @@ const {
   getUserById,
   deleteUserById,
   patchUserById,
+  getUserByUsername,
 } = require("../MVC/controllers/users.controllers.js");
 
 const rejectRequestMethod = (req, res) => {
@@ -64,4 +65,7 @@ server.delete("/api/users/:id", deleteUserById);
 server.post("/api/users/:id", rejectRequestMethod);
 server.put("/api/users/:id", rejectRequestMethod);
 server.patch("/api/users/:id", patchUserById);
+
+server.get("/api/users/username/:username", getUserByUsername);
+
 module.exports = server;

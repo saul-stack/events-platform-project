@@ -476,6 +476,31 @@ describe("/api/users/:id", () => {
   });
 });
 
+describe("/api/users/username/:username", () => {
+  describe("GET", () => {
+    describe("Valid request", () => {
+      test("Responds (200) with user object", async () => {
+        const username = "johndoe";
+        const response = await request(server).get(
+          `/api/users/username/${username}`
+        );
+        const expectedUser = await fetchTableEntry("users", 1);
+        expect(response.status).toBe(200);
+        expect(response.body.user).toEqual(expectedUser);
+      });
+    });
+    describe("Invalid request", () => {
+      test("User does not exist: Responds (404) Not Found", async () => {
+        const username = "non-existant-user99";
+        const response = await request(server).get(
+          `/api/users/username/${username}`
+        );
+        expect(response.status).toBe(404);
+        expect(response.body).toEqual({ error: `User not found.` });
+      });
+    });
+  });
+});
 //post and patch should abide by rules of psql value types -
 //dont allow duplicate events titles
 //minimum/maximum length of each entry in the table
