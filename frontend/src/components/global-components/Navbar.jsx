@@ -12,7 +12,7 @@ const Navbar = () => {
     { name: "Events", route: "/events" },
     { name: "My Calendar", route: "/my-calendar" },
     {
-      name: user.name && user.name.length > 0 ? "Account" : "Login",
+      name: user.name && user.name.length > 0 ? `${user.name}` : "Login",
       route: user.name && user.name.length > 0 ? "/my-account" : "/login",
     },
   ];
