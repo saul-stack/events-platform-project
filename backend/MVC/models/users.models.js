@@ -18,6 +18,13 @@ const fetchAllUsers = async () => {
 
 const postUser = async (newUser) => {
   try {
+    if (
+      !Array.isArray(newUser.events_watched) ||
+      !Array.isArray(newUser.events_booked)
+    ) {
+      throw new Error("Invalid Request Format.");
+    }
+
     const tableExists = await verifyExists("users");
     if (!tableExists) {
       throw new Error("Table not found");
@@ -25,7 +32,7 @@ const postUser = async (newUser) => {
 
     const values = extractValues(newUser);
     await db.query(
-      "INSERT INTO users (first_name, last_name, user_name, events_watched, events_booked, email, password, role ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO users (first_name, last_name, user_name, events_watched, events_booked, email, role ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
       values
     );
   } catch (error) {

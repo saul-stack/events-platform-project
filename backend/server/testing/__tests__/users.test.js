@@ -95,7 +95,6 @@ describe("/api/users", () => {
             "events_watched": [1, 9999],
             "events_booked": [2],
             "email": "lewie-is-cool@email.com",
-            "password": "password",
             "role": "user",
           });
         expect(response.status).toBe(400);
@@ -114,7 +113,6 @@ describe("/api/users", () => {
             "events_watched": [1, 1],
             "events_booked": [2],
             "email": "davey21@email.com",
-            "password": "password",
             "role": "user",
           });
         expect(response.status).toBe(400);
@@ -130,7 +128,6 @@ describe("/api/users", () => {
             "events_watched": [1],
             "events_booked": [2, 2],
             "email": "davey21@email.com",
-            "password": "password",
             "role": "user",
           });
         console.log(response.body);
@@ -158,6 +155,7 @@ describe("/api/users", () => {
           "email": "a.carrington21@email.com",
           "role": "user",
         });
+        console.log(response.status, "<<<<<<<<<<<", response.body, "<<<<<<<<");
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
           error: `Invalid Request Format.`,
@@ -174,7 +172,6 @@ describe("/api/users", () => {
             "events_watched": [1, 2, 3],
             "events_booked": [1],
             "email": "generic@email.com",
-            "password": "password",
             "role": "user",
           });
         expect(response.status).toBe(400);
@@ -193,7 +190,6 @@ describe("/api/users", () => {
             "events_watched": [1, 2, 3],
             "events_booked": [1],
             "email": "unique-email-address@email.com",
-            "password": "password",
             "role": "user",
           });
         expect(response.status).toBe(400);
@@ -392,7 +388,7 @@ describe("/api/users/:id", () => {
 
         response = await request(server).patch(`/api/users/${userId}`).send({
           "email": "new-address@email.com",
-          "password": "password9999",
+          "username": "aaaassss",
         });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({

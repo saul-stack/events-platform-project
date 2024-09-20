@@ -53,6 +53,10 @@ exports.postToUsers = async (req, res) => {
       message: `User posted successfully: ${req.body.title}`,
     });
   } catch (error) {
+    if (error.message === "Invalid Request Format.") {
+      return res.status(400).send({ error: error.message });
+    }
+
     if (error.code === "42P01") {
       return res.status(400).send({ error: "Events Table Not Found." });
     }
@@ -70,6 +74,7 @@ exports.postToUsers = async (req, res) => {
         .status(400)
         .send({ error: `User with this ${violatedProperty} already exists.` });
     }
+
     res.status(500).send({ error: "Failed to Post User" });
   }
 };
