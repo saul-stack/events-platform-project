@@ -2,41 +2,77 @@
   "schema": {
     "tableName": "users",
     "columns": [
-      { "name": "id", "type": "SERIAL PRIMARY KEY" },
-      { "name": "first_name", "type": "VARCHAR NOT NULL" },
-      { "name": "last_name", "type": "VARCHAR" },
-      { "name": "user_name", "type": "VARCHAR NOT NULL UNIQUE" },
-      { "name": "events_watched", "type": "INTEGER []" },
-      { "name": "events_booked", "type": "INTEGER []" },
-      { "name": "email", "type": "VARCHAR NOT NULL UNIQUE" },
+      {
+        "name": "id",
+        "type": "SERIAL PRIMARY KEY"
+      },
+      {
+        "name": "first_name",
+        "type": "VARCHAR NOT NULL"
+      },
+      {
+        "name": "last_name",
+        "type": "VARCHAR"
+      },
+      {
+        "name": "user_name",
+        "type": "VARCHAR NOT NULL UNIQUE"
+      },
+      {
+        "name": "events_watched",
+        "type": "INTEGER []"
+      },
+      {
+        "name": "events_booked",
+        "type": "INTEGER []"
+      },
+      {
+        "name": "email",
+        "type": "VARCHAR NOT NULL UNIQUE"
+      },
       {
         "name": "role",
         "type": "VARCHAR (10) CHECK (role IN ('admin', 'user')) DEFAULT 'user'"
       },
-      { "name": "hashed_password", "type": "VARCHAR NOT NULL" }
+      {
+        "name": "hashed_password",
+        "type": "VARCHAR NOT NULL"
+      }
     ]
   },
-
   "entries": [
     {
       "first_name": "John",
       "last_name": "Doe",
       "user_name": "johndoe",
-      "events_watched": [1, 2, 5],
-      "events_booked": [2],
+      "events_watched": [
+        1,
+        2,
+        5
+      ],
+      "events_booked": [
+        2
+      ],
       "email": "johndoe@email.com",
       "role": "user",
-      "hashed_password": "password"
+      "hashed_password": "$2b$10$u9RHUM.TgJ6v4o3irqABGOIXLDJWwuYexwXZFzY70.m9ozeoSnZla"
     },
     {
       "first_name": "Jane",
       "last_name": "Doe",
       "user_name": "janedoe",
-      "events_watched": [3, 4, 6],
-      "events_booked": [1, 3],
+      "events_watched": [
+        3,
+        4,
+        6
+      ],
+      "events_booked": [
+        1,
+        3
+      ],
       "email": "janedoe@email.com",
       "role": "user",
-      "hashed_password": "password"
+      "hashed_password": "$2b$10$XmSYBqFUyVr3ncXWWGaqb.TseN4s5EdeSuTx0uQ8wB5yySxegW8wm"
     },
     {
       "first_name": "Admin",
@@ -46,17 +82,21 @@
       "events_booked": [],
       "email": "admin",
       "role": "admin",
-      "hashed_password": "password"
+      "hashed_password": "$2b$10$66t5/Fuc0ABPyKMbzOMDIujEJrvptVyG9CpD/VHPbxdXsc0kvrjM2"
     },
     {
       "first_name": "Steve",
       "last_name": "Johnson",
       "user_name": "generic_user",
-      "events_watched": [1],
-      "events_booked": [1],
+      "events_watched": [
+        1
+      ],
+      "events_booked": [
+        1
+      ],
       "email": "generic@email.com",
       "role": "user",
-      "hashed_password": "password"
+      "hashed_password": "$2b$10$vKw1AutJq0J2vdkve4D.NOsYBQ3v7uK08oQBLpazVWx1wIvde6OA."
     }
   ]
 }

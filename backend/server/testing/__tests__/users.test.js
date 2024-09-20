@@ -173,7 +173,8 @@ describe("/api/users", () => {
             "events_booked": [1],
             "email": "generic@email.com",
             "role": "user",
-            "hashed_password": "password",
+            "hashed_password":
+              "$2b$10$/aSBJqCgM.1Ipm9EhkNmzenGJWKJmck0/zsrPW5KQ7o7BvGinogHO",
           });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
@@ -192,7 +193,8 @@ describe("/api/users", () => {
             "events_booked": [1],
             "email": "unique-email-address@email.com",
             "role": "user",
-            "hashed_password": "password",
+            "hashed_password":
+              "$2b$10$JTIF3mrKh1k5w3xSo71AZ.BlN/AGykpy7DNmbPb.lQSzKiGj0U3M.",
           });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
