@@ -17,6 +17,7 @@ export const getUserByUsername = async (username) => {
   try {
     const result = await api.get(`/users/username/${username}`);
     const user = result.data.user;
+    return user;
   } catch (error) {
     throw error;
   }

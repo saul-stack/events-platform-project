@@ -14,7 +14,7 @@ function AccountPage() {
   return (
     <div className="main-content">
       <p>
-        Logged in as: <b>{user.name}</b>
+        Logged in as: <b>{user.user_name}</b>
       </p>
       <button onClick={handleLogout}>Logout</button>
 

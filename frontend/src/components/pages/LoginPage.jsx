@@ -15,8 +15,8 @@ function LoginPage() {
 
     try {
       setErrorMessage(null);
-      await getUserByUsername(username);
-      setUser({ name: username });
+      const fetchedUser = await getUserByUsername(username);
+      setUser(fetchedUser);
       navigate("/my-account");
     } catch (error) {
       const errorMessage = error.response.data.error;
