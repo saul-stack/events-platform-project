@@ -173,6 +173,7 @@ describe("/api/users", () => {
             "events_booked": [1],
             "email": "generic@email.com",
             "role": "user",
+            "hashed_password": "password",
           });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
@@ -191,6 +192,7 @@ describe("/api/users", () => {
             "events_booked": [1],
             "email": "unique-email-address@email.com",
             "role": "user",
+            "hashed_password": "password",
           });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({

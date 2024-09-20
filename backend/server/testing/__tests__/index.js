@@ -32,6 +32,7 @@ const newUser = {
   "events_booked": [2, 4],
   "email": "post@test.com",
   "role": "user",
+  "hashed_password": "password",
 };
 
 module.exports = {

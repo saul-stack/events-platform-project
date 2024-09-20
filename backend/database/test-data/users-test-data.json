@@ -12,7 +12,8 @@
       {
         "name": "role",
         "type": "VARCHAR (10) CHECK (role IN ('admin', 'user')) DEFAULT 'user'"
-      }
+      },
+      { "name": "hashed_password", "type": "VARCHAR NOT NULL" }
     ]
   },
 
@@ -24,7 +25,8 @@
       "events_watched": [1, 2, 5],
       "events_booked": [2],
       "email": "johndoe@email.com",
-      "role": "user"
+      "role": "user",
+      "hashed_password": "password"
     },
     {
       "first_name": "Jane",
@@ -33,7 +35,8 @@
       "events_watched": [3, 4, 6],
       "events_booked": [1, 3],
       "email": "janedoe@email.com",
-      "role": "user"
+      "role": "user",
+      "hashed_password": "password"
     },
     {
       "first_name": "Admin",
@@ -42,7 +45,8 @@
       "events_watched": [],
       "events_booked": [],
       "email": "admin",
-      "role": "admin"
+      "role": "admin",
+      "hashed_password": "password"
     },
     {
       "first_name": "Steve",
@@ -51,7 +55,8 @@
       "events_watched": [1],
       "events_booked": [1],
       "email": "generic@email.com",
-      "role": "user"
+      "role": "user",
+      "hashed_password": "password"
     }
   ]
 }
