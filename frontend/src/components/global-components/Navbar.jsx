@@ -20,11 +20,11 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-content">
         {menuItems.map((item, index) => (
-          <div className="navbar-link" key={index}>
-            <Link to={item.route} className="navbar-button">
+          <Link to={item.route}>
+            <div className="navbar-link" key={index}>
               {item.name}
-            </Link>
-          </div>
+            </div>
+          </Link>
         ))}
       </div>
     </nav>
