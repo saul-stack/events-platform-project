@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { getAllEvents } from "../../../api-functions";
-import EventsGrid from "../EventsPage/EventsGrid";
+import EventsGrid from "../global-components/EventsGrid";
 
 function EventsPage() {
   const [events, setEvents] = useState(null);
