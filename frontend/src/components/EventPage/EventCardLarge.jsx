@@ -27,6 +27,7 @@ const EventCardLarge = () => {
   return (
     <div className="event-card-large">
       <h1>{event.title}</h1>
+      <img src={event.image_url} alt={event.title} />
       <p>{event.description}</p>
       <p>Date: {new Date(event.date).toLocaleDateString()}</p>
       <p>Time: {event.time}</p>
