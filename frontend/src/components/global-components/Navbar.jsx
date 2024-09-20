@@ -14,7 +14,6 @@ const Navbar = () => {
       name: "My Calendar",
       route: user.name && user.name.length > 0 ? "/my-calendar" : "/login",
     },
-
     {
       name: user.name && user.name.length > 0 ? `${user.name}` : "Login",
       route: user.name && user.name.length > 0 ? "/my-account" : "/login",
@@ -25,9 +24,11 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-content">
         {menuItems.map((item, index) => (
-          <Link to={item.route} key={index} className="navbar-button">
-            {item.name}
-          </Link>
+          <div className="navbar-link" key={index}>
+            <Link to={item.route} className="navbar-button">
+              {item.name}
+            </Link>
+          </div>
         ))}
       </div>
     </nav>
