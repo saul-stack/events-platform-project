@@ -55,7 +55,7 @@
       ],
       "email": "johndoe@email.com",
       "role": "user",
-      "hashed_password": "$2b$10$u9RHUM.TgJ6v4o3irqABGOIXLDJWwuYexwXZFzY70.m9ozeoSnZla"
+      "hashed_password": "$2b$10$7.7M6Vkmj1DqWLlNw1dZz.i5E6IFYITXbNdQP8IIurrwPQplhA3He"
     },
     {
       "first_name": "Jane",
@@ -72,7 +72,7 @@
       ],
       "email": "janedoe@email.com",
       "role": "user",
-      "hashed_password": "$2b$10$XmSYBqFUyVr3ncXWWGaqb.TseN4s5EdeSuTx0uQ8wB5yySxegW8wm"
+      "hashed_password": "$2b$10$pY8rXZ2paRsTJ0LsdTlT.OKH4sxsJrW2vYgGtn/XYIqsxUw61STDu"
     },
     {
       "first_name": "Admin",
@@ -82,7 +82,7 @@
       "events_booked": [],
       "email": "admin",
       "role": "admin",
-      "hashed_password": "$2b$10$66t5/Fuc0ABPyKMbzOMDIujEJrvptVyG9CpD/VHPbxdXsc0kvrjM2"
+      "hashed_password": "$2b$10$l/S48DMFlXtCgIp4KMfxm.1azl3j9rPbrsdeV9GVu36I/izJ7MjMG"
     },
     {
       "first_name": "Steve",
@@ -96,7 +96,7 @@
       ],
       "email": "generic@email.com",
       "role": "user",
-      "hashed_password": "$2b$10$vKw1AutJq0J2vdkve4D.NOsYBQ3v7uK08oQBLpazVWx1wIvde6OA."
+      "hashed_password": "$2b$10$OwkMFXD0JLWMIGhemqHxZe30KsSrhqOg22ATRImwYywnVhEBnZcY6"
     }
   ]
 }
