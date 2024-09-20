@@ -2,6 +2,7 @@ import "../../styles/EventCardSmall.css";
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { formatTime } from "../../../js-util-functions";
 
 const EventCardSmall = ({ event }) => {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ const EventCardSmall = ({ event }) => {
   };
   const date = new Date(event.date).toLocaleDateString(undefined, dateOptions);
 
+  const time = formatTime(event.time);
+
   return (
     <div className="event-card-small" onClick={() => handleClick(event.id)}>
       <div
@@ -29,7 +32,7 @@ const EventCardSmall = ({ event }) => {
         <p className="event-date">{date}</p>
         <h1 className="event-title">{event.title}</h1>
         <p className="event-type">{event.event_type}</p>
-        <p className="event-time">{event.time}</p>
+        <p className="event-time">{time}</p>
       </div>
       <a href="#" className="event-button">
         MORE INFO
