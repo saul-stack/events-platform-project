@@ -36,12 +36,10 @@ export const getEventById = async (eventId) => {
 export const logUserIn = async (username, password) => {
   try {
     const result = await api.post("/login", { username, password });
-    console.log(result.data);
     if (result.status === 200) {
       return result.data;
     }
   } catch (error) {
-    console.log("wrong password entered");
     throw error;
   }
 };
