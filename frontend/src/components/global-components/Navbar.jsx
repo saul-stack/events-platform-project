@@ -9,6 +9,7 @@ const Navbar = () => {
   const location = useLocation();
   const [routeBase, setRouteBase] = useState(null);
   const { user } = useContext(UserContext);
+  const { user_name, role } = user;
 
   useEffect(() => {
     setRouteBase(location.pathname.split("/")[1]);
@@ -27,7 +28,11 @@ const Navbar = () => {
           ? `${user.user_name}`
           : "Login",
       route:
-        user.user_name && user.user_name.length > 0 ? "/account" : "/login",
+        user.user_name && user.user_name.length > 0
+          ? user.role === "admin"
+            ? "/admin"
+            : "/account"
+          : "/login",
     },
   ];
 
