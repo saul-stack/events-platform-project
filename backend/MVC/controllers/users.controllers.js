@@ -221,7 +221,6 @@ exports.getUserByUsername = async (req, res) => {
 
 exports.deleteUserById = async (req, res) => {
   const userId = req.params.id;
-  console.log(userId);
   if (isNaN(userId)) {
     return res.status(400).send({ error: "Invalid user ID format." });
   }
