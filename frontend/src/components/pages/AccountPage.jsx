@@ -5,6 +5,7 @@ import MyEvents from "../AccountPage/MyEvents";
 function AccountPage() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
+  const { role, user_name } = user;
 
   function handleLogout() {
     setUser({ name: null });
@@ -14,11 +15,10 @@ function AccountPage() {
   return (
     <div className="main-content">
       <p>
-        Logged in as: <b>{user.user_name}</b>
+        Logged in as: <b>{user_name}</b>
       </p>
       <button onClick={handleLogout}>Logout</button>
-
-      <MyEvents></MyEvents>
+      <MyEvents />
     </div>
   );
 }
