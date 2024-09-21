@@ -6,12 +6,12 @@ const filePath = path.join(__dirname, "./users-test-data.json");
 
 const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
-const hashPasswords = async (entries) => {
+const hashPasswords = async (users) => {
   const saltRounds = 10;
-  for (let entry of entries) {
-    if (entry.hashed_password) {
-      entry.hashed_password = await bcrypt.hash(
-        entry.hashed_password,
+  for (let user of users) {
+    if (user.hashed_password) {
+      user.hashed_password = await bcrypt.hash(
+        user.hashed_password,
         saltRounds
       );
     }
