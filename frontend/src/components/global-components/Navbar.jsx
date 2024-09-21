@@ -16,7 +16,7 @@ const Navbar = () => {
           ? `${user.user_name}`
           : "Login",
       route:
-        user.user_name && user.user_name.length > 0 ? "/my-account" : "/login",
+        user.user_name && user.user_name.length > 0 ? "/account" : "/login",
     },
   ];
 
