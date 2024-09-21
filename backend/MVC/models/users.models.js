@@ -1,11 +1,13 @@
 const db = require("../../database/connection.js");
 const { verifyExists } = require("../utils/db-utils.js");
+const bcrypt = require("bcrypt");
 
 const {
   extractValues,
   verifyValidEmailAddress,
   handleError,
 } = require("../utils/global-utils.js");
+const { fetchAllEndpoints } = require("./api.models.js");
 
 const fetchAllUsers = async () => {
   const tableExists = await verifyExists("users");
@@ -18,6 +20,13 @@ const fetchAllUsers = async () => {
 
 const postUser = async (newUser) => {
   try {
+    if (
+      !Array.isArray(newUser.events_watched) ||
+      !Array.isArray(newUser.events_booked)
+    ) {
+      throw new Error("Invalid Request Format.");
+    }
+
     const tableExists = await verifyExists("users");
     if (!tableExists) {
       throw new Error("Table not found");
@@ -25,7 +34,7 @@ const postUser = async (newUser) => {
 
     const values = extractValues(newUser);
     await db.query(
-      "INSERT INTO users (first_name, last_name, user_name, events_watched, events_booked, email, password, role ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO users (first_name, last_name, user_name, events_watched, events_booked, email, role, hashed_password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       values
     );
   } catch (error) {
@@ -48,9 +57,10 @@ const fetchUserById = async (tableName, userId) => {
       throw error;
     }
 
-    const result = await db.query(`SELECT * FROM ${tableName} WHERE id = $1`, [
-      userId,
-    ]);
+    const result = await db.query(
+      `SELECT id, first_name, last_name, user_name, role, email, events_booked, events_watched FROM ${tableName} WHERE id = $1`,
+      [userId]
+    );
 
     const user = result.rows[0];
     return user;
@@ -69,7 +79,9 @@ const fetchUserByUsername = async (tableName, username) => {
     }
 
     const result = await db.query(
-      `SELECT * FROM ${tableName} WHERE user_name = $1`,
+      `SELECT id,
+      first_name, last_name, user_name, events_watched, events_booked, email, role
+      FROM ${tableName} WHERE user_name = $1`,
       [username]
     );
 
@@ -137,7 +149,28 @@ const patchUser = async (userId, patchObject) => {
   }
 };
 
+const logIn = async (username, inputPassword) => {
+  try {
+    const result = await db.query(
+      "SELECT hashed_password FROM users WHERE user_name = $1",
+      [username]
+    );
+    const correctHashedPassword = result.rows[0].hashed_password;
+    const isMatch = await bcrypt.compare(inputPassword, correctHashedPassword);
+    if (isMatch) {
+      const user = await fetchUserByUsername("users", username);
+      return user;
+    } else {
+      throw new Error("Invalid username or password");
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 module.exports = {
+  logIn,
   fetchAllUsers,
   postUser,
   fetchUserById,

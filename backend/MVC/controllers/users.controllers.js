@@ -12,6 +12,7 @@ const {
   deleteUser,
   patchUser,
   fetchUserByUsername,
+  logIn,
 } = require("../models/users.models");
 
 exports.getAllUsers = async (req, res) => {
@@ -53,6 +54,10 @@ exports.postToUsers = async (req, res) => {
       message: `User posted successfully: ${req.body.title}`,
     });
   } catch (error) {
+    if (error.message === "Invalid Request Format.") {
+      return res.status(400).send({ error: error.message });
+    }
+
     if (error.code === "42P01") {
       return res.status(400).send({ error: "Events Table Not Found." });
     }
@@ -70,6 +75,7 @@ exports.postToUsers = async (req, res) => {
         .status(400)
         .send({ error: `User with this ${violatedProperty} already exists.` });
     }
+
     res.status(500).send({ error: "Failed to Post User" });
   }
 };
@@ -216,7 +222,6 @@ exports.getUserByUsername = async (req, res) => {
 
 exports.deleteUserById = async (req, res) => {
   const userId = req.params.id;
-  console.log(userId);
   if (isNaN(userId)) {
     return res.status(400).send({ error: "Invalid user ID format." });
   }
@@ -233,5 +238,21 @@ exports.deleteUserById = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Failed to Delete User" });
+  }
+};
+
+exports.logUserIn = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await logIn(username, password);
+    if (user) {
+      return res.status(200).json(user);
+    } else {
+      return res.status(401).send({ error: "Invalid username or password." });
+    }
+  } catch (error) {
+    console.error("Error logging in:", error);
+    return res.status(500).send({ error: "Internal server error." });
   }
 };

@@ -8,7 +8,6 @@ const EventCardSmall = ({ event }) => {
   const navigate = useNavigate();
 
   const handleClick = (id) => {
-    console.log(`Event clicked: ${id}`);
     navigate(`/events/${id}`);
   };
 

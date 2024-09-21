@@ -95,7 +95,6 @@ describe("/api/users", () => {
             "events_watched": [1, 9999],
             "events_booked": [2],
             "email": "lewie-is-cool@email.com",
-            "password": "password",
             "role": "user",
           });
         expect(response.status).toBe(400);
@@ -114,7 +113,6 @@ describe("/api/users", () => {
             "events_watched": [1, 1],
             "events_booked": [2],
             "email": "davey21@email.com",
-            "password": "password",
             "role": "user",
           });
         expect(response.status).toBe(400);
@@ -130,10 +128,8 @@ describe("/api/users", () => {
             "events_watched": [1],
             "events_booked": [2, 2],
             "email": "davey21@email.com",
-            "password": "password",
             "role": "user",
           });
-        console.log(response.body);
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
           error: `Refused: Duplicate Events Values.`,
@@ -174,8 +170,9 @@ describe("/api/users", () => {
             "events_watched": [1, 2, 3],
             "events_booked": [1],
             "email": "generic@email.com",
-            "password": "password",
             "role": "user",
+            "hashed_password":
+              "$2b$10$/aSBJqCgM.1Ipm9EhkNmzenGJWKJmck0/zsrPW5KQ7o7BvGinogHO",
           });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
@@ -193,8 +190,9 @@ describe("/api/users", () => {
             "events_watched": [1, 2, 3],
             "events_booked": [1],
             "email": "unique-email-address@email.com",
-            "password": "password",
             "role": "user",
+            "hashed_password":
+              "$2b$10$JTIF3mrKh1k5w3xSo71AZ.BlN/AGykpy7DNmbPb.lQSzKiGj0U3M.",
           });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
@@ -211,9 +209,17 @@ describe("/api/users/:id", () => {
       test("Responds (200) with user object", async () => {
         const userId = 1;
         const response = await request(server).get(`/api/users/${userId}`);
-        const expectedUser = await fetchTableEntry("users", userId);
         expect(response.status).toBe(200);
-        expect(response.body.user).toEqual(expectedUser);
+        expect(response.body.user).toEqual({
+          id: 1,
+          first_name: "John",
+          last_name: "Doe",
+          user_name: "johndoe",
+          events_watched: [1, 2, 5],
+          events_booked: [2],
+          email: "johndoe@email.com",
+          role: "user",
+        });
       });
     });
 
@@ -392,7 +398,7 @@ describe("/api/users/:id", () => {
 
         response = await request(server).patch(`/api/users/${userId}`).send({
           "email": "new-address@email.com",
-          "password": "password9999",
+          "username": "aaaassss",
         });
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
@@ -486,7 +492,16 @@ describe("/api/users/username/:username", () => {
         );
         const expectedUser = await fetchTableEntry("users", 1);
         expect(response.status).toBe(200);
-        expect(response.body.user).toEqual(expectedUser);
+        expect(response.body.user).toEqual({
+          "id": 1,
+          "first_name": "John",
+          "last_name": "Doe",
+          "user_name": "johndoe",
+          "events_watched": [1, 2, 5],
+          "events_booked": [2],
+          "email": "johndoe@email.com",
+          "role": "user",
+        });
       });
     });
     describe("Invalid request", () => {

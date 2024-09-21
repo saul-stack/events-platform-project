@@ -29,11 +29,6 @@ exports.verifyExists = async (tableName, id = null) => {
   try {
     const result = await db.query(query, params);
     const exists = result.rows[0].exists;
-    console.log(
-      `${id === null ? "Table" : "Entry"} "${
-        id === null ? tableName : id
-      }" exists: ${exists}`
-    );
     return exists;
   } catch (error) {
     handleError("Error checking if exists", error);

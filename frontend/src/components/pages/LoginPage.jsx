@@ -1,26 +1,25 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { getUserByUsername } from "../../../api-functions";
+import { logUserIn } from "../../../api-functions";
 import { UserContext } from "../../contexts/UserContext";
 
-function LoginPage() {
+const LoginPage = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const { user, setUser } = useContext(UserContext);
-  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const username = event.target.username.value;
 
     try {
-      setErrorMessage(null);
-      const fetchedUser = await getUserByUsername(username);
-      setUser(fetchedUser);
-      navigate("/my-account");
+      const loggedInUser = await logUserIn(username, password);
+      setUser(loggedInUser);
+      navigate("/account");
     } catch (error) {
-      const errorMessage = error.response.data.error;
-      setErrorMessage(errorMessage);
+      setErrorMessage("Invalid username or password");
     }
   };
 
@@ -31,12 +30,31 @@ function LoginPage() {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" required />
-          {errorMessage && <p className="error">{errorMessage}</p>}
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
         </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {errorMessage && <p className="error">{errorMessage}</p>}
         <button type="submit">Login</button>
       </form>
     </div>
   );
-}
+};
+
 export default LoginPage;
