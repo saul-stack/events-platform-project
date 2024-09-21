@@ -5,6 +5,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   AboutPage,
   AccountPage,
+  AdminPage,
   EventPage,
   EventsPage,
   LoginPage,
@@ -28,6 +29,7 @@ function App() {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/events/:eventId" element={<EventPage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </>
   );
