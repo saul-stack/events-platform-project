@@ -118,3 +118,12 @@ button:focus-visible {
   font-family: "IBMPlexMono-Regular";
   src: url("../assets/fonts/IBMPlexMono-Regular.otf") format("opentype");
 }
+
+@font-face {
+  font-family: "IBMPlexMono-Italic";
+  src: url("../assets/fonts/IBMPlexMono-Italic.ttf") format("truetype");
+}
+
+em {
+  font-family: "IBMPlexMono-Italic", sans-serif; /* Fallback to sans-serif if the font is not available */
+}
