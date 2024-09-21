@@ -30,6 +30,10 @@
   font-size: 20px;
   border: 1px solid #000000;
   color: black;
-  /*   height: 2%;
- */
+}
+.navbar-link-active {
+  font-size: 20px;
+  border: 1px solid #000000;
+  background-color: rgba(114, 113, 149, 0.168);
+  color: rgb(0, 0, 0);
 }

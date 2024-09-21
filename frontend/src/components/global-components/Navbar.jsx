@@ -36,7 +36,15 @@ const Navbar = () => {
       <div className="navbar-content">
         {menuItems.map((item, index) => (
           <Link to={item.route}>
-            <div className="navbar-link" key={index}>
+            <div
+              className={`navbar-link ${
+                item.route.split("/")[1] === routeBase
+                  ? "navbar-link-active"
+                  : ""
+              }`}
+              cla
+              key={index}
+            >
               {item.name}
             </div>
           </Link>
