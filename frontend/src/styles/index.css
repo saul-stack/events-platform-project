@@ -112,6 +112,14 @@ button:focus-visible {
   background-size: cover;
   background-position: center;
 }
+.event-card-large-topbar {
+  display: grid;
+  grid-template-columns: 1fr 30fr 1fr;
+}
+
+.event-card-large-topbar-back-button {
+  border: none;
+}
 
 @font-face {
   font-family: "IBMPlexMono-Regular";
