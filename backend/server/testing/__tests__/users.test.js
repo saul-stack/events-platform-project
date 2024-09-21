@@ -130,7 +130,6 @@ describe("/api/users", () => {
             "email": "davey21@email.com",
             "role": "user",
           });
-        console.log(response.body);
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
           error: `Refused: Duplicate Events Values.`,
@@ -155,7 +154,6 @@ describe("/api/users", () => {
           "email": "a.carrington21@email.com",
           "role": "user",
         });
-        console.log(response.status, "<<<<<<<<<<<", response.body, "<<<<<<<<");
         expect(response.status).toBe(400);
         expect(response.body).toEqual({
           error: `Invalid Request Format.`,
@@ -211,9 +209,17 @@ describe("/api/users/:id", () => {
       test("Responds (200) with user object", async () => {
         const userId = 1;
         const response = await request(server).get(`/api/users/${userId}`);
-        const expectedUser = await fetchTableEntry("users", userId);
         expect(response.status).toBe(200);
-        expect(response.body.user).toEqual(expectedUser);
+        expect(response.body.user).toEqual({
+          id: 1,
+          first_name: "John",
+          last_name: "Doe",
+          user_name: "johndoe",
+          events_watched: [1, 2, 5],
+          events_booked: [2],
+          email: "johndoe@email.com",
+          role: "user",
+        });
       });
     });
 
@@ -486,7 +492,16 @@ describe("/api/users/username/:username", () => {
         );
         const expectedUser = await fetchTableEntry("users", 1);
         expect(response.status).toBe(200);
-        expect(response.body.user).toEqual(expectedUser);
+        expect(response.body.user).toEqual({
+          "id": 1,
+          "first_name": "John",
+          "last_name": "Doe",
+          "user_name": "johndoe",
+          "events_watched": [1, 2, 5],
+          "events_booked": [2],
+          "email": "johndoe@email.com",
+          "role": "user",
+        });
       });
     });
     describe("Invalid request", () => {
