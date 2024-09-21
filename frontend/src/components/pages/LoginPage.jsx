@@ -16,8 +16,10 @@ const LoginPage = () => {
 
     try {
       const loggedInUser = await logUserIn(username, password);
-      setUser(loggedInUser);
-      navigate("/account");
+      await setUser(loggedInUser);
+      if (loggedInUser.role === "admin") {
+        navigate("/admin");
+      } else navigate("/account");
     } catch (error) {
       setErrorMessage("Invalid username or password");
     }
