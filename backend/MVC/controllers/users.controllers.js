@@ -12,6 +12,7 @@ const {
   deleteUser,
   patchUser,
   fetchUserByUsername,
+  logIn,
 } = require("../models/users.models");
 
 exports.getAllUsers = async (req, res) => {
