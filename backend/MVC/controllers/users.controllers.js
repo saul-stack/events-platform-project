@@ -240,3 +240,19 @@ exports.deleteUserById = async (req, res) => {
     res.status(500).send({ error: "Failed to Delete User" });
   }
 };
+
+exports.logUserIn = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await logIn(username, password);
+    if (user) {
+      return res.status(200).json(user);
+    } else {
+      return res.status(401).send({ error: "Invalid username or password." });
+    }
+  } catch (error) {
+    console.error("Error logging in:", error);
+    return res.status(500).send({ error: "Internal server error." });
+  }
+};
