@@ -1,12 +1,23 @@
 import "../../styles/Navbar.css";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 
 const Navbar = () => {
+  const location = useLocation();
+  const [routeBase, setRouteBase] = useState(null);
   const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    setRouteBase(location.pathname.split("/")[1]);
+  }, [location]);
+
+  useEffect(() => {
+    console.log("routeBase changed to", routeBase);
+  }, [routeBase]);
+
   const menuItems = [
     { name: "About", route: "/about" },
     { name: "Events", route: "/events" },
