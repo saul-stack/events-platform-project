@@ -11,11 +11,11 @@
 
       {
         "name": "advance_price",
-        "type": "MONEY NOT NULL CHECK (advance_price::numeric >= 0)"
+        "type": "INT NOT NULL CHECK (advance_price >= 0)"
       },
       {
         "name": "door_price",
-        "type": "MONEY NOT NULL CHECK (door_price::numeric >= 0)"
+        "type": "INT NOT NULL CHECK (door_price >= 0)"
       },
       {
         "name": "tickets_total",
