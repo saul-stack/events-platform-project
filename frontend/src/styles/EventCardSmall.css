@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+.event-image {
+  border-radius: 10px;
+}
+
 .event-card-small:hover {
   transform: scale(1.01);
 }

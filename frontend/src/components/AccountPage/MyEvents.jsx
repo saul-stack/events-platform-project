@@ -41,13 +41,12 @@ const MyEvents = () => {
 
   return (
     <div className="main-content">
-      <h1>My Events</h1>
       <div>
-        <h1>Booked Events</h1>
+        <h1>Tickets</h1>
         <EventsGrid events={eventsBooked} />
       </div>
       <div>
-        <h1>Watched Events</h1>
+        <h1>Interested</h1>
         <EventsGrid events={eventsWatched} />
       </div>
     </div>

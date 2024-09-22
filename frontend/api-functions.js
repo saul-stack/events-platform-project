@@ -43,3 +43,13 @@ export const logUserIn = async (username, password) => {
     throw error;
   }
 };
+
+export const postNewEvent = async (event) => {
+  try {
+    const result = await api.post("/events", event);
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+};
+``;

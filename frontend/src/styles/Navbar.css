@@ -5,10 +5,8 @@
   align-items: center;
   height: 45px;
   position: absolute;
-
   top: 1%;
   left: 10vw;
-  border: 1px solid #000000;
   padding-right: 1%;
   padding-left: 1%;
 }
@@ -21,15 +19,14 @@
   height: 100%;
   gap: 10px;
   position: relative;
-
-  /*   left: 1%;
- */
 }
 
 .navbar-link {
   font-size: 20px;
-  border: 1px solid #000000;
   color: black;
-  /*   height: 2%;
- */
+}
+.navbar-link-active {
+  font-size: 30px;
+
+  color: rgb(0, 0, 0);
 }

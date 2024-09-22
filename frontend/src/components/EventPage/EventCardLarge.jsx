@@ -1,6 +1,6 @@
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { useParams } from "react-router-dom";
 import { getEventById } from "../../../api-functions";
 
 const EventCardLarge = () => {
@@ -26,12 +26,22 @@ const EventCardLarge = () => {
 
   return (
     <div className="event-card-large">
-      <h1>{event.title}</h1>
+      <div className="event-card-large-topbar">
+        <div className="event-card-large-topbar-back-button">
+          <Link
+            to="/events"
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
+            <p>back</p>
+          </Link>
+        </div>
+        <h1>{event.title}</h1>
+      </div>
       <img src={event.image_url} alt={event.title} />
       <p>{event.description}</p>
       <p>Date: {new Date(event.date).toLocaleDateString()}</p>
       <p>Time: {event.time}</p>
-      <p>Advance Price: {event.advance_price}</p>
+      <p>Advance Price: £{event.advance_price}</p>
       <p>
         Tickets Sold: {event.tickets_sold} / {event.tickets_total}
       </p>

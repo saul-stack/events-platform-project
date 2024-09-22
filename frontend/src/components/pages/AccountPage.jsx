@@ -1,24 +1,20 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLogout } from "../../../account-util-functions";
 import { UserContext } from "../../contexts/UserContext";
 import MyEvents from "../AccountPage/MyEvents";
-function AccountPage() {
-  const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
 
-  function handleLogout() {
-    setUser({ name: null });
-    navigate("/login");
-  }
+function AccountPage() {
+  const logout = useLogout();
+  const { user, setUser } = useContext(UserContext);
+  const { role, user_name } = user;
 
   return (
     <div className="main-content">
       <p>
-        Logged in as: <b>{user.user_name}</b>
+        Logged in as {role}: {user_name}
       </p>
-      <button onClick={handleLogout}>Logout</button>
-
-      <MyEvents></MyEvents>
+      <button onClick={logout}>Logout</button>
+      <MyEvents />
     </div>
   );
 }
