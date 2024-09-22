@@ -117,8 +117,15 @@ button:focus-visible {
   grid-template-columns: 1fr 30fr 1fr;
 }
 
-.event-card-large-topbar-back-button {
-  border: none;
+.new-event-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+#new-event-form {
+  border: 1px solid black;
 }
 
 @font-face {
