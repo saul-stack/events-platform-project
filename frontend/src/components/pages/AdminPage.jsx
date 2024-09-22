@@ -16,16 +16,11 @@ const AdminPage = () => {
     }
   }, []);
 
-  function handleLogout() {
-    setUser({ name: null });
-    navigate("/login");
-  }
-
   return (
     <div className="main-content">
       <div>
         <p>Admin Page </p>
-        <form></form>
+        <button onClick={logout}>Logout</button>
         <button onClick={handleLogout}>Logout</button>
       </div>
     </div>
