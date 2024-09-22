@@ -7,7 +7,7 @@ const fetchAllEvents = async () => {
   if (!tableExists) {
     throw new Error("Table does not exist");
   }
-  const result = await db.query("SELECT * FROM events");
+  const result = await db.query("SELECT * FROM events ORDER BY date ASC");
   return result.rows;
 };
 
