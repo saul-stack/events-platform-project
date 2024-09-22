@@ -1,7 +1,7 @@
-import "../../styles/Navbar.css";
+import "../../styles/css/Navbar.css";
 
-import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 
 import { UserContext } from "../../contexts/UserContext";
 

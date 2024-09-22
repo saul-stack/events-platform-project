@@ -1,4 +1,4 @@
-import "../../styles/EventCardSmall.css";
+import "../../styles/css/EventCardSmall.css";
 
 import React from "react";
 import { formatTime } from "../../../js-util-functions";

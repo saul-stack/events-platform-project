@@ -1,7 +1,5 @@
-import "../styles/App.css";
+import "../styles/css/App.css";
 
-import React, { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   AboutPage,
   AccountPage,
@@ -10,6 +8,8 @@ import {
   EventsPage,
   LoginPage,
 } from "./pages";
+import React, { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 import Navbar from "./global-components/Navbar";
 
