@@ -90,7 +90,7 @@ describe("POST", () => {
     test("Title already exists", async () => {
       const response = await request(server).post("/api/events").send({
         "title": "Distillery Social 1",
-        "date": "2023-02-01",
+        "date": "2024-08-11",
         "time": "18:00:00",
         "description": "This is an event with a duplicate title.",
         "event_type": "Social",
@@ -113,7 +113,7 @@ describe("POST", () => {
     test("Available/sold tickets for non-ticketed event", async () => {
       let response = await request(server).post("/api/events").send({
         "title": "Invalid Event",
-        "date": "2023-02-01",
+        "date": "2024-08-11",
         "time": "18:00:00",
         "description":
           "This is a non_ticketed event with tickets_total and tickets_sold of not 0.",
@@ -135,7 +135,7 @@ describe("POST", () => {
 
       response = await request(server).post("/api/events").send({
         "title": "Invalid Event",
-        "date": "2023-02-01",
+        "date": "2024-08-11",
         "time": "18:00:00",
         "description": "This is a non_ticketed event with ticket prices.",
         "event_type": "",
@@ -158,7 +158,7 @@ describe("POST", () => {
       test("Tickets", async () => {
         let response = await request(server).post("/api/events").send({
           "title": "A test",
-          "date": "2023-01-01",
+          "date": "2024-04-11",
           "time": "12:00:00",
           "description": "This is the first test event.",
           "event_type": "",
@@ -179,7 +179,7 @@ describe("POST", () => {
 
         response = await request(server).post("/api/events").send({
           "title": "Another test",
-          "date": "2023-01-01",
+          "date": "2024-04-11",
           "time": "12:00:00",
           "description": "This is the first test event.",
           "event_type": "test",
@@ -202,7 +202,7 @@ describe("POST", () => {
       test("Prices", async () => {
         let response = await request(server).post("/api/events").send({
           "title": "Another test event",
-          "date": "2023-01-01",
+          "date": "2024-04-11",
           "time": "12:00:00",
           "description": "This has negative advance_price.",
           "event_type": "test",
@@ -222,7 +222,7 @@ describe("POST", () => {
 
         response = await request(server).post("/api/events").send({
           "title": "Another test for price",
-          "date": "2023-01-01",
+          "date": "2024-04-11",
           "time": "12:00:00",
           "description": "This has negative door_price.",
           "event_type": "test",
