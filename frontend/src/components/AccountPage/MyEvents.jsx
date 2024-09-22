@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { getEventById } from "../../../api-functions";
-import { UserContext } from "../../contexts/UserContext";
 import EventsGrid from "../global-components/EventsGrid";
+import { UserContext } from "../../contexts/UserContext";
+import { getEventById } from "../../../api-functions";
 
 const MyEvents = () => {
   const { user } = useContext(UserContext);
