@@ -1,8 +1,8 @@
 import "../../styles/EventCardSmall.css";
 
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { formatTime } from "../../../js-util-functions";
+import { useNavigate } from "react-router-dom";
 
 const EventCardSmall = ({ event }) => {
   const navigate = useNavigate();
