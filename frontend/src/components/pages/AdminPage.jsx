@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../../../account-util-functions";
 import { UserContext } from "../../contexts/UserContext";
+import AdminPanel from "../AdminPage/AdminPanel";
 
 const AdminPage = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const AdminPage = () => {
       <div>
         <p>Admin Page </p>
         <button onClick={logout}>Logout</button>
-        <button onClick={handleLogout}>Logout</button>
+        <AdminPanel />
       </div>
     </div>
   );
