@@ -1,14 +1,18 @@
 .navbar {
-  display: flex;
-  width: 80vw;
-  justify-content: space-between;
-  align-items: center;
-  height: 45px;
-  position: absolute;
-  top: 1%;
-  left: 10vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 98%;
+  z-index: 1000;
+  background-color: white;
   padding-right: 1%;
   padding-left: 1%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-content {
@@ -25,8 +29,8 @@
   font-size: 20px;
   color: black;
 }
+
 .navbar-link-active {
   font-size: 30px;
-
   color: rgb(0, 0, 0);
 }
