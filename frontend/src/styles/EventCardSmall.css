@@ -76,3 +76,10 @@
 .event-button:hover {
   background-color: #333;
 }
+
+.event-card-small-buttons {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
