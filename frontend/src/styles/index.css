@@ -91,17 +91,22 @@ button:focus-visible {
 }
 
 #events-grid {
-  margin-top: 20px;
-  width: 98%;
+  border: 1px solid rgba(61, 61, 61, 0.109);
+  border-radius: 20px;
+  margin-top: -10px;
+  padding: 10px;
+  width: 95%;
   position: relative;
-  top: 4%;
   left: 1%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1);
 }
 
 .event-card-large {
+  border: 1px solid rgba(61, 61, 61, 0.109);
+  border-radius: 10px;
   width: 100%;
   height: 100%;
   padding: 10px;
@@ -111,6 +116,13 @@ button:focus-visible {
   box-sizing: border-box;
   background-size: cover;
   background-position: center;
+}
+
+.event-card-large-image {
+  border-radius: 10px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .event-card-large-topbar {
@@ -185,6 +197,17 @@ button:focus-visible {
   overflow-wrap: break-word;
   padding: 10px;
   border-radius: 10px;
+}
+
+#my-events {
+  border: 1px solid rgba(61, 61, 61, 0.109);
+}
+
+#logout-bar {
+  margin-right: 10%;
+  margin-left: 10%;
+  display: flex;
+  justify-content: space-between;
 }
 
 @font-face {
