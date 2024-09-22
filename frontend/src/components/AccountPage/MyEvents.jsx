@@ -41,8 +41,8 @@ const MyEvents = () => {
 
   return (
     <div className="main-content">
-      <div>
-        <h1>Tickets</h1>
+      <div id="my-events">
+        <h1>My Tickets</h1>
         <EventsGrid events={eventsBooked} />
       </div>
       <div>
