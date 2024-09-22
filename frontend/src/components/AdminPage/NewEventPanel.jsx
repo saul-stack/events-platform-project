@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import NewEventCard from "./NewEventCard";
 import { formatDateForPostgres } from "../../../js-util-functions";
 import { postNewEvent } from "../../../api-functions";
+import { useNavigate } from "react-router-dom";
 
 const currentDate = new Date();
 const formattedDate = formatDateForPostgres(currentDate);
-
 const defaultEvent = {
   "title": "",
   "date": formattedDate,
@@ -25,6 +25,7 @@ const defaultEvent = {
 };
 const NewEventPanel = () => {
   const [newEvent, setNewEvent] = useState(defaultEvent);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -38,6 +39,7 @@ const NewEventPanel = () => {
     event.preventDefault();
     postNewEvent(newEvent);
     setNewEvent(defaultEvent);
+    navigate("/events");
   };
 
   return (
