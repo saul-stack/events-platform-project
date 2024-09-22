@@ -12,7 +12,7 @@
   align-items: center;
   height: 60px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 10px rgba(152, 152, 152, 0.1);
 }
 
 .navbar-content {
