@@ -112,20 +112,79 @@ button:focus-visible {
   background-size: cover;
   background-position: center;
 }
+
 .event-card-large-topbar {
   display: grid;
   grid-template-columns: 1fr 30fr 1fr;
 }
 
-.new-event-container {
+.new-event-panel {
+  border: 1px solid rgba(61, 61, 61, 0.109);
   display: grid;
+  width: 100%;
+  max-width: 80%;
+  margin: 0 auto;
+  position: relative;
   grid-template-columns: 1fr 1fr;
-  border: 1px solid black;
-  padding: 10px;
+  padding: 5px;
+  gap: 20px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
 }
 
 #new-event-form {
   border: 1px solid black;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+#new-event-form label {
+  font-size: 16px;
+}
+
+#new-event-form input[type="text"],
+#new-event-form input[type="date"],
+#new-event-form input[type="time"],
+#new-event-form textarea,
+#new-event-form input[type="url"] {
+  width: 80%;
+  padding: 5px;
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  position: relative;
+}
+
+#new-event-form input[type="checkbox"] {
+  margin-right: 10px;
+  position: relative;
+  right: 1%;
+}
+
+#new-event-form button {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.new-event-card {
+  border: 1px solid rgb(0, 0, 0);
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 @font-face {
@@ -136,8 +195,4 @@ button:focus-visible {
 @font-face {
   font-family: "IBMPlexMono-Italic";
   src: url("../assets/fonts/IBMPlexMono-Italic.ttf") format("truetype");
-}
-
-em {
-  font-family: "IBMPlexMono-Italic", sans-serif; /* Fallback to sans-serif if the font is not available */
 }
