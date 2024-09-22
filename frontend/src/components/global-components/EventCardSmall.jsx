@@ -36,10 +36,15 @@ const EventCardSmall = ({ event }) => {
         }}
       ></div>
       <div className="event-details">
-        <p className="event-date">{date}</p>
-        <h1 className="event-title">{event.title}</h1>
-        <p className="event-type">{event.event_type}</p>
-        <p className="event-time">{time}</p>
+        <div className="default-view">
+          <p className="event-date">{date}</p>
+          <h1 className="event-title">{event.title}</h1>
+          <p className="event-type">{event.event_type}</p>
+          <p className="event-time">{time}</p>
+        </div>
+        <div className="hover-view">
+          <p>{event.description}</p>
+        </div>
       </div>
 
       <div className="event-card-small-buttons">
