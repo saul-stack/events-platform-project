@@ -41,9 +41,15 @@ const EventCardSmall = ({ event }) => {
         <p className="event-type">{event.event_type}</p>
         <p className="event-time">{time}</p>
       </div>
-      <a href="#" className="event-button">
-        MORE INFO
-      </a>
+
+      <div className="event-card-small-buttons">
+        <a href="#" className="event-button">
+          BUY TICKETS
+        </a>
+        <a href="#" className="event-button">
+          WATCH
+        </a>
+      </div>
     </div>
   );
 };
