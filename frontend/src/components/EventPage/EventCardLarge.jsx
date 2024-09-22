@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import { getEventById } from "../../../api-functions";
 
@@ -41,7 +41,7 @@ const EventCardLarge = () => {
       <p>{event.description}</p>
       <p>Date: {new Date(event.date).toLocaleDateString()}</p>
       <p>Time: {event.time}</p>
-      <p>Advance Price: {event.advance_price}</p>
+      <p>Advance Price: £{event.advance_price}</p>
       <p>
         Tickets Sold: {event.tickets_sold} / {event.tickets_total}
       </p>
