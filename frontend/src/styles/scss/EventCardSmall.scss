@@ -18,8 +18,6 @@
   cursor: pointer;
 
   &:hover {
-    transform: scale(1.01);
-
     .event-details {
       .default-view {
         display: none;
