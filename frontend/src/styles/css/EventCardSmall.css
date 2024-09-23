@@ -16,9 +16,6 @@
   transition: transform 0.3s ease;
   cursor: pointer;
 }
-.event-card-small:hover {
-  transform: scale(1.01);
-}
 .event-card-small:hover .event-details .default-view {
   display: none;
 }
@@ -104,3 +101,5 @@
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
+
+/*# sourceMappingURL=EventCardSmall.css.map */
