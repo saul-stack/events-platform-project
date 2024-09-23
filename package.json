@@ -3,6 +3,6 @@
     "concurrently": "^9.0.1"
   },
   "scripts": {
-    "dev": "concurrently -n \"Vite,Express,SCSS\" \"npm run dev --prefix frontend\" \"npm run start --prefix backend\" \"npm run watch-css --prefix frontend\""
+    "dev": "node ./seed-test-tables.js && concurrently -n \"Vite,Express,SCSS\" \"npm run host --prefix frontend\" \"npm run start --prefix backend\" \"npm run watch-css --prefix frontend\""
   }
 }

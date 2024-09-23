@@ -72,8 +72,8 @@ exports.seedTestTable = async (tableName) => {
 
   const tableDataPath = tableDataPaths[tableName];
   if (!tableDataPath) {
-    console.error(`Test data not found for table: ${tableName}`);
-    return;
+    console.log(`Test data not found for table: ${tableName}`);
+    throw new Error("Test data not found");
   }
 
   try {
@@ -106,6 +106,7 @@ exports.seedTestTable = async (tableName) => {
     console.log(`Test table "${tableName}" seeded successfully.`);
   } catch (error) {
     handleError(`Error seeding test table ${tableName}`, error);
+    throw error;
   }
 };
 
