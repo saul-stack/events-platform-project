@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import EventsGrid from "../global-components/EventsGrid";
-import { getAllEvents } from "../../../api-functions";
+import { getEvents } from "../../../api-functions";
 
 function EventsPage() {
   const [events, setEvents] = useState(null);
@@ -10,8 +10,8 @@ function EventsPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchAllEvents = async () => {
-      const result = await getAllEvents();
+    const fetchEvents = async () => {
+      const result = await getEvents();
 
       if (Array.isArray(result)) {
         const now = new Date();
@@ -26,7 +26,7 @@ function EventsPage() {
       }
     };
 
-    fetchAllEvents();
+    fetchEvents();
   }, []);
 
   return (

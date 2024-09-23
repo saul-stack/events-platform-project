@@ -1,26 +1,29 @@
 const { verifyExists } = require("../utils/db-utils");
 const {
-  fetchAllEvents,
+  fetchEvents,
   postEvent,
   fetchEvent,
   deleteEvent,
   patchEvent,
 } = require("../models/events.models");
 
-exports.getAllEvents = async (req, res) => {
+exports.getEvents = async (req, res) => {
   try {
-    const events = await fetchAllEvents();
+    const events = await fetchEvents(req.query);
     res.status(200).json({ events: events });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: "Failed to Fetch Events" });
+    if (error.code === "42703") {
+      return res.status(400).json({ error: "Invalid query parameters." });
+    }
+    res.status(500).json({ error: "Failed to Fetch Events" });
   }
 };
 
 exports.postToEvents = async (req, res) => {
   try {
     await postEvent(req.body);
-    const events = await fetchAllEvents();
+    const events = await fetchEvents();
     res.status(201).json({
       message: `Event posted successfully: ${req.body.title}`,
     });
@@ -75,7 +78,7 @@ exports.deleteEventById = async (req, res) => {
         .send({ error: `Event with ID ${eventId} not found.` });
     }
     await deleteEvent(eventId);
-    const events = await fetchAllEvents();
+    const events = await fetchEvents();
     res.status(200).json({ events });
   } catch (error) {
     console.error(error);

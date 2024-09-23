@@ -2,13 +2,62 @@ const db = require("../../database/connection.js");
 const { verifyExists } = require("../utils/db-utils.js");
 const { extractValues } = require("../utils/global-utils.js");
 
-const fetchAllEvents = async () => {
-  const tableExists = await verifyExists("events");
-  if (!tableExists) {
-    throw new Error("Table does not exist");
+const fetchEvents = async (queries) => {
+  if (queries) {
+    const queryParams = [];
+    const queryArray = [];
+
+    const { sort } = queries;
+
+    let paramIndex = 1;
+
+    for (let property in queries) {
+      if (property != "sort") {
+        queryArray.push(`${property} = $${paramIndex}`);
+        queryParams.push(queries[property]);
+        paramIndex++;
+      }
+    }
+
+    let queryString = "SELECT * FROM events";
+    if (queryArray.length > 0) {
+      queryString += " WHERE " + queryArray.join(" AND ");
+    }
+
+    if (sort) {
+      queryString += ` ORDER BY ${sort} ASC`;
+    } else {
+      queryString += " ORDER BY date ASC";
+    }
+
+    console.log(queryString);
+
+    const tableExists = await verifyExists("events");
+    if (!tableExists) {
+      throw new Error("Table does not exist");
+    }
+
+    try {
+      const result = await db.query(queryString, queryParams);
+      return result.rows;
+    } catch (err) {
+      console.error("Error executing query", err.stack);
+      throw err;
+    }
+  } else {
+    const tableExists = await verifyExists("events");
+    if (!tableExists) {
+      throw new Error("Table does not exist");
+    }
+
+    try {
+      const result = await db.query("SELECT * FROM events ORDER BY date ASC");
+      return result.rows;
+    } catch (err) {
+      console.error("Error executing query", err.stack);
+      throw err;
+    }
   }
-  const result = await db.query("SELECT * FROM events ORDER BY date ASC");
-  return result.rows;
 };
 
 const postEvent = async (newEvent) => {
@@ -120,5 +169,5 @@ module.exports = {
   deleteEvent,
   patchEvent,
   postEvent,
-  fetchAllEvents,
+  fetchEvents,
 };

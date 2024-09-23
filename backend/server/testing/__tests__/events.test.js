@@ -30,6 +30,31 @@ describe("/api/events", () => {
       expect(response.status).toBe(200);
       expect(String(response.body.events)).toEqual(String(defaultEventsArray));
     });
+
+    test("Responds (200) with events of queried properties'", async () => {
+      const response = await request(server).get(
+        "/api/events?event_type=Music&is_seated=true&sort=tickets_sold"
+      );
+
+      const seatedMusicEvents = defaultEventsArray.filter((event) => {
+        return event.event_type === "Music" && event.is_seated === true;
+      });
+
+      const sortedEvents = seatedMusicEvents.sort((a, b) => {
+        return a.tickets_sold - b.tickets_sold;
+      });
+
+      const responseTicketsSold = response.body.events.map((event) => {
+        return event.tickets_sold;
+      });
+
+      const sortedTicketsSold = sortedEvents.map((event) => {
+        return event.tickets_sold;
+      });
+
+      expect(response.status).toBe(200);
+      expect(responseTicketsSold).toEqual(sortedTicketsSold);
+    });
   });
 
   describe("DELETE", () => {

@@ -5,7 +5,7 @@ const cors = require("cors");
 const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
 const {
   postToEvents,
-  getAllEvents,
+  getEvents,
   getEventById,
   deleteEventById,
   patchEventById,
@@ -43,7 +43,7 @@ server.put("/api", rejectRequestMethod);
 server.post("/api", rejectRequestMethod);
 server.patch("/api", rejectRequestMethod);
 
-server.get("/api/events", getAllEvents);
+server.get("/api/events", getEvents);
 server.post("/api/events", postToEvents);
 server.delete("/api/events", rejectRequestMethod);
 server.put("/api/events", rejectRequestMethod);
