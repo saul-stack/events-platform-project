@@ -1,16 +1,32 @@
 import "../../styles/css/EventCardSmall.css";
 
-import React from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { formatTime } from "../../../js-util-functions";
 import { useNavigate } from "react-router-dom";
+import { watchEvent } from "../../../api-functions";
 
-const EventCardSmall = ({ event }) => {
+const EventCardSmall = ({ event, user }) => {
+  const buttonContainerRef = useRef(null);
+
   const navigate = useNavigate();
+  const [reload, setReload] = useState(false); // State variable to trigger reload
+
   const defaultImageUrl =
     "https://images.pexels.com/photos/3843282/pexels-photo-3843282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
   const handleClick = (id) => {
     navigate(`/events/${id}`);
+  };
+
+  const handleWatchEvent = (userId, eventId) => {
+    console.log(reload);
+    setReload(!reload);
+    if (userId && eventId) {
+      watchEvent(userId, eventId);
+    } else {
+      navigate("/login");
+    }
   };
 
   const dateOptions = {
@@ -20,40 +36,72 @@ const EventCardSmall = ({ event }) => {
     day: "numeric",
   };
   const date = new Date(event.date).toLocaleDateString(undefined, dateOptions);
-
   const time = formatTime(event.time);
 
+  const { id } = event;
+
+  const events_watched = user.events_watched ? user.events_watched : [];
+  const events_booked = user.events_booked ? user.events_booked : [];
+  const isBooked = events_booked.includes(id);
+  const isWatched = events_watched.includes(id);
+
+  useEffect(() => {
+    if (buttonContainerRef.current) {
+      const numberOfButtons = buttonContainerRef.current.children.length;
+      buttonContainerRef.current.style.gridTemplateColumns = `repeat(${numberOfButtons}, 1fr)`;
+    }
+  }, [isWatched, isBooked, reload]);
+
   return (
-    <div className="event-card-small" onClick={() => handleClick(event.id)}>
-      <div
-        className="event-image"
-        style={{
-          backgroundImage: `url(${
-            event.image_url.length > 0
-              ? event.image_url
-              : "https://images.pexels.com/photos/3843282/pexels-photo-3843282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          })`,
-        }}
-      ></div>
-      <div className="event-details">
-        <div className="default-view">
-          <p className="event-date">{date}</p>
-          <h1 className="event-title">{event.title}</h1>
-          <p className="event-type">{event.event_type}</p>
-          <p className="event-time">{time}</p>
-        </div>
-        <div className="hover-view">
-          <p>{event.description}</p>
+    <div className="event-card-small">
+      <div className="event-card-link" onClick={() => handleClick(event.id)}>
+        <div
+          className="image"
+          style={{
+            backgroundImage: `url(${
+              event.image_url.length > 0
+                ? event.image_url
+                : "https://images.pexels.com/photos/3843282/pexels-photo-3843282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            })`,
+          }}
+        ></div>
+        <div className="details">
+          <div className="default-view">
+            <p className="date">{date}</p>
+            <h1 className="title">{event.title}</h1>
+            <p className="type">{event.event_type}</p>
+            <p className="time">{time}</p>
+          </div>
+          <div className="hover-view">
+            <p>{event.description}</p>
+          </div>
         </div>
       </div>
 
-      <div className="event-card-small-buttons">
-        <a href="#" className="event-button">
-          BUY TICKETS
-        </a>
-        <a href="#" className="event-button">
-          WATCH
-        </a>
+      <div className="button-container" ref={buttonContainerRef}>
+        {!isBooked ? (
+          <button href="#" className="button">
+            BUY TICKETS
+          </button>
+        ) : (
+          <button href="#" className="button">
+            VIEW MY TICKETS
+          </button>
+        )}
+
+        {!isBooked &&
+          (!isWatched ? (
+            <button
+              onClick={() => handleWatchEvent(user.id, event.id)}
+              className="button"
+            >
+              WATCH EVENT
+            </button>
+          ) : (
+            <button href="#" className="button">
+              WATCHED
+            </button>
+          ))}
       </div>
     </div>
   );
