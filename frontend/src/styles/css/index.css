@@ -29,10 +29,6 @@ a {
   left: 2.5%;
 }
 
-.events-grid-header {
-  border: 1px solid rgba(61, 61, 61, 0.109);
-  border-radius: 10px;
-}
 a:hover {
   color: #535bf2;
 }
@@ -83,6 +79,7 @@ button:focus-visible {
   }
 }
 .main-content {
+  gap: 60px;
   padding-top: 2%;
   width: 98%;
   min-height: 90vh;
@@ -92,6 +89,7 @@ button:focus-visible {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
 }
 
 #events-grid {
@@ -106,6 +104,13 @@ button:focus-visible {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1);
+}
+
+.events-grid-container {
+  display: grid;
+}
+.events-grid-container #title {
+  font-size: 30px;
 }
 
 .event-card-large {
@@ -220,6 +225,25 @@ button:focus-visible {
 @font-face {
   font-family: "IBMPlexMono-Italic";
   src: url("../../assets/fonts/IBMPlexMono-Italic.ttf") format("truetype");
+}
+.event-card-large-details-container {
+  border: 1px solid rgba(61, 61, 61, 0.109);
+}
+
+.event-card-large-description {
+  border: 1px dotted rgba(61, 61, 61, 0.109);
+}
+
+.event-card-large-details-top {
+  border: 1px solid rgba(61, 61, 61, 0.109);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.event-card-large-details-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px dashed rgba(61, 61, 61, 0.109);
 }
 
 /*# sourceMappingURL=index.css.map */
