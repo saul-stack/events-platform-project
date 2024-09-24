@@ -15,9 +15,7 @@ const Navbar = () => {
     setRouteBase(location.pathname.split("/")[1]);
   }, [location]);
 
-  useEffect(() => {
-    console.log("routeBase changed to", routeBase);
-  }, [routeBase]);
+  useEffect(() => {}, [routeBase]);
 
   const menuItems = [
     { name: "About", route: "/about" },

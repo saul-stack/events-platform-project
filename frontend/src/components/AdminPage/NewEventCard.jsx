@@ -1,12 +1,7 @@
-import React, { useEffect } from "react";
-
+import React from "react";
 import { formatTime } from "../../../js-util-functions";
 
 const NewEventCard = ({ event }) => {
-  useEffect(() => {
-    console.log(event);
-  }, [event]);
-
   const dateOptions = {
     weekday: "long",
     year: "numeric",
