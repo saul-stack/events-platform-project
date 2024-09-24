@@ -3,7 +3,7 @@ const API_BASE_URL = "http://localhost:9090/api";
 
 const api = axios.create({ baseURL: API_BASE_URL });
 
-export const getEvents = async () => {
+export const getEvents = async (queries) => {
   try {
     const result = await api.get("/events");
     const eventsArray = result.data.events;
@@ -52,4 +52,21 @@ export const postNewEvent = async (event) => {
     throw error;
   }
 };
-``;
+
+export const watchEvent = async (userId, eventId) => {
+  try {
+    const currentUserObject = (await api.get(`/users/${userId}`)).data.user;
+    const eventsWatched = currentUserObject.events_watched;
+
+    eventsWatched.push(eventId);
+    console.log(eventsWatched, "<<< new");
+    const result = await api.patch(`/users/${userId}`, {
+      events_watched: eventsWatched,
+    });
+
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
