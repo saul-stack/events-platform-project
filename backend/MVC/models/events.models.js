@@ -23,39 +23,24 @@ const fetchEvents = async (queries) => {
     if (queryArray.length > 0) {
       queryString += " WHERE " + queryArray.join(" AND ");
     }
-
     if (sort) {
-      queryString += ` ORDER BY ${sort} ASC`;
-    } else {
-      queryString += " ORDER BY date ASC";
-    }
-
-    console.log(queryString);
-
-    const tableExists = await verifyExists("events");
-    if (!tableExists) {
-      throw new Error("Table does not exist");
+      queryString += ` ORDER BY ${sort}`;
     }
 
     try {
       const result = await db.query(queryString, queryParams);
       return result.rows;
-    } catch (err) {
-      console.error("Error executing query", err.stack);
-      throw err;
+    } catch (error) {
+      console.error("Model: Database query error:", error);
+      throw error;
     }
   } else {
-    const tableExists = await verifyExists("events");
-    if (!tableExists) {
-      throw new Error("Table does not exist");
-    }
-
     try {
-      const result = await db.query("SELECT * FROM events ORDER BY date ASC");
+      const result = await db.query("SELECT * FROM events");
       return result.rows;
-    } catch (err) {
-      console.error("Error executing query", err.stack);
-      throw err;
+    } catch (error) {
+      console.error("Model: Database query error:", error);
+      throw error;
     }
   }
 };
