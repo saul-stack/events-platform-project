@@ -1,6 +1,5 @@
 :root {
-  font-family: "IBMPlexMono-Regular", system-ui, Avenir, Helvetica, Arial,
-    sans-serif;
+  font-family: "IBMPlexMono-Regular", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -13,8 +12,7 @@
 }
 
 body {
-  font-family: "IBMPlexMono-Regular", system-ui, Avenir, Helvetica, Arial,
-    sans-serif;
+  font-family: "IBMPlexMono-Regular", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -80,7 +78,6 @@ button:focus-visible {
 }
 .main-content {
   gap: 60px;
-  padding-top: 2%;
   width: 98%;
   min-height: 90vh;
   position: absolute;
@@ -168,11 +165,11 @@ button:focus-visible {
   font-size: 16px;
 }
 
-#new-event-form input[type="text"],
-#new-event-form input[type="date"],
-#new-event-form input[type="time"],
+#new-event-form input[type=text],
+#new-event-form input[type=date],
+#new-event-form input[type=time],
 #new-event-form textarea,
-#new-event-form input[type="url"] {
+#new-event-form input[type=url] {
   width: 80%;
   padding: 5px;
   border: 1px solid #ccc;
@@ -181,7 +178,7 @@ button:focus-visible {
   position: relative;
 }
 
-#new-event-form input[type="checkbox"] {
+#new-event-form input[type=checkbox] {
   margin-right: 10px;
   position: relative;
   right: 1%;
