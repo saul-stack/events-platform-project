@@ -31,12 +31,13 @@
   color: black;
 }
 .navbar-link:hover {
-  font-size: 30px;
+  font-size: 25px;
   color: rgb(0, 0, 0);
 }
 
 .navbar-link-active {
-  font-size: 30px;
+  font-size: 25px;
+  text-decoration: underline;
   color: rgb(0, 0, 0);
 }
 
@@ -53,13 +54,6 @@
 .navbar-link {
   font-size: 20px;
   color: black;
-}
-
-.navbar-link-active {
-  font-size: 30px;
-  color: rgb(0, 0, 0);
-  /*   border-radius: 20px;
-  */
 }
 
 /*# sourceMappingURL=Navbar.css.map */
