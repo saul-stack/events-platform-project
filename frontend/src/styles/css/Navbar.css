@@ -10,9 +10,8 @@
   padding-left: 1%;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 60px;
+  padding-bottom: 10px;
   align-items: center;
-  height: 5px;
   background: linear-gradient(to bottom, rgb(255, 255, 255) 50%, rgba(255, 255, 255, 0) 100%);
 }
 
@@ -27,8 +26,13 @@
 }
 
 .navbar-link {
+  height: 100%;
   font-size: 20px;
   color: black;
+}
+.navbar-link:hover {
+  font-size: 30px;
+  color: rgb(0, 0, 0);
 }
 
 .navbar-link-active {
@@ -54,6 +58,8 @@
 .navbar-link-active {
   font-size: 30px;
   color: rgb(0, 0, 0);
+  /*   border-radius: 20px;
+  */
 }
 
 /*# sourceMappingURL=Navbar.css.map */

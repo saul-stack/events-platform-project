@@ -10,9 +10,8 @@
   padding-left: 1%;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 60px;
+  padding-bottom: 10px;
   align-items: center;
-  height: 5px;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 1) 50%,
@@ -31,8 +30,13 @@
 }
 
 .navbar-link {
+  height: 100%;
   font-size: 20px;
   color: black;
+  &:hover {
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+  }
 }
 
 .navbar-link-active {
@@ -58,4 +62,6 @@
 .navbar-link-active {
   font-size: 30px;
   color: rgb(0, 0, 0);
+  /*   border-radius: 20px;
+ */
 }
