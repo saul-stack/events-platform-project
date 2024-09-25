@@ -59,7 +59,6 @@ export const watchEvent = async (userId, eventId) => {
     const eventsWatched = currentUserObject.events_watched;
 
     eventsWatched.push(eventId);
-    console.log(eventsWatched, "<<< new");
     const result = await api.patch(`/users/${userId}`, {
       events_watched: eventsWatched,
     });
