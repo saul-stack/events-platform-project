@@ -42,11 +42,11 @@ const MyEvents = () => {
   return (
     <div className="main-content">
       <div id="my-events">
-        <h1>My Tickets</h1>
+        <h2>My Tickets</h2>
         <EventsGrid events={eventsBooked} />
       </div>
       <div>
-        <h1>Interested</h1>
+        <h2>Interested</h2>
         <EventsGrid events={eventsWatched} />
       </div>
     </div>
