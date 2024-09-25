@@ -1,7 +1,16 @@
-const formatTime = (timeStr) => {
-  const hours = timeStr.slice(0, 2);
-  const minutes = timeStr.slice(3, 5);
+const formatTimeForFrontend = (time) => {
+  const hours = time.slice(0, 2);
+  const minutes = time.slice(3, 5);
   return `${hours}:${minutes}`;
+};
+
+const formatDateForFrontend = (date) => {
+  return new Date(date).toLocaleDateString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 };
 
 const formatDateForPostgres = (date) => {
@@ -11,4 +20,4 @@ const formatDateForPostgres = (date) => {
   return `${year}-${month}-${day}`;
 };
 
-export { formatDateForPostgres, formatTime };
+export { formatDateForFrontend, formatDateForPostgres, formatTimeForFrontend };
