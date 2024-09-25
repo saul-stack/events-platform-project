@@ -1,5 +1,5 @@
 import React from "react";
-import { formatTime } from "../../../js-util-functions";
+import { formatTimeForFrontend as formatTime } from "../../../js-util-functions";
 
 const NewEventCard = ({ event }) => {
   const dateOptions = {
