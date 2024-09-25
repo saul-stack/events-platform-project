@@ -17,8 +17,11 @@ const UserProvider = ({ children }) => {
 
   const [user, setUser] = useState(defaultUser);
 
+  const updateUser = (newUser) => {
+    setUser(newUser);
+  };
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, updateUser }}>
       {children}
     </UserContext.Provider>
   );
