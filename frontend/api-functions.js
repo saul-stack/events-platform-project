@@ -63,8 +63,7 @@ export const watchEvent = async (userId, eventId) => {
     const result = await api.patch(`/users/${userId}`, {
       events_watched: eventsWatched,
     });
-
-    console.log(result);
+  } catch (error) {
   } catch (error) {
     console.error(error);
     throw error;
