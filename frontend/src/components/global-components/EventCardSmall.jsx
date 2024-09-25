@@ -11,51 +11,37 @@ import { useNavigate } from "react-router-dom";
 const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
   const buttonContainerRef = useRef(null);
   const navigate = useNavigate();
-  const [reload, setReload] = useState(false); // State variable to trigger reload
-
   const defaultImageUrl =
     "https://images.pexels.com/photos/3843282/pexels-photo-3843282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
-  const handleClick = (id) => {
-    navigate(`/events/${id}`);
-  };
+  let { id, date, time } = event;
 
-  const handleWatchEvent = (userId, eventId) => {
-    console.log(reload);
-    setReload(!reload);
-    if (userId && eventId) {
-      watchEvent(userId, eventId);
-    } else {
-      navigate("/login");
-    }
-  };
+  date = formatDate(date);
+  time = formatTime(time);
 
-  const dateOptions = {
-    weekday: "long",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  };
-  const date = new Date(event.date).toLocaleDateString(undefined, dateOptions);
-  const time = formatTime(event.time);
+  let events_booked = user.events_booked || [];
+  let events_watched = user.events_watched || [];
 
-  const { id } = event;
+  let isBooked = events_booked.includes(id);
+  let isWatched = events_watched.includes(id);
 
-  const events_watched = user.events_watched ? user.events_watched : [];
-  const events_booked = user.events_booked ? user.events_booked : [];
-  const isBooked = events_booked.includes(id);
-  const isWatched = events_watched.includes(id);
+  useEffect(() => {
+    isWatched = events_watched.includes(id);
+  }, [events_booked, events_watched]);
 
   useEffect(() => {
     if (buttonContainerRef.current) {
       const numberOfButtons = buttonContainerRef.current.children.length;
       buttonContainerRef.current.style.gridTemplateColumns = `repeat(${numberOfButtons}, 1fr)`;
     }
-  }, [isWatched, isBooked, reload]);
+  }, [isWatched, isBooked]);
 
   return (
     <div className="event-card-small">
-      <div className="event-card-link" onClick={() => handleClick(event.id)}>
+      <div
+        className="event-card-link"
+        onClick={() => navigate(`/events/${id}`)}
+      >
         <div
           className="image"
           style={{
@@ -70,8 +56,8 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
           <div className="default-view">
             <h1 className="title">{event.title}</h1>
             <div className="type-and-time-container">
-            <p className="type">{event.event_type}</p>
-            <p className="time">{time}</p>
+              <p className="type">{event.event_type}</p>
+              <p className="time">{time}</p>
             </div>
             <p className="date">{date}</p>
           </div>
@@ -95,13 +81,17 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
         {!isBooked &&
           (!isWatched ? (
             <button
-              onClick={() => handleWatchEvent(user.id, event.id)}
+              onClick={() => toggleWatchEvent(user.id, event.id)}
               className="button"
             >
               WATCH EVENT
             </button>
           ) : (
-            <button href="#" className="button">
+            <button
+              onClick={() => toggleWatchEvent(user.id, event.id)}
+              href="#"
+              className="button"
+            >
               WATCHED
             </button>
           ))}
