@@ -32,13 +32,22 @@ const EventsGrid = ({ events, error, timeline }) => {
       ? "Past Events"
       : null;
   return (
+    <div className="events-grid-container">
+      {titleText && <p id="title">{titleText}</p>}
     <div id="events-grid">
-      {titleText && <h1>{titleText}</h1>}
       {events ? (
-        events.map((event) => <EventCardSmall key={event.id} event={event} />)
+          events.map((event) => (
+            <EventCardSmall
+              key={event.id}
+              event={event}
+              user={user}
+              toggleWatchEvent={toggleWatchEvent}
+            />
+          ))
       ) : (
         <div>{error}</div>
       )}
+      </div>
     </div>
   );
 };
