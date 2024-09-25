@@ -1,10 +1,12 @@
 import "../../styles/css/EventCardSmall.css";
 
-import { useEffect, useRef, useState } from "react";
+import {
+  formatDateForFrontend as formatDate,
+  formatTimeForFrontend as formatTime,
+} from "../../../js-util-functions";
+import { useEffect, useRef } from "react";
 
-import { formatTime } from "../../../js-util-functions";
 import { useNavigate } from "react-router-dom";
-import { watchEvent } from "../../../api-functions";
 
 const EventCardSmall = ({ event, user }) => {
   const buttonContainerRef = useRef(null);
