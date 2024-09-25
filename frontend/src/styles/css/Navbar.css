@@ -35,12 +35,6 @@
   color: rgb(0, 0, 0);
 }
 
-.navbar-link-active {
-  font-size: 25px;
-  text-decoration: underline;
-  color: rgb(0, 0, 0);
-}
-
 .navbar-content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -49,6 +43,11 @@
   height: 100%;
   gap: 10px;
   position: relative;
+}
+.navbar-content .navbar-link-active {
+  font-size: 25px;
+  text-decoration: underline;
+  color: rgb(0, 0, 0);
 }
 
 .navbar-link {
