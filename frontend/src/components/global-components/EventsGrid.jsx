@@ -1,4 +1,9 @@
+import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
+
 import EventCardSmall from "../global-components/EventCardSmall";
+import { UserContext } from "../../contexts/UserContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const EventsGrid = ({ events, error, timeline }) => {
   const titleText =
