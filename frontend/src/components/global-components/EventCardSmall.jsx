@@ -8,9 +8,8 @@ import { useEffect, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-const EventCardSmall = ({ event, user }) => {
+const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
   const buttonContainerRef = useRef(null);
-
   const navigate = useNavigate();
   const [reload, setReload] = useState(false); // State variable to trigger reload
 
