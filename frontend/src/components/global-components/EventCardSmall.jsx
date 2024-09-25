@@ -78,23 +78,15 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
           </button>
         )}
 
-        {!isBooked &&
-          (!isWatched ? (
-            <button
-              onClick={() => toggleWatchEvent(user.id, event.id)}
-              className="button"
-            >
-              WATCH EVENT
-            </button>
-          ) : (
-            <button
-              onClick={() => toggleWatchEvent(user.id, event.id)}
-              href="#"
-              className="button"
-            >
-              WATCHED
-            </button>
-          ))}
+        {!isBooked && (
+          <button
+            onClick={() => toggleWatchEvent(user.id, event.id)}
+            href="#"
+            className="button"
+          >
+            {isWatched ? "Unwatch" : "Watch Event"}
+          </button>
+        )}
       </div>
     </div>
   );
