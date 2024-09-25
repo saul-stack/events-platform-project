@@ -6,6 +6,25 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 const EventsGrid = ({ events, error, timeline }) => {
+  const navigate = useNavigate();
+
+  const { user, updateUser } = useContext(UserContext);
+
+  let events_watched = user.events_watched || [];
+
+  const toggleWatchEvent = async (userId, eventId) => {
+    if (userId && eventId) {
+      let isWatched = events_watched.includes(eventId);
+      if (!isWatched) await watchEvent(userId, eventId);
+      else {
+        await unwatchEvent(userId, eventId);
+      }
+      const response = await getUserById(userId);
+      updateUser(response);
+    } else {
+      navigate("/login");
+    }
+  };
   const titleText =
     timeline === "upcoming"
       ? "Upcoming Events"
