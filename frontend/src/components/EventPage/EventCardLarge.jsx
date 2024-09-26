@@ -1,15 +1,38 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   formatDateForFrontend as formatDate,
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
-import { useEffect, useState } from "react";
+import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
+import { useContext, useEffect, useState } from "react";
 
+import { UserContext } from "../../contexts/UserContext";
 import { getEventById } from "../../../api-functions";
 
-const EventCardLarge = () => {
+const EventCardLarge = ({ handleBuyButtonClick }) => {
   const { eventId } = useParams();
+  const navigate = useNavigate();
+  const { user, updateUser } = useContext(UserContext);
+
   const [event, setEvent] = useState(null);
+
+  const handleWatchButtonClick = () => {
+    const toggleWatchEvent = async (userId, eventId) => {
+      let events_watched = user.events_watched || [];
+      if (userId && eventId) {
+        let isWatched = events_watched.includes(eventId);
+        if (!isWatched) await watchEvent(userId, eventId);
+        else {
+          await unwatchEvent(userId, eventId);
+        }
+        const response = await getUserById(userId);
+        updateUser(response);
+      } else {
+        navigate("/login");
+      }
+    };
+    toggleWatchEvent(user.id, event.id);
+  };
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -59,6 +82,15 @@ const EventCardLarge = () => {
           <p>£{advance_price}</p>
           {is_seated ? <p>Seated</p> : <p>Standing</p>}
         </div>
+        <button onClick={handleBuyButtonClick}>BUY TICKETS</button>
+
+        {!user.events_watched.includes(event.id) && (
+          <button onClick={handleWatchButtonClick}>WATCH EVENT</button>
+        )}
+
+        {user.events_watched.includes(event.id) && (
+          <button onClick={handleWatchButtonClick}>UNWATCH EVENT</button>
+        )}
       </div>
     </div>
   );
