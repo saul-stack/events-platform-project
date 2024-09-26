@@ -31,9 +31,8 @@ function EventsPage() {
 
   return (
     <div className="main-content">
-      <EventsGrid events={upcomingEvents} timeline="upcoming" />
-
-      <EventsGrid events={pastEvents} timeline="past" />
+      <EventsGrid events={upcomingEvents} titleText="Upcoming Events" />
+      <EventsGrid events={pastEvents} titleText="Past Events" />
     </div>
   );
 }
