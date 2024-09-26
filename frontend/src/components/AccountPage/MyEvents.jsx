@@ -8,6 +8,7 @@ const MyEvents = () => {
   const { user } = useContext(UserContext);
   const [eventsWatched, setEventsWatched] = useState([]);
   const [eventsBooked, setEventsBooked] = useState([]);
+  const [filteredEventsWatched, setFilteredEventsWatched] = useState([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -34,6 +35,14 @@ const MyEvents = () => {
 
       setEventsWatched(watchedEvents);
       setEventsBooked(bookedEvents);
+      setFilteredEventsWatched(
+        watchedEvents.filter(
+          (watchedEvent) =>
+            !bookedEvents.find(
+              (bookedEvent) => bookedEvent.id === watchedEvent.id
+            )
+        )
+      );
     };
 
     fetchEvents();
