@@ -36,6 +36,10 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
     }
   }, [isWatched, isBooked]);
 
+  const handleBuyTicket = () => {
+    navigate(`/events/${id}`, { state: { showBuyForm: true } });
+  };
+
   return (
     <div className="event-card-small">
       <div
@@ -69,7 +73,7 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
 
       <div className="button-container" ref={buttonContainerRef}>
         {!isBooked ? (
-          <button href="#" className="button">
+          <button href="#" onClick={handleBuyTicket} className="buy-button">
             BUY TICKETS
           </button>
         ) : (
