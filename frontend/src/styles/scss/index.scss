@@ -1,5 +1,5 @@
 :root {
-  font-family: "IBMPlexMono-Regular", system-ui, Avenir, Helvetica, Arial,
+  font-family: "IBMPlexMono-Light", system-ui, Avenir, Helvetica, Arial,
     sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -10,15 +10,52 @@
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoolightg: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.about-page-card {
+  border: 1px solid rgba(61, 61, 61, 0.109);
+  border-radius: 20px;
+  width: 95%;
+  position: relative;
+  left: 1%;
+  right: 1%;
+  box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1);
+  padding: 20px;
+
+  .about-page-paragraph {
+    gap: 20px;
+    position: relative;
+    text-align: left;
+    text-shadow: 1px 1px 2px rgba(130, 130, 130, 0.409);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .container-topbar {
+    font-size: 12px;
+  }
+}
+
 body {
-  font-family: "IBMPlexMono-Regular", system-ui, Avenir, Helvetica, Arial,
+  font-family: "IBMPlexMono-Light", system-ui, Avenir, Helvetica, Arial,
     sans-serif;
 }
 
+.login-title {
+  width: 80%;
+  position: relative;
+  margin-top: 10%;
+  left: 10%;
+}
+
+.login-container {
+  border: 1px solid rgba(61, 61, 61, 0.109);
+  width: 50%;
+  position: relative;
+  left: 25%;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -78,12 +115,14 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
 .main-content {
   gap: 60px;
   width: 98%;
   min-height: 90vh;
   position: absolute;
-  top: 10%;
+  padding: 20px;
+  top: 6%;
   left: 1%;
   box-sizing: border-box;
   display: flex;
@@ -91,25 +130,42 @@ button:focus-visible {
   border-radius: 10px;
 }
 
-#events-grid {
+.container-topbar {
   border: 1px solid rgba(61, 61, 61, 0.109);
-  border-radius: 20px;
-  margin-top: -10px;
-  padding: 10px;
-  width: 95%;
-  position: relative;
-  left: 1%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1);
+  border-radius: 10px;
+  background-color: #f9f9f9;
 }
 
 .events-grid-container {
+  border: 1px solid rgba(61, 61, 61, 0.109);
+  border-radius: 20px;
+  padding: 20px;
+  padding-bottom: 30px;
+  width: 95%;
+  position: relative;
+  left: 1%;
+  right: 1%;
+  box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1),
+    0 10px 10px rgba(152, 152, 152, 0.1);
+
   display: grid;
+
+  .container-topbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #events-grid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
 
   #title {
     font-size: 30px;
+    text-shadow: 1px 1px 2px rgba(130, 130, 130, 0.5);
   }
 }
 .event-card-large {
@@ -211,21 +267,24 @@ button:focus-visible {
   border: 1px solid rgba(61, 61, 61, 0.109);
 }
 
+#buy-ticket-form {
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: rgba(247, 247, 247, 0.917);
+  position: fixed;
+  z-index: 1000;
+}
+
 #logout-bar {
+  border: 1px solid black;
   margin-right: 10%;
   margin-left: 10%;
   display: flex;
   justify-content: space-between;
-}
-
-@font-face {
-  font-family: "IBMPlexMono-Regular";
-  src: url("../../assets/fonts/IBMPlexMono-Regular.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "IBMPlexMono-Italic";
-  src: url("../../assets/fonts/IBMPlexMono-Italic.ttf") format("truetype");
 }
 
 .event-card-large-details-container {
@@ -245,4 +304,24 @@ button:focus-visible {
   display: grid;
   grid-template-columns: 1fr 1fr;
   border: 1px dashed rgba(61, 61, 61, 0.109);
+}
+
+@font-face {
+  font-family: "IBMPlexMono-Regular";
+  src: url("../../assets/fonts/IBMPlexMono-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "IBMPlexMono-Italic";
+  src: url("../../assets/fonts/IBMPlexMono-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IBMPlexMono-Thin";
+  src: url("../../assets/fonts/IBMPlexMono-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IBMPlexMono-Light";
+  src: url("../../assets/fonts/IBMPlexMono-Light.ttf") format("truetype");
 }
