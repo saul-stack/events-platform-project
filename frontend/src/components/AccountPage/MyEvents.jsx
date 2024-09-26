@@ -51,12 +51,17 @@ const MyEvents = () => {
   return (
     <div className="main-content">
       <div id="my-events">
-        <h2>My Tickets</h2>
-        <EventsGrid events={eventsBooked} />
-      </div>
-      <div>
-        <h2>Interested</h2>
-        <EventsGrid events={eventsWatched} />
+        {eventsBooked.length > 0 && (
+          <div>
+            <EventsGrid events={eventsBooked} titleText="My Tickets " />
+          </div>
+        )}
+
+        {filteredEventsWatched.length > 0 && (
+          <div>
+            <EventsGrid events={filteredEventsWatched} titleText="Interested" />
+          </div>
+        )}
       </div>
     </div>
   );
