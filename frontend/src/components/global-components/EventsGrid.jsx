@@ -5,14 +5,12 @@ import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-const EventsGrid = ({ events, error, timeline }) => {
+const EventsGrid = ({ events, error, timeline, titleText }) => {
   const navigate = useNavigate();
-
   const { user, updateUser } = useContext(UserContext);
 
-  let events_watched = user.events_watched || [];
-
   const toggleWatchEvent = async (userId, eventId) => {
+    let events_watched = user.events_watched || [];
     if (userId && eventId) {
       let isWatched = events_watched.includes(eventId);
       if (!isWatched) await watchEvent(userId, eventId);
@@ -25,17 +23,15 @@ const EventsGrid = ({ events, error, timeline }) => {
       navigate("/login");
     }
   };
-  const titleText =
-    timeline === "upcoming"
-      ? "Upcoming Events"
-      : timeline === "past"
-      ? "Past Events"
-      : null;
+
   return (
     <div className="events-grid-container">
-      {titleText && <p id="title">{titleText}</p>}
-    <div id="events-grid">
-      {events ? (
+      <div className="container-topbar">
+        <h2>{titleText}</h2>
+        <button>This will be where the sorting is</button>
+      </div>
+      <div id="events-grid">
+        {events ? (
           events.map((event) => (
             <EventCardSmall
               key={event.id}
@@ -44,9 +40,9 @@ const EventsGrid = ({ events, error, timeline }) => {
               toggleWatchEvent={toggleWatchEvent}
             />
           ))
-      ) : (
-        <div>{error}</div>
-      )}
+        ) : (
+          <div>{error}</div>
+        )}
       </div>
     </div>
   );
