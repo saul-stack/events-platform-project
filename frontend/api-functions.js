@@ -1,6 +1,6 @@
 import axios from "axios";
 let API_BASE_URL = "http://localhost:9090/api";
-API_BASE_URL = "https://events-platform-project.onrender.com";
+API_BASE_URL = "https://events-platform-project.onrender.com/api";
 
 const api = axios.create({ baseURL: API_BASE_URL });
 
