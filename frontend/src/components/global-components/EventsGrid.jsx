@@ -5,7 +5,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-const EventsGrid = ({ events, error, timeline, titleText }) => {
+const EventsGrid = ({ events, error, timeline, titleText, enableSorting }) => {
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
 
@@ -28,7 +28,7 @@ const EventsGrid = ({ events, error, timeline, titleText }) => {
     <div className="events-grid-container">
       <div className="container-topbar">
         <h2>{titleText}</h2>
-        <button>This will be where the sorting is</button>
+        {enableSorting && <button>This will be where the sorting is</button>}
       </div>
       <div id="events-grid">
         {events ? (
