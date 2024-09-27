@@ -1,9 +1,14 @@
 import axios from "axios";
-const API_BASE_URL = "http://localhost:9090/api";
+
+/* const API_BASE_URL =
+  import.meta.env.API_BASE_URL || "http://localhost:9090/api"; */
+
+const API_BASE_URL = "https://events-platform-project-xt77.onrender.com/api/";
 
 const api = axios.create({ baseURL: API_BASE_URL });
 
 export const getEvents = async (queries) => {
+  console.log(API_BASE_URL, "API_BASE_URL");
   try {
     const result = await api.get("/events");
     const eventsArray = result.data.events;
