@@ -10,9 +10,7 @@
   background-position: center;
   border-radius: 7px;
   border: 1px solid rgb(208, 208, 208);
-  overflow: hidden;
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
-  text-align: left;
   transition: transform 0.3s ease;
   cursor: pointer;
   position: relative;
@@ -33,48 +31,50 @@
   margin-bottom: 20px;
 }
 .event-card-small .details {
-  padding: 16px;
+  position: relative;
+  top: 2%;
 }
-.event-card-small .details .hover-view {
-  display: none;
-}
-
-.type-and-time-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.type-and-time-container p {
-  padding: 5px;
-  text-align: center;
-}
-
-.date {
-  font-size: 0.9rem;
-  color: #777;
-  text-align: center;
-}
-
-.event-card-small:hover {
-  transform: scale(1.005);
-}
-
-.type {
-  color: #777;
-}
-
-.title {
+.event-card-small .details .title {
   font-size: 1.3rem;
   color: #000;
   margin-top: 25px;
   text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
-.time {
+.event-card-small .details .hover-view {
+  display: none;
+}
+.event-card-small .details .type-and-time-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.event-card-small .details .type-and-time-container p {
+  padding: 5px;
+  text-align: center;
+}
+.event-card-small .details .date {
+  font-size: 0.9rem;
+  color: #777;
+  text-align: center;
+}
+.event-card-small .details .description {
+  margin-top: 10%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.event-card-small .details .type {
+  color: #777;
+}
+.event-card-small .time {
   font-size: 1rem;
   color: #777;
 }
-
-.button-container {
+.event-card-small .button-container {
   width: 94%;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -82,7 +82,7 @@
   left: 3%;
   bottom: 13px;
 }
-.button-container .button {
+.event-card-small .button-container .button {
   position: relative;
   left: 5%;
   height: 60px;
@@ -100,17 +100,56 @@
   transition: background-color 0.3s ease;
   text-align: center;
 }
-.button-container .button:hover {
-  background-color: #000;
+.event-card-small .button-container .watch-button {
+  position: relative;
+  left: 5%;
+  height: 60px;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a9a9a9;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: 6px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  transition: background-color 0.3s ease;
+  text-align: center;
 }
-.button-container .buy-button .sold-out {
+.event-card-small .button-container .watch-button-watched {
+  position: relative;
+  left: 5%;
+  height: 60px;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a9a9a9;
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: 6px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  background-color: #d5d5d5;
+  color: green;
+}
+.event-card-small .button-container .buy-button .sold-out {
   text-decoration: line-through;
   color: #fff;
   font-size: 1rem;
   font-weight: 600;
 }
-.button-container .buy-button:hover {
-  background-color: rgba(104, 255, 109, 0.6117647059);
+.event-card-small .button-container .buy-button:hover {
+  background-color: rgba(104, 255, 109, 0.3843137255);
+  transform: scale(1.01);
+}
+
+.event-card-small:hover {
+  transform: scale(1.005);
 }
 
 /*# sourceMappingURL=EventCardSmall.css.map */
