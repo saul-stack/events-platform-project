@@ -50,19 +50,24 @@ const MyEvents = () => {
 
   return (
     <div className="main-content">
-      <div id="my-events">
-        {eventsBooked.length > 0 && (
-          <div>
-            <EventsGrid events={eventsBooked} titleText="My Tickets " />
-          </div>
-        )}
+      {(eventsBooked.length > 0 || filteredEventsWatched.length > 0) && (
+        <div id="my-events">
+          {eventsBooked.length > 0 && (
+            <div>
+              <EventsGrid events={eventsBooked} titleText="My Tickets " />
+            </div>
+          )}
 
-        {filteredEventsWatched.length > 0 && (
-          <div>
-            <EventsGrid events={filteredEventsWatched} titleText="Interested" />
-          </div>
-        )}
-      </div>
+          {filteredEventsWatched.length > 0 && (
+            <div>
+              <EventsGrid
+                events={filteredEventsWatched}
+                titleText="Interested"
+              />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
