@@ -26,9 +26,21 @@
 }
 
 .navbar-link {
-  color: white;
+  color: black;
   height: 100%;
   font-size: 20px;
+}
+@media (max-width: 767px) {
+  .navbar-link {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+}
+@media (min-width: 768px) {
+  .navbar-link {
+    padding: 15px;
+    font-size: 1.1em;
+  }
 }
 .navbar-link:hover {
   color: rgb(0, 0, 0);
@@ -48,11 +60,6 @@
   font-size: 21px;
   color: rgb(0, 0, 0);
   text-shadow: 2px 2px 2px rgba(130, 130, 130, 0.5);
-}
-
-.navbar-link {
-  font-size: 20px;
-  color: black;
 }
 
 /*# sourceMappingURL=Navbar.css.map */
