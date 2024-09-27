@@ -30,10 +30,14 @@ const LoginPage = () => {
       <h1 className="login-title">You are not logged in.</h1>
 
       <div className="login-container">
-        <p>Login to watch and book events, and manage your booked events.</p>
-        <form onSubmit={handleSubmit}>
+        <p className="header">
+          Login to watch and book events, and manage your booked events.
+        </p>
+        <form className="login-form" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="username">Username:</label>
+            <label className="text-input" htmlFor="username">
+              Username:
+            </label>
             <input
               type="text"
               id="username"
@@ -44,7 +48,9 @@ const LoginPage = () => {
             />
           </div>
           <div>
-            <label htmlFor="password">Password:</label>
+            <label className="text-input" htmlFor="password">
+              Password:
+            </label>
             <input
               type="password"
               id="password"
