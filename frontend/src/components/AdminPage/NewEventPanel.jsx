@@ -93,6 +93,24 @@ const NewEventPanel = () => {
               ></textarea>
             </div>
             <div>
+              <label htmlFor="event_type">Event Type:</label>
+              <select
+                id="event_type"
+                name="event_type"
+                value={newEvent.event_type}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select an event type</option>
+                <option value="Music">Music</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Social">Social</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div>
               <label htmlFor="is_ticketed">Ticketed:</label>
               <input
                 type="checkbox"
@@ -152,16 +170,7 @@ const NewEventPanel = () => {
                 onChange={handleChange}
               />
             </div>
-            <div>
-              <label htmlFor="is_recurring">Recurring:</label>
-              <input
-                type="checkbox"
-                id="is_recurring"
-                name="is_recurring"
-                checked={newEvent.is_recurring}
-                onChange={handleChange}
-              />
-            </div>
+            <div></div>
             <div>
               <label htmlFor="image_url">Image URL:</label>
               <input
