@@ -84,11 +84,9 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
         </div>
         <button onClick={handleBuyButtonClick}>BUY TICKETS</button>
 
-        {!user.events_watched.includes(event.id) && (
+        {user === null || !user?.events_watched?.includes(event.id) ? (
           <button onClick={handleWatchButtonClick}>WATCH EVENT</button>
-        )}
-
-        {user.events_watched.includes(event.id) && (
+        ) : (
           <button onClick={handleWatchButtonClick}>UNWATCH EVENT</button>
         )}
       </div>
