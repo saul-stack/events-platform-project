@@ -22,8 +22,8 @@ const Navbar = () => {
     { name: "Events", route: "/events" },
     {
       name:
-        user.user_name && user.user_name.length > 0
-          ? `${user.user_name}`
+        user.first_name && user.first_name.length > 0
+          ? `${user.first_name}`
           : "Login",
       route:
         user.user_name && user.user_name.length > 0
