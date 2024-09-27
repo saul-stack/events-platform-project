@@ -70,7 +70,9 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
             <p className="date">{date}</p>
           </div>
           <div className="hover-view">
-            <p>{event.description}</p>
+            <div className="description">
+              <p>{event.description}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -86,13 +88,21 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
           </button>
         )}
 
-        {!isBooked && (
+        {isWatched ? (
+          <button
+            onClick={() => toggleWatchEvent(user.id, event.id)}
+            href="#"
+            className="watch-button-watched"
+          >
+            Watching ✔️
+          </button>
+        ) : (
           <button
             onClick={() => toggleWatchEvent(user.id, event.id)}
             href="#"
             className="button"
           >
-            {isWatched ? "Unwatch" : "Watch Event"}
+            Watch Event
           </button>
         )}
       </div>
