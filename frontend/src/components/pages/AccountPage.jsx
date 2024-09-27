@@ -12,7 +12,7 @@ function AccountPage() {
     <div className="main-content">
       <div id="logout-bar">
         <p>
-          Logged in as {role}: {user_name}
+          {role}: {user_name}
         </p>
         <button onClick={logout}>Logout</button>
       </div>
