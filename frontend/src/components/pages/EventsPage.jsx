@@ -31,8 +31,16 @@ function EventsPage() {
 
   return (
     <div className="main-content">
-      <EventsGrid events={upcomingEvents} titleText="Upcoming Events" />
-      <EventsGrid events={pastEvents} titleText="Past Events" />
+      <EventsGrid
+        events={upcomingEvents}
+        titleText="Upcoming Events"
+        enableSorting={true}
+      />
+      <EventsGrid
+        events={pastEvents}
+        titleText="Past Events"
+        enableSorting={true}
+      />
     </div>
   );
 }
