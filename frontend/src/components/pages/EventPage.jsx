@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import BuyTicketForm from "../EventPage/BuyTicketForm";
 import EventCardLarge from "../EventPage/EventCardLarge";
-import { useEffect } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import { useLocation } from "react-router-dom";
 
 const EventPage = () => {
+  const { user } = useContext(UserContext);
   const location = useLocation();
   const { showBuyForm } = location.state || {};
 
@@ -19,6 +20,9 @@ const EventPage = () => {
 
   const handleBuyButtonClick = () => {
     setShowBuyTicketForm(!showBuyTicketForm);
+    if (!user.id) {
+      navigate("/login");
+    }
   };
 
   return (
