@@ -29,9 +29,9 @@
 }
 
 .navbar-link {
+  color: white;
   height: 100%;
   font-size: 20px;
-  color: black;
 }
 .navbar-link:hover {
   color: rgb(0, 0, 0);
