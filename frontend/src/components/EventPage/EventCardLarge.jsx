@@ -57,7 +57,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
 
   return (
     <div className="event-card-large">
-      <div className="event-card-large-topbar">
+      <div className="topbar">
         <div className="event-card-large-topbar-back-button">
           <Link
             to="/events"
@@ -68,17 +68,20 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
         </div>
         <h1>{title}</h1>
       </div>
-      <img className="event-card-large-image" src={image_url} alt={title} />
 
-      <div className="event-card-large-details-container">
-        <div className="event-card-large-description">
+      <div className="image-and-description">
+        <img className="image" src={image_url} alt={title} />
+        <div className="description">
           <p>{description}</p>
         </div>
-        <div className="event-card-large-details-top">
+      </div>
+
+      <div className="details-container">
+        <div className="details-top">
           <p>{date}</p>
           <p>{time}</p>
         </div>
-        <div className="event-card-large-details-bottom">
+        <div className="details-bottom">
           <p>£{advance_price}</p>
           {is_seated ? <p>Seated</p> : <p>Standing</p>}
         </div>
