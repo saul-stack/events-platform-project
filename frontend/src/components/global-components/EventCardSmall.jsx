@@ -37,6 +37,10 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
   }, [isWatched, isBooked]);
 
   const handleBuyTicket = () => {
+    if (!user.id) {
+      navigate("/login");
+      return;
+    }
     navigate(`/events/${id}`, { state: { showBuyForm: true } });
   };
 
