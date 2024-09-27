@@ -1,8 +1,20 @@
 :root {
-  font-family: "IBMPlexMono-Light", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "IBMPlexMono-Light", system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
   -moz-osx-font-smoothing: grayscale;
+  color: rgb(31, 58, 72);
+}
+
+#title {
+  font-size: 32px;
+  text-shadow: 1px 1px 2px rgba(130, 130, 130, 0.5);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 500;
   color: rgb(31, 58, 72);
 }
 
@@ -36,7 +48,7 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 .about-page-card .about-page-paragraph .card-container .title {
-  font-size: 30px;
+  font-size: 20px;
   text-shadow: 1px 1px 2px rgba(130, 130, 130, 0.5);
 }
 .about-page-card .about-page-paragraph .card-container .card {
@@ -150,14 +162,19 @@ button:hover {
 }
 
 .main-content {
-  gap: 60px;
+  gap: 60 px;
   width: 100%;
   position: absolute;
   left: 0%;
-  top: 10%;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+}
+@media (max-width: 780px) {
+  .main-content {
+    top: 13%;
+    border: 1px solid black;
+  }
 }
 
 .container-topbar {
@@ -169,14 +186,15 @@ button:hover {
 
 .events-grid-container {
   background-color: #ffffff;
-  border: 1px solid rgba(61, 61, 61, 0.109);
+  border: 1px solid rgba(255, 0, 0, 0.109);
   border-radius: 20px;
   padding: 20px;
   padding-bottom: 30px;
   width: 90%;
   position: relative;
   left: 5%;
-  box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1), 0 10px 10px rgba(152, 152, 152, 0.1);
+  box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1),
+    0 10px 10px rgba(152, 152, 152, 0.1);
   display: grid;
 }
 .events-grid-container .container-topbar {
@@ -192,7 +210,7 @@ button:hover {
   gap: 20px;
 }
 .events-grid-container #title {
-  font-size: 30px;
+  font-size: 20px;
   text-shadow: 1px 1px 2px rgba(130, 130, 130, 0.5);
 }
 
@@ -225,11 +243,11 @@ button:hover {
   font-size: 16px;
 }
 
-#new-event-form input[type=text],
-#new-event-form input[type=date],
-#new-event-form input[type=time],
+#new-event-form input[type="text"],
+#new-event-form input[type="date"],
+#new-event-form input[type="time"],
 #new-event-form textarea,
-#new-event-form input[type=url] {
+#new-event-form input[type="url"] {
   width: 80%;
   padding: 5px;
   border: 1px solid #ccc;
@@ -238,7 +256,7 @@ button:hover {
   position: relative;
 }
 
-#new-event-form input[type=checkbox] {
+#new-event-form input[type="checkbox"] {
   margin-right: 10px;
   position: relative;
   right: 1%;
@@ -278,11 +296,13 @@ button:hover {
 
 #logout-bar {
   width: 80%;
+  margin-top: 0%;
   margin-right: 10%;
   margin-left: 10%;
+  font-size: 12px;
   border: 1px solid black;
   border-radius: 10px;
-  margin-bottom: 150%;
+  margin-bottom: 100%;
   padding-left: 2%;
   display: flex;
   justify-content: space-between;
