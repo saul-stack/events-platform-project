@@ -14,7 +14,7 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
   const defaultImageUrl =
     "https://images.pexels.com/photos/3843282/pexels-photo-3843282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
-  let { id, date, time } = event;
+  let { id, date, time, advance_price, is_seated } = event;
 
   date = formatDate(date);
   time = formatTime(time);
@@ -50,16 +50,20 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
         className="event-card-link"
         onClick={() => navigate(`/events/${id}`)}
       >
-        <div
-          className="image"
-          style={{
-            backgroundImage: `url(${
-              event.image_url.length > 0
-                ? event.image_url
-                : "https://images.pexels.com/photos/3843282/pexels-photo-3843282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            })`,
-          }}
-        ></div>
+        <div className="image-container">
+          {advance_price === 0 && <p className="free-icon">FREE</p>}
+
+          <div
+            className="image"
+            style={{
+              backgroundImage: `url(${
+                event.image_url.length > 0
+                  ? event.image_url
+                  : "https://images.pexels.com/photos/3843282/pexels-photo-3843282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              })`,
+            }}
+          ></div>
+        </div>
         <div className="details">
           <div className="default-view">
             <h1 className="title">{event.title}</h1>
@@ -80,31 +84,32 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
       <div className="button-container" ref={buttonContainerRef}>
         {!isBooked ? (
           <button href="#" onClick={handleBuyTicket} className="buy-button">
-            BUY TICKETS
+            {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
           </button>
         ) : (
           <button href="#" className="button">
             VIEW MY TICKETS
           </button>
         )}
-
-        {isWatched ? (
-          <button
-            onClick={() => toggleWatchEvent(user.id, event.id)}
-            href="#"
-            className="watch-button-watched"
-          >
-            Watching ✔️
-          </button>
-        ) : (
-          <button
-            onClick={() => toggleWatchEvent(user.id, event.id)}
-            href="#"
-            className="button"
-          >
-            Watch Event
-          </button>
-        )}
+        <div className="watch-button-container">
+          {isWatched ? (
+            <button
+              onClick={() => toggleWatchEvent(user.id, event.id)}
+              href="#"
+              className="watch-button-watched"
+            >
+              Watching ✔️
+            </button>
+          ) : (
+            <button
+              onClick={() => toggleWatchEvent(user.id, event.id)}
+              href="#"
+              className="watch-button-unwatched"
+            >
+              Watch Event
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

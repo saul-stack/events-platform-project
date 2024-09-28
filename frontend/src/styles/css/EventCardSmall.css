@@ -22,6 +22,28 @@
   display: block;
   margin-top: -25px;
 }
+.event-card-small .image-container .watch-button,
+.event-card-small .image-container .watch-button-watched {
+  position: absolute;
+  right: 5%;
+  bottom: 67%;
+  background-color: #93ff97;
+  font-size: small;
+  border-radius: 20px;
+  height: 30px;
+  width: 80px;
+  justify-content: center;
+}
+.event-card-small .image-container .free-icon {
+  position: absolute;
+  right: 8%;
+  background-color: #93ff97;
+  font-size: small;
+  border-radius: 20px;
+  height: 20px;
+  width: 50px;
+  justify-content: center;
+}
 .event-card-small .image {
   background-size: cover;
   border-radius: 8px;
@@ -100,7 +122,7 @@
   transition: background-color 0.3s ease;
   text-align: center;
 }
-.event-card-small .button-container .watch-button {
+.event-card-small .button-container .watch-button-unwatched {
   position: relative;
   left: 5%;
   height: 60px;

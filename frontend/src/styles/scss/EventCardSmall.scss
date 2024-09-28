@@ -28,6 +28,31 @@
     }
   }
 
+  .image-container {
+    .watch-button,
+    .watch-button-watched {
+      position: absolute;
+      right: 5%;
+      bottom: 67%;
+      background-color: #93ff97;
+      font-size: small;
+      border-radius: 20px;
+      height: 30px;
+      width: 80px;
+      justify-content: center;
+    }
+
+    .free-icon {
+      position: absolute;
+      right: 8%;
+      background-color: #93ff97;
+      font-size: small;
+      border-radius: 20px;
+      height: 20px;
+      width: 50px;
+      justify-content: center;
+    }
+  }
   .image {
     background-size: cover;
     border-radius: 8px;
@@ -115,7 +140,7 @@
       text-align: center;
     }
 
-    .watch-button {
+    .watch-button-unwatched {
       position: relative;
       left: 5%;
       height: 60px;
