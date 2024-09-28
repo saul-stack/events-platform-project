@@ -28,7 +28,7 @@ const EventsGrid = ({ events, error, timeline, titleText, enableSorting }) => {
     <div className="events-grid-container">
       <div className="container-topbar">
         <h2>{titleText}</h2>
-        {enableSorting && <button>This will be where the sorting is</button>}
+        {enableSorting && <button>Sort</button>}
       </div>
       <div id="events-grid">
         {events ? (
