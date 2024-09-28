@@ -8,6 +8,7 @@ function EventsPage() {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [pastEvents, setPastEvents] = useState([]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -21,6 +22,7 @@ function EventsPage() {
         setEvents(result);
         setUpcomingEvents(upcoming);
         setPastEvents(past);
+        setIsLoading(false);
       } else {
         setError(result);
       }
@@ -31,16 +33,22 @@ function EventsPage() {
 
   return (
     <div className="main-content">
-      <EventsGrid
-        events={upcomingEvents}
-        titleText="Upcoming Events"
-        enableSorting={true}
-      />
-      <EventsGrid
-        events={pastEvents}
-        titleText="Past Events"
-        enableSorting={true}
-      />
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <>
+          <EventsGrid
+            events={upcomingEvents}
+            titleText="Upcoming Events"
+            enableSorting={true}
+          />
+          <EventsGrid
+            events={pastEvents}
+            titleText="Past Events"
+            enableSorting={true}
+          />
+        </>
+      )}
     </div>
   );
 }
