@@ -1,9 +1,9 @@
 .navbar {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: fixed;
-  top: 2%;
-  left: 5%;
-  width: 90%;
+  top: 0%;
+  left: 1%;
+  width: 98%;
   z-index: 1000;
   padding-top: 6px;
   display: flex;
