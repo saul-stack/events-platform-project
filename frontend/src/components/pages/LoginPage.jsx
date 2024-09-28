@@ -27,8 +27,6 @@ const LoginPage = () => {
 
   return (
     <div className="main-content">
-      <h1 className="login-title">You are not logged in.</h1>
-
       <div className="login-container">
         <p className="header">
           Login to watch and book events, and manage your booked events.
@@ -36,7 +34,7 @@ const LoginPage = () => {
         <form className="login-form" onSubmit={handleSubmit}>
           <div>
             <label className="text-input" htmlFor="username">
-              Username:
+              Username
             </label>
             <input
               type="text"
@@ -49,7 +47,7 @@ const LoginPage = () => {
           </div>
           <div>
             <label className="text-input" htmlFor="password">
-              Password:
+              Password
             </label>
             <input
               type="password"
