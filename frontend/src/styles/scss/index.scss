@@ -13,8 +13,8 @@ $button-padding: 0.6em 1.2em;
 }
 
 #title {
-  font-size: 32px;
-  text-shadow: 1px 1px 2px rgba(130, 130, 130, 0.5);
+  font-family: monospace;
+  font-size: 30px;
 }
 
 .title {
@@ -39,7 +39,11 @@ body {
   background-color: $main-background-color;
   border: 1px solid rgba(61, 61, 61, 0.109);
   border-radius: 20px;
-  width: 90%;
+
+  margin-top: 5%;
+  @media (any-pointer: coarse) {
+    width: 100%;
+  }
 
   margin: 0 auto;
   box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1);
@@ -49,12 +53,13 @@ body {
     gap: 20px;
     position: relative;
     text-align: left;
-    text-shadow: 1px 1px 2px rgba(130, 130, 130, 0.409);
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 
     .card-container {
       .title {
+        margin-bottom: 0px;
+        padding-left: 20px;
         font-size: 20px;
         text-shadow: 1px 1px 2px rgba(130, 130, 130, 0.5);
       }
@@ -112,16 +117,17 @@ body {
   }
 
   .login-form {
-    border: 1px solid black;
+    border: 1px solid rgba(180, 180, 180, 0.613);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 10px;
     input {
-      width: 80%;
+      text-align: center;
+      width: 55%;
       border: 1px solid black;
       border-radius: 50px;
       padding: 5px;
-      margin: 10px;
+      margin: 11px;
     }
   }
 }
@@ -181,9 +187,9 @@ button {
   width: 100%;
   position: absolute;
   left: 0%;
-  @media (max-width: 780px) {
-    top: 13%;
-    border: 1px solid black;
+  top: 12%;
+  @media (any-pointer: coarse) {
+    top: 14%;
   }
   display: flex;
   flex-direction: column;
@@ -195,6 +201,10 @@ button {
   gap: 20px;
   border-radius: 10px;
   background-color: $main-background-color;
+
+  h2 {
+    font-size: 20px;
+  }
 }
 
 .events-grid-container {
@@ -204,9 +214,16 @@ button {
   border-radius: 20px;
   padding: 20px;
   padding-bottom: 30px;
-  width: 90%;
+
   position: relative;
+  width: 90%;
   left: 5%;
+
+  @media (any-pointer: coarse) {
+    width: 98%;
+    left: 1%;
+  }
+
   box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1),
     0 10px 10px rgba(152, 152, 152, 0.1);
 
@@ -323,11 +340,16 @@ button {
   border: 1px solid black;
   border-radius: 10px;
 
-  margin-bottom: 100%;
+  margin-bottom: 70%;
 
   padding-left: 2%;
   display: flex;
   justify-content: space-between;
+
+  @media (any-pointer: coarse) {
+    margin-top: 5%;
+    margin-bottom: 140%;
+  }
 }
 
 .event-card-large {
