@@ -7,6 +7,7 @@ import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
 import { useContext, useEffect, useState } from "react";
 
 import { UserContext } from "../../contexts/UserContext";
+import { addToGoogleCalendar } from "../../../account-util-functions";
 import { getEventById } from "../../../api-functions";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
@@ -15,6 +16,10 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   const { user, updateUser } = useContext(UserContext);
 
   const [event, setEvent] = useState(null);
+
+  const handleAddToCalendar = () => {
+    addToGoogleCalendar(event);
+  };
 
   const handleWatchButtonClick = () => {
     const toggleWatchEvent = async (userId, eventId) => {
@@ -93,6 +98,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           <button onClick={handleWatchButtonClick}>UNWATCH EVENT</button>
         )}
       </div>
+      <button onClick={handleAddToCalendar}>Add to Google Calendar</button>
     </div>
   );
 };
