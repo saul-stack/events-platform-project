@@ -36,7 +36,9 @@ const toggleWatchEvent = async (
 };
 
 const addToGoogleCalendar = (event) => {
-  const { description, title, time, date } = event;
+  let { description, title, time, date } = event;
+
+  title = title + " @ Bar-None Club";
 
   const datePart = date.split("T")[0].replace(/-/g, "");
   const timePart = time.split(":").slice(0, 2).join("") + "00";
