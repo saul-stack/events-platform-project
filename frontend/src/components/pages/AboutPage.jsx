@@ -37,8 +37,8 @@ function AboutPage() {
             </div>
 
             <div className="card-container">
+              <h2 className="title">Hire Our Space</h2>
               <div className="card">
-                <h2 className="title">Hire Our Space</h2>
                 <div>
                   <div className="paragraph">
                     <p>
@@ -48,6 +48,7 @@ function AboutPage() {
                       welcoming, and ready to accommodate your needs.
                     </p>
                   </div>
+                  <div className="card"></div>
 
                   <div className="paragraph">
                     <p>
