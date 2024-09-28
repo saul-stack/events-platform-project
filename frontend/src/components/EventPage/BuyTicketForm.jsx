@@ -40,9 +40,9 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
     <div id="buy-ticket-form">
       <button onClick={handleBackButtonClick}>Go back</button>
       <h1>Buy tickets</h1>
-      {event && (
-        <p>Tickets Remaining {event.tickets_total - event.tickets_sold}</p>
-      )}
+
+      <p>Tickets Remaining {event.tickets_total - event.tickets_sold}</p>
+      <p>£{event.advance_price * tickets}</p>
       <form onSubmit={handleSubmit}>
         <label htmlFor="tickets">Number of tickets:</label>
         <input
