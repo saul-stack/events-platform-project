@@ -12,10 +12,9 @@ import { getEventById } from "../../../api-functions";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
   const { eventId } = useParams();
+  const [event, setEvent] = useState(null);
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
-
-  const [event, setEvent] = useState(null);
 
   const handleAddToCalendar = () => {
     addToGoogleCalendar(event);
@@ -87,10 +86,14 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           <p>{time}</p>
         </div>
         <div className="details-bottom">
-          <p>£{advance_price}</p>
+          {advance_price > 0 ? <p>£{advance_price}</p> : <p>Free</p>}
           {is_seated ? <p>Seated</p> : <p>Standing</p>}
         </div>
-        <button onClick={handleBuyButtonClick}>BUY TICKETS</button>
+        {advance_price > 0 ? (
+          <button onClick={handleBuyButtonClick}>BUY TICKETS</button>
+        ) : (
+          <button onClick={handleBuyButtonClick}>GET TICKETS</button>
+        )}
 
         {user === null || !user?.events_watched?.includes(event.id) ? (
           <button onClick={handleWatchButtonClick}>WATCH EVENT</button>

@@ -4,9 +4,9 @@ import { getEventById } from "../../../api-functions";
 import { useParams } from "react-router-dom";
 
 const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
+  const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [tickets, setTickets] = useState(1);
-  const { eventId } = useParams();
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -40,9 +40,12 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
     <div id="buy-ticket-form">
       <button onClick={handleBackButtonClick}>Go back</button>
       <h1>Buy tickets</h1>
-
-      <p>Tickets Remaining {event.tickets_total - event.tickets_sold}</p>
-      <p>£{event.advance_price * tickets}</p>
+      {event && (
+        <>
+          <p>Tickets Remaining {event.tickets_total - event.tickets_sold}</p>
+          <p>£{event.advance_price * tickets}</p>
+        </>
+      )}
       <form onSubmit={handleSubmit}>
         <label htmlFor="tickets">Number of tickets:</label>
         <input
