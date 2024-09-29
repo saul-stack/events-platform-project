@@ -96,3 +96,13 @@ export const unwatchEvent = async (userId, eventId) => {
     throw error;
   }
 };
+
+export const sendStripePaymentRequest = async (eventId) => {
+  const event = await getEventById(eventId);
+  const result = await api.post("/create-checkout-session", {
+    price: event.advance_price,
+    eventId: event.id,
+    title: event.title,
+  });
+  return result;
+};
