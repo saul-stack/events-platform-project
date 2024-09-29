@@ -12,6 +12,12 @@ $button-padding: 0.6em 1.2em;
   color: $font-color-primary;
 }
 
+#logo {
+  width: 30%;
+  margin: 0 auto;
+  background: none;
+}
+
 #title {
   font-family: monospace;
   font-size: 30px;
@@ -37,7 +43,6 @@ body {
 
 .about-page-card {
   background-color: $main-background-color;
-  border: 1px solid rgba(61, 61, 61, 0.109);
   border-radius: 20px;
 
   margin-top: 5%;
@@ -54,20 +59,26 @@ body {
     position: relative;
     text-align: left;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px));
 
     .card-container {
+      box-shadow: 1px 1px 11px rgba(31, 58, 72, 0.3);
+      width: 90%;
+      padding: 10px;
+      margin: 0 auto;
+      border-radius: 10px;
+      border: 1px solid rgb(147, 147, 147);
       .title {
         margin-bottom: 0px;
-        padding-left: 20px;
+        padding-left: 50px;
         font-size: 20px;
-        text-shadow: 1px 1px 2px rgba(130, 130, 130, 0.5);
       }
       .card {
         .paragraph {
-          border: 1px solid rgb(208, 208, 208);
-          padding-left: 20px;
-          padding-right: 20px;
+          border: 1px solid rgb(131, 131, 131);
+          padding: 15px;
+          padding-left: 25px;
+          padding-right: 25px;
 
           flex-direction: column;
           justify-content: space-between;
@@ -76,7 +87,6 @@ body {
           background-position: center;
           border-radius: 7px;
           overflow: hidden;
-          box-shadow: 5px 10px 10px rgba(31, 58, 72, 0.3);
           text-align: left;
           transition: transform 0.3s ease;
           cursor: pointer;
@@ -357,9 +367,11 @@ button {
     font-size: 40px;
   }
 
-  border: 1px solid rgba(61, 61, 61, 0.109);
+  border: 11px solid rgba(61, 61, 61, 0.109);
+  border: 3px solid rgba(0, 0, 0, 0.109);
   border-radius: 10px;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
   height: 100%;
   padding: 10px;
   display: flex;
@@ -371,18 +383,28 @@ button {
   gap: 10px;
 
   .image-and-description {
+    min-width: 80%;
+    border: 3px solid rgba(0, 0, 0, 0.109);
+    border-radius: 5px;
+    padding: 10px;
     display: flex;
     flex-direction: row;
     margin: 0 auto;
+    border-radius: 5px;
+    gap: 10px;
+
+    .description {
+      border: 3px solid rgba(0, 0, 0, 0.109);
+      border-radius: 5px;
+    }
+    .image {
+      margin: 0 auto;
+      border-radius: 10px;
+      height: 25vh;
+      max-width: 50%;
+    }
   }
 
-  .image {
-    width: 30%;
-    margin: 0 auto;
-    position: relative;
-    height: 100%;
-    border-radius: 10px;
-  }
   .topbar {
     display: grid;
     grid-template-columns: 1fr 30fr 1fr;
@@ -390,11 +412,6 @@ button {
 
   .details-container {
     border: 1px solid rgba(61, 61, 61, 0.109);
-    border-radius: 5px;
-
-    .description {
-      border: 1px dotted rgba(61, 61, 61, 0.109);
-    }
 
     .details-top {
       border: 1px solid rgba(61, 61, 61, 0.109);
