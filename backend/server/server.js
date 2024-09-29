@@ -1,4 +1,8 @@
 const express = require("express");
+const server = express();
+
+server.use(express.json());
+
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -21,6 +25,10 @@ const {
   logUserIn,
 } = require("../MVC/controllers/users.controllers.js");
 
+const {
+  handleStripeRequest,
+} = require("../MVC/controllers/payment.controller.js");
+
 const rejectRequestMethod = (req, res) => {
   const METHOD = req.method;
   const ENDPOINT = req.originalUrl;
@@ -29,8 +37,6 @@ const rejectRequestMethod = (req, res) => {
     .status(405)
     .json({ error: `${METHOD} Method Not Allowed on ${ENDPOINT}` });
 };
-
-const server = express();
 
 server.use(cors());
 
@@ -70,5 +76,7 @@ server.patch("/api/users/:id", patchUserById);
 server.get("/api/users/username/:username", getUserByUsername);
 
 server.post("/api/login", logUserIn);
+
+server.post("/api/create-checkout-session", handleStripeRequest);
 
 module.exports = server;
