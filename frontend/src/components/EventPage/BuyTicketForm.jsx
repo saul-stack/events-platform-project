@@ -39,24 +39,29 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
   return (
     <div id="buy-ticket-form">
       <button onClick={handleBackButtonClick}>Go back</button>
-      <h1>Buy tickets</h1>
+      {event && event.advance_price > 0 ? (
+        <h1>Buy tickets</h1>
+      ) : (
+        <h1>Get Free tickets</h1>
+      )}
       {event && (
         <>
           <p>Tickets Remaining {event.tickets_total - event.tickets_sold}</p>
-          <p>£{event.advance_price * tickets}</p>
+          <p> Max 1 ticket per person.</p>
+
+          {event.advance_price > 0 ? (
+            <p>£{event.advance_price}</p>
+          ) : (
+            <p>Free</p>
+          )}
         </>
       )}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="tickets">Number of tickets:</label>
-        <input
-          type="number"
-          id="tickets"
-          name="tickets"
-          value={tickets}
-          onChange={handleTicketsChange}
-          min="1"
-        />
-        <button type="submit">Buy</button>
+        {event && event.advance_price > 0 ? (
+          <button type="submit">Buy</button>
+        ) : (
+          <button type="submit">Get</button>
+        )}
       </form>
     </div>
   );
