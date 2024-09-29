@@ -30,17 +30,36 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting form");
 
     const response = await sendStripePaymentRequest(event.id);
-
-    console.log("Stripe session created:", response.data);
-
     const stripe = await loadStripe(STRIPE_PUBLIC_KEY);
-    const result = await stripe.redirectToCheckout({
-      sessionId: response.data.id,
-    });
 
-    console.log(result);
+    try {
+      const result = await stripe.redirectToCheckout({
+        sessionId: response.data.id,
+      });
+      console.log("hi");
+
+      console.log(result);
+    } catch (error) {
+      console.error("Error redirecting to checkout:", error);
+    }
+
+    /*
+
+    console.log(result, "<<<<<<<<<<<<");
+
+    if (result.success === true) {
+      const newUser = {
+        ...user,
+        events_booked: [...user.events_booked, Number(eventId)],
+      };
+
+      updateUser(newUser);
+      navigate("/account");
+      console.log(result);
+    } */
   };
 
   return (
