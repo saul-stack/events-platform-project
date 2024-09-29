@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
+const EventCardSmall = ({ event, user, toggleWatchEvent, showWatchButton }) => {
   const buttonContainerRef = useRef(null);
   const navigate = useNavigate();
   const defaultImageUrl =
@@ -68,7 +68,15 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
           <div className="default-view">
             <h1 className="title">{event.title}</h1>
             <div className="type-and-time-container">
-              <p className="type">{event.event_type}</p>
+              <div className="type">
+                <p
+                  className={`${event.event_type
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}`}
+                >
+                  {event.event_type}
+                </p>
+              </div>
               <p className="time">{time}</p>
             </div>
             <p className="date">{date}</p>
@@ -80,7 +88,6 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
           </div>
         </div>
       </div>
-
       <div className="button-container" ref={buttonContainerRef}>
         {!isBooked ? (
           <button href="#" onClick={handleBuyTicket} className="buy-button">
@@ -91,25 +98,27 @@ const EventCardSmall = ({ event, user, toggleWatchEvent }) => {
             VIEW MY TICKETS
           </button>
         )}
-        <div className="watch-button-container">
-          {isWatched ? (
-            <button
-              onClick={() => toggleWatchEvent(user.id, event.id)}
-              href="#"
-              className="watch-button-watched"
-            >
-              Watching ✔️
-            </button>
-          ) : (
-            <button
-              onClick={() => toggleWatchEvent(user.id, event.id)}
-              href="#"
-              className="watch-button-unwatched"
-            >
-              Watch Event
-            </button>
-          )}
-        </div>
+        {!isBooked && showWatchButton && (
+          <div className="watch-button-container">
+            {isWatched ? (
+              <button
+                onClick={() => toggleWatchEvent(user.id, event.id)}
+                href="#"
+                className="watch-button-watched"
+              >
+                Watching ✔️
+              </button>
+            ) : (
+              <button
+                onClick={() => toggleWatchEvent(user.id, event.id)}
+                href="#"
+                className="watch-button-unwatched"
+              >
+                Watch Event
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
