@@ -54,7 +54,12 @@ const MyEvents = () => {
         <div id="my-events">
           {eventsBooked.length > 0 && (
             <div>
-              <EventsGrid events={eventsBooked} titleText="My Tickets " />
+              <EventsGrid
+                events={eventsBooked}
+                titleText="My Tickets"
+                isBought={true}
+                showWatchButton={false}
+              />
             </div>
           )}
 
@@ -63,6 +68,7 @@ const MyEvents = () => {
               <EventsGrid
                 events={filteredEventsWatched}
                 titleText="Interested"
+                showWatchButton={true}
               />
             </div>
           )}
