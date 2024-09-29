@@ -8,7 +8,7 @@ import {
   EventsPage,
   LoginPage,
 } from "./pages";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import Navbar from "./global-components/Navbar";
 import React from "react";
@@ -22,6 +22,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/events" element={<EventsPage />} />
+        <Route path="/" element={<Navigate to="/events" />} />
         <Route path="/events/:eventId" element={<EventPage />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
