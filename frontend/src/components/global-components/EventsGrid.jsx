@@ -5,7 +5,13 @@ import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-const EventsGrid = ({ events, error, timeline, titleText, enableSorting }) => {
+const EventsGrid = ({
+  events,
+  error,
+  titleText,
+  isBought,
+  showWatchButton,
+}) => {
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
 
@@ -28,16 +34,17 @@ const EventsGrid = ({ events, error, timeline, titleText, enableSorting }) => {
     <div className="events-grid-container">
       <div className="container-topbar">
         <h2>{titleText}</h2>
-        {enableSorting && <button>Sort</button>}
       </div>
       <div id="events-grid">
         {events ? (
           events.map((event) => (
             <EventCardSmall
+              showWatchButton={showWatchButton}
               key={event.id}
               event={event}
               user={user}
               toggleWatchEvent={toggleWatchEvent}
+              isBought={isBought}
             />
           ))
         ) : (
