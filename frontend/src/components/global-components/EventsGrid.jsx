@@ -31,10 +31,10 @@ const EventsGrid = ({
   };
 
   return (
-    <div className="events-grid-container">
-      <div className="container-topbar">
+    <section className="events-grid-container">
+      <header className="container-topbar">
         <h2>{titleText}</h2>
-      </div>
+      </header>
       <div id="events-grid">
         {events ? (
           events.map((event) => (
@@ -51,7 +51,7 @@ const EventsGrid = ({
           <div>{error}</div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 export default EventsGrid;

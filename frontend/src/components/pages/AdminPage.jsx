@@ -18,13 +18,15 @@ const AdminPage = () => {
   }, []);
 
   return (
-    <div className="main-content">
-      <div>
-        <p>Admin Page </p>
+    <main className="main-content">
+      <header>
+        <p>Admin Page</p>
         <button onClick={logout}>Logout</button>
+      </header>
+      <section>
         <NewEventPanel />
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 

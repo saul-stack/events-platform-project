@@ -9,15 +9,17 @@ function AccountPage() {
   const { role, user_name } = user;
 
   return (
-    <div className="main-content">
-      <div id="logout-bar">
+    <main className="main-content">
+      <header id="logout-bar">
         <p>
           {role}: {user_name}
         </p>
         <button onClick={logout}>Logout</button>
-      </div>
-      <MyEvents />
-    </div>
+      </header>
+      <section>
+        <MyEvents />
+      </section>
+    </main>
   );
 }
 export default AccountPage;

@@ -27,18 +27,22 @@ const EventPage = () => {
   };
 
   return (
-    <div className="main-content">
-      <EventCardLarge
-        showBuyTicketForm={showBuyTicketForm}
-        handleBuyButtonClick={handleBuyButtonClick}
-      />
-      {showBuyTicketForm && (
-        <BuyTicketForm
+    <main className="main-content">
+      <article>
+        <EventCardLarge
           showBuyTicketForm={showBuyTicketForm}
-          setShowBuyTicketForm={setShowBuyTicketForm}
+          handleBuyButtonClick={handleBuyButtonClick}
         />
+      </article>
+      {showBuyTicketForm && (
+        <section>
+          <BuyTicketForm
+            showBuyTicketForm={showBuyTicketForm}
+            setShowBuyTicketForm={setShowBuyTicketForm}
+          />
+        </section>
       )}
-    </div>
+    </main>
   );
 };
 

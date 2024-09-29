@@ -26,11 +26,12 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="main-content">
-      <div className="login-container">
-        <p className="header">
-          Login to watch and book events, and manage your booked events.
-        </p>
+    <main className="main-content">
+      <section className="login-container">
+        <header>
+          <h1>Login</h1>
+          <p>Login to watch and book events, and manage your booked events.</p>
+        </header>
         <form className="login-form" onSubmit={handleSubmit}>
           <div>
             <label className="text-input" htmlFor="username">
@@ -61,8 +62,8 @@ const LoginPage = () => {
           {errorMessage && <p className="error">{errorMessage}</p>}
           <button type="submit">Login</button>
         </form>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 

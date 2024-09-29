@@ -1,8 +1,8 @@
 const LoadingCard = () => {
   return (
-    <div className="loading-card">
+    <article className="loading-card" aria-busy="true">
       <h5 className="card-title">Loading...</h5>
-    </div>
+    </article>
   );
 };
 

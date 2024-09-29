@@ -32,26 +32,30 @@ function EventsPage() {
   }, []);
 
   return (
-    <div className="main-content">
+    <main className="main-content">
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
         <>
-          <EventsGrid
-            showWatchButton={true}
-            events={upcomingEvents}
-            titleText="Upcoming Events"
-            enableSorting={true}
-          />
-          <EventsGrid
-            showWatchButton={true}
-            events={pastEvents}
-            titleText="Past Events"
-            enableSorting={true}
-          />
+          <section>
+            <EventsGrid
+              showWatchButton={true}
+              events={upcomingEvents}
+              titleText="Upcoming Events"
+              enableSorting={true}
+            />
+          </section>
+          <section>
+            <EventsGrid
+              showWatchButton={true}
+              events={pastEvents}
+              titleText="Past Events"
+              enableSorting={false}
+            />
+          </section>
         </>
       )}
-    </div>
+    </main>
   );
 }
 
