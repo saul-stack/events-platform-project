@@ -91,7 +91,8 @@
     }
 
     .type-and-time-container {
-      margin-top: -10px;
+      position: relative;
+      margin-top: px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       p {
