@@ -56,6 +56,11 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   }
   const { title, advance_price, description, is_seated, image_url } = event;
 
+  let isEventBooked = false;
+  if (user.events_booked != null) {
+    isEventBooked = user.events_booked.includes(event.id);
+  }
+
   const date = formatDate(event.date);
   const time = formatTime(event.time);
 
@@ -89,19 +94,31 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           {advance_price > 0 ? <p>£{advance_price}</p> : <p>Free</p>}
           {is_seated ? <p>Seated</p> : <p>Standing</p>}
         </div>
-        {advance_price > 0 ? (
-          <button onClick={handleBuyButtonClick}>BUY TICKETS</button>
-        ) : (
-          <button onClick={handleBuyButtonClick}>GET TICKETS</button>
-        )}
 
-        {user === null || !user?.events_watched?.includes(event.id) ? (
-          <button onClick={handleWatchButtonClick}>WATCH EVENT</button>
-        ) : (
-          <button onClick={handleWatchButtonClick}>UNWATCH EVENT</button>
-        )}
+        <div className="watch-button-container">
+          {!isEventBooked && (
+            <>
+              {advance_price > 0 ? (
+                <button onClick={handleBuyButtonClick}>BUY TICKETS</button>
+              ) : (
+                <button onClick={handleBuyButtonClick}>GET TICKETS</button>
+              )}
+            </>
+          )}
+
+          {user === null || !user?.events_watched?.includes(event.id) ? (
+            <button onClick={handleWatchButtonClick}>WATCH EVENT</button>
+          ) : (
+            <button
+              className="watch-button-watched"
+              onClick={handleWatchButtonClick}
+            >
+              UNWATCH EVENT
+            </button>
+          )}
+          <button onClick={handleAddToCalendar}>Add to Google Calendar</button>
+        </div>
       </div>
-      <button onClick={handleAddToCalendar}>Add to Google Calendar</button>
     </div>
   );
 };
