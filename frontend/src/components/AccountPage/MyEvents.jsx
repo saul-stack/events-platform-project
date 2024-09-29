@@ -59,6 +59,7 @@ const MyEvents = () => {
                 titleText="My Tickets"
                 isBought={true}
                 showWatchButton={false}
+                showViewButton={false}
               />
             </div>
           )}
