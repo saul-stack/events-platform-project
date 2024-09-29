@@ -4,10 +4,12 @@ import { getEventById, sendStripePaymentRequest } from "../../../api-functions";
 import { loadStripe } from "@stripe/stripe-js";
 import { useParams } from "react-router-dom";
 
+const STRIPE_PUBLIC_KEY =
+  "pk_test_51Q4OtrKPnPjjFVwWr0qpGmeUl6V4tx2F9whrrPCmvHX1ZHfLyIwOhKal9lyydienbwnJm9wnIC9n3AhbjJV4YFnU00BwXLxsJO";
+
 const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
-  const [tickets, setTickets] = useState(1);
 
   useEffect(() => {
     const fetchEvent = async () => {
