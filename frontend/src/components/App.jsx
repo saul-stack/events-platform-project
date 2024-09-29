@@ -8,18 +8,12 @@ import {
   EventsPage,
   LoginPage,
 } from "./pages";
-import React, { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Navbar from "./global-components/Navbar";
+import React from "react";
 
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate("/events");
-  }, []);
-
   return (
     <>
       <Navbar />
