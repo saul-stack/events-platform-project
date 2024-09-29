@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const UserContext = React.createContext({ user: {} });
 
@@ -15,7 +15,12 @@ const UserProvider = ({ children }) => {
     role: null,
   };
 
-  const [user, setUser] = useState(defaultUser);
+  const storedUser = sessionStorage.getItem("user");
+  const initialUser = storedUser ? JSON.parse(storedUser) : defaultUser;
+  const [user, setUser] = useState(initialUser);
+  useEffect(() => {
+    sessionStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
 
   const updateUser = (newUser) => {
     setUser(newUser);
