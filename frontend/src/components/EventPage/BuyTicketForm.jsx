@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { getEventById, sendStripePaymentRequest } from "../../../api-functions";
 
-import { getEventById } from "../../../api-functions";
+import { loadStripe } from "@stripe/stripe-js";
 import { useParams } from "react-router-dom";
 
 const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
@@ -25,15 +26,19 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
     setShowBuyTicketForm(!showBuyTicketForm);
   };
 
-  const handleTicketsChange = (e) => {
-    const value = Number(e.target.value);
-    setTickets(value);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("trying to buy tickets");
+    const response = await sendStripePaymentRequest(event.id);
+
+    console.log("Stripe session created:", response.data);
+
+    const stripe = await loadStripe(STRIPE_PUBLIC_KEY);
+    const result = await stripe.redirectToCheckout({
+      sessionId: response.data.id,
+    });
+
+    console.log(result);
   };
 
   return (
