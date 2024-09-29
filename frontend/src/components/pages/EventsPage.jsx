@@ -38,11 +38,13 @@ function EventsPage() {
       ) : (
         <>
           <EventsGrid
+            showWatchButton={true}
             events={upcomingEvents}
             titleText="Upcoming Events"
             enableSorting={true}
           />
           <EventsGrid
+            showWatchButton={true}
             events={pastEvents}
             titleText="Past Events"
             enableSorting={true}
