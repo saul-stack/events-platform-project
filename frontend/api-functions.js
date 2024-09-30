@@ -66,6 +66,22 @@ export const postNewEvent = async (event) => {
   }
 };
 
+export const unwatchEvent = async (userId, eventId) => {
+  try {
+    const currentUserObject = (await api.get(`/users/${userId}`)).data.user;
+    let eventsWatched = currentUserObject.events_watched;
+
+    eventsWatched = eventsWatched.filter((id) => id !== eventId);
+
+    const result = await api.patch(`/users/${userId}`, {
+      events_watched: eventsWatched,
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const watchEvent = async (userId, eventId) => {
   try {
     const currentUserObject = (await api.get(`/users/${userId}`)).data.user;
@@ -81,15 +97,14 @@ export const watchEvent = async (userId, eventId) => {
   }
 };
 
-export const unwatchEvent = async (userId, eventId) => {
+export const bookEvent = async (userId, eventId) => {
   try {
     const currentUserObject = (await api.get(`/users/${userId}`)).data.user;
-    let eventsWatched = currentUserObject.events_watched;
+    const eventsBooked = currentUserObject.events_booked;
 
-    eventsWatched = eventsWatched.filter((id) => id !== eventId);
-
+    eventsBooked.push(eventId);
     const result = await api.patch(`/users/${userId}`, {
-      events_watched: eventsWatched,
+      events_booked: eventsBooked,
     });
   } catch (error) {
     console.error(error);
