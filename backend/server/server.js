@@ -1,5 +1,6 @@
 const dotenv = require("dotenv").config({ path: "../.env.development" });
 
+const axios = require("axios");
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 
 const stripe = require("stripe")(STRIPE_SECRET_KEY);
@@ -115,6 +116,28 @@ server.post("/api/create-checkout-session", async (req, res) => {
   }
 });
 
-module.exports = server;
+//prevent Render from spinning down due to inactivity
+const url = `https://events-platform-project.onrender.com/`;
+const interval = 15000;
+
+function reloadWebsite() {
+  axios
+    .get(url)
+    .then((response) => {
+      console.log(
+        `Reloaded at ${new Date().toISOString()}: Status Code ${
+          response.status
+        }`
+      );
+    })
+    .catch((error) => {
+      console.error(
+        `Error reloading at ${new Date().toISOString()}:`,
+        error.message
+      );
+    });
+}
+
+setInterval(reloadWebsite, interval);
 
 module.exports = server;
