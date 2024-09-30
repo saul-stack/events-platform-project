@@ -2,7 +2,6 @@
   "GET /api": {
     "description": "Serves a json object of all available endpoints of the api"
   },
-
   "GET /api/events": {
     "description": "By default serves an array of all events, sorted by date ascending. Events can be filtered and sorted with queries",
     "queries": [
@@ -34,7 +33,6 @@
       ]
     }
   },
-
   "GET /api/events/:id": {
     "description": "Serves an object of a single event by its unique id",
     "exampleResponse": {
@@ -53,11 +51,9 @@
       }
     }
   },
-
   "DELETE /api/events/:id": {
     "description": "Deletes an event by its unique id"
   },
-
   "PATCH /api/events/:id": {
     "description": "Updates an event by its unique id",
 
@@ -69,7 +65,6 @@
       "message": "Event #4 (Test Event #4) updated title to 'Wednesday evening book club' successfully."
     }
   },
-
   "POST /api/events": {
     "description": "Creates a new event and adds it into the events database",
     "exampleRequest": {
@@ -89,6 +84,63 @@
     },
     "exampleResponse": {
       "message": "Event posted successfully: Tuesday morning yoga class"
+    }
+  },
+  "GET /api/users": {
+    "users": [
+      {
+        "id": 1,
+        "first_name": "John",
+        "last_name": "Doe",
+        "user_name": "johndoe",
+        "events_watched": [1, 2, 5],
+        "events_booked": [2],
+        "email": "johndoe@email.com",
+        "role": "user",
+        "hashed_password": "$2b$10$7.7M6Vkmj1DqWLlNw1dZz.i5E6IFYITXbNdQP8IIurrwPQplhA3He"
+      },
+      {
+        "id": 2,
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "user_name": "janedoe",
+        "events_watched": [3, 4, 6],
+        "events_booked": [1, 3],
+        "email": "janedoe@email.com",
+        "role": "user",
+        "hashed_password": "$2b$10$pY8rXZ2paRsTJ0LsdTlT.OKH4sxsJrW2vYgGtn/XYIqsxUw61STDu"
+      },
+      {
+        "id": 3,
+        "first_name": "Admin",
+        "last_name": "Admin",
+        "user_name": "admin",
+        "events_watched": [],
+        "events_booked": [],
+        "email": "admin",
+        "role": "admin",
+        "hashed_password": "$2b$10$l/S48DMFlXtCgIp4KMfxm.1azl3j9rPbrsdeV9GVu36I/izJ7MjMG"
+      },
+      {
+        "id": 4,
+        "first_name": "Steve",
+        "last_name": "Johnson",
+        "user_name": "generic_user",
+        "events_watched": [],
+        "events_booked": [],
+        "email": "generic@email.com",
+        "role": "user",
+        "hashed_password": "$2b$10$OwkMFXD0JLWMIGhemqHxZe30KsSrhqOg22ATRImwYywnVhEBnZcY6"
+      }
+    ]
+  },
+  "PATCH /api/users/:id": {
+    "description": "Updates a user entry in the database",
+    "exampleRequest": {
+      "events_watched": [1, 2, 3]
+    },
+    "exampleResponse": {
+      "message": "User #3 (admin) updated events_watched to '1,2,3' successfully."
     }
   }
 }
