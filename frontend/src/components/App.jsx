@@ -6,7 +6,9 @@ import {
   AdminPage,
   EventPage,
   EventsPage,
+  FailPage,
   LoginPage,
+  SuccessPage,
 } from "./pages";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -25,6 +27,8 @@ function App() {
         <Route path="/" element={<Navigate to="/events" />} />
         <Route path="/events/:eventId" element={<EventPage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/success" element={<SuccessPage />} />
+        <Route path="/failure" element={<FailPage />} />
       </Routes>
     </>
   );
