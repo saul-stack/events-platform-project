@@ -5,8 +5,7 @@ import {
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
 import { useEffect, useRef } from "react";
-
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const EventCardSmall = ({ event, user, toggleWatchEvent, showWatchButton }) => {
   const buttonContainerRef = useRef(null);
@@ -18,6 +17,12 @@ const EventCardSmall = ({ event, user, toggleWatchEvent, showWatchButton }) => {
 
   date = formatDate(date);
   time = formatTime(time);
+
+  const location = useLocation();
+  let showViewButton = true;
+  if (location && location.pathname === "/account") {
+    showViewButton = false;
+  }
 
   let events_booked = user.events_booked || [];
   let events_watched = user.events_watched || [];
@@ -88,15 +93,20 @@ const EventCardSmall = ({ event, user, toggleWatchEvent, showWatchButton }) => {
           </div>
         </div>
       </div>
+
       <div className="button-container" ref={buttonContainerRef}>
         {!isBooked ? (
           <button href="#" onClick={handleBuyTicket} className="buy-button">
             {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
           </button>
         ) : (
-          <button href="#" className="button">
-            VIEW MY TICKETS
-          </button>
+          <>
+            {showViewButton && (
+              <button href="#" className="button">
+                VIEW MY TICKETS
+              </button>
+            )}
+          </>
         )}
         {!isBooked && showWatchButton && (
           <div className="watch-button-container">
