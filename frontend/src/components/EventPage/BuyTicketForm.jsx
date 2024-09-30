@@ -50,11 +50,6 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
     });
 
     const session = await response.json();
-    console.log(
-      session,
-      "<<<<<<<<<<<<",
-      "that's the response from the payment"
-    );
 
     const result = await stripe.redirectToCheckout({
       sessionId: session.id,
@@ -62,20 +57,6 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
 
     console.log(result, "<<<was it succesfful?");
   };
-
-  /*
-    console.log(result, "<<<<<<<<<<<<");
-
-    if (result.success === true) {
-      const newUser = {
-        ...user,
-        events_booked: [...user.events_booked, Number(eventId)],
-      };
-
-      updateUser(newUser);
-      navigate("/account");
-      console.log(result);
-    } */
 
   return (
     <div id="buy-ticket-form">
