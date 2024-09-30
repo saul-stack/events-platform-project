@@ -119,8 +119,8 @@ Once installed, configure your local environment as follows:
 
     ```env
     PGDATABASE=bar_none_database
-    PGUSER=(your_postgres_user_name)
-    PGPASSWORD=(your_postgres_password)
+    PGUSER=`YOUR_POSTGRES_USER_NAME`
+    PGPASSWORD=`YOUR_POSTGRES_PASSWORD`
     PGHOST=localhost
     PGPORT=5432
 
@@ -153,7 +153,7 @@ Once installed, configure your local environment as follows:
 
 
 4. **Open in browser**
-   - Navigate to localhost:5173, or whichever port your Vite configuration specifies.
+   - Navigate to localhost:5173 or localhost:PORT_VITE_IS_RUNNING_ON
 
 ## Payment Integration
 
