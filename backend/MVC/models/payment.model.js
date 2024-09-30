@@ -4,8 +4,7 @@ const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 exports.sendStripePayment = async (req, res) => {
-  const { price, title } = req.body;
-
+  const { advance_price, title } = req.body;
   const BASE_URL = process.env.BASE_URL || "http://localhost:5173";
 
   try {
@@ -18,7 +17,7 @@ exports.sendStripePayment = async (req, res) => {
             product_data: {
               name: `${title}`,
             },
-            unit_amount: price * 100,
+            unit_amount: advance_price * 100,
           },
           quantity: 1,
         },
