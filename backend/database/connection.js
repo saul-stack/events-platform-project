@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 const { Pool } = require("pg");
 
 const environment = process.env.NODE_ENV || "development";
+console.log(`Environment: ${environment}`);
 
 if (environment === "development") {
   dotenv.config({ path: `${__dirname}/../../.env.development` });
