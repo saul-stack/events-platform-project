@@ -4,7 +4,9 @@ const { Pool } = require("pg");
 const environment = process.env.NODE_ENV || "development";
 
 if (environment === "development") {
-  dotenv.config({ path: `${__dirname}/../.env.development` });
+  dotenv.config({ path: `${__dirname}/../../.env.development` });
+} else {
+  dotenv.config();
 }
 
 if (!process.env.PGDATABASE) {
