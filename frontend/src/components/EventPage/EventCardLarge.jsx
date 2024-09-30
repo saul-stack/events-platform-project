@@ -52,7 +52,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   }, [eventId]);
 
   if (!event) {
-    return <div>Event not found</div>;
+    return <div>Loading</div>;
   }
   const { title, advance_price, description, is_seated, image_url } = event;
 
