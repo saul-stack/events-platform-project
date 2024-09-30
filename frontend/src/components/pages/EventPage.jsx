@@ -28,12 +28,14 @@ const EventPage = () => {
 
   return (
     <main className="main-content">
-      <article>
-        <EventCardLarge
-          showBuyTicketForm={showBuyTicketForm}
-          handleBuyButtonClick={handleBuyButtonClick}
-        />
-      </article>
+      {!showBuyTicketForm && (
+        <article>
+          <EventCardLarge
+            showBuyTicketForm={showBuyTicketForm}
+            handleBuyButtonClick={handleBuyButtonClick}
+          />
+        </article>
+      )}
       {showBuyTicketForm && (
         <section>
           <BuyTicketForm
