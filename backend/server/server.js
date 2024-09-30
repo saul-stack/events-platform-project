@@ -84,16 +84,16 @@ server.post("/api/login", logUserIn);
 
 server.post("/api/create-checkout-session", async (req, res) => {
   const response = req.body;
-  const event = response.products[0];
+  const event = response;
 
   const lineItems = [
     {
       price_data: {
         currency: "gbp",
         product_data: {
-          name: event.title,
+          name: event.products[0].title,
         },
-        unit_amount: event.advance_price * 100,
+        unit_amount: event.products[0].advance_price * 100,
       },
       quantity: 1,
     },
@@ -104,7 +104,7 @@ server.post("/api/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `https://events-platform-project.onrender.com/success&eventId=${event.id}}`,
+      success_url: `https://events-platform-project.onrender.com/success?eventId=${event.products[0].id}`,
       cancel_url: `https://events-platform-project.onrender.com/failure`,
     });
 
