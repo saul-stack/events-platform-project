@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { getEventById, sendStripePaymentRequest } from "../../../api-functions";
+import { useEffect, useState } from "react";
 
+import axios from "axios";
+import { getEventById } from "../../../api-functions";
 import { loadStripe } from "@stripe/stripe-js";
 import { useParams } from "react-router-dom";
 
+const BASE_URL = process.env.API_BASE_URL || "http://localhost:9090/api";
 const STRIPE_PUBLIC_KEY = process.env.VITE_STRIPE_PUBLIC_KEY || "";
+
+const api = axios.create({ baseURL: BASE_URL });
 
 const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
   const { eventId } = useParams();
@@ -27,26 +31,39 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
     setShowBuyTicketForm(!showBuyTicketForm);
   };
 
-  const handleSubmit = async (e) => {
+  const makePayment = async (e) => {
     e.preventDefault();
-    console.log("Submitting form");
-
-    const response = await sendStripePaymentRequest(event.id);
     const stripe = await loadStripe(STRIPE_PUBLIC_KEY);
 
-    try {
-      const result = await stripe.redirectToCheckout({
-        sessionId: response.data.id,
-      });
-      console.log("hi");
+    const url = `${BASE_URL}/create-checkout-session`;
+    console.log(BASE_URL, "BASE_URL");
+    const body = { products: [event] };
 
-      console.log(result);
-    } catch (error) {
-      console.error("Error redirecting to checkout:", error);
-    }
+    const headers = {
+      "Content-Type": "application/json",
+    };
 
-    /*
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body),
+    });
 
+    const session = await response.json();
+    console.log(
+      session,
+      "<<<<<<<<<<<<",
+      "that's the response from the payment"
+    );
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    console.log(result, "<<<was it succesfful?");
+  };
+
+  /*
     console.log(result, "<<<<<<<<<<<<");
 
     if (result.success === true) {
@@ -59,7 +76,6 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
       navigate("/account");
       console.log(result);
     } */
-  };
 
   return (
     <div id="buy-ticket-form">
@@ -81,7 +97,7 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
           )}
         </>
       )}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={makePayment}>
         {event && event.advance_price > 0 ? (
           <button type="submit">Buy</button>
         ) : (
