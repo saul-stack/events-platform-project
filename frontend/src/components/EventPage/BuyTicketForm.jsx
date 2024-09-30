@@ -4,8 +4,7 @@ import { getEventById, sendStripePaymentRequest } from "../../../api-functions";
 import { loadStripe } from "@stripe/stripe-js";
 import { useParams } from "react-router-dom";
 
-const STRIPE_PUBLIC_KEY =
-  "pk_test_51Q4OtrKPnPjjFVwWr0qpGmeUl6V4tx2F9whrrPCmvHX1ZHfLyIwOhKal9lyydienbwnJm9wnIC9n3AhbjJV4YFnU00BwXLxsJO";
+const STRIPE_PUBLIC_KEY = process.env.VITE_STRIPE_PUBLIC_KEY || "";
 
 const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
   const { eventId } = useParams();
