@@ -8,8 +8,7 @@ const SuccessPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, updateUser } = useContext(UserContext);
-
-  console.log(location);
+  console.log(user);
 
   const getQueryParams = (query) => {
     return new URLSearchParams(query);
@@ -18,9 +17,6 @@ const SuccessPage = () => {
   useEffect(() => {
     const queryParams = getQueryParams(location.search);
     const eventId = queryParams.get("eventId");
-    const { user } = useContext(UserContext);
-    console.log(eventId);
-    console.log(user, "<<<");
 
     if (eventId) {
       const newUser = {
