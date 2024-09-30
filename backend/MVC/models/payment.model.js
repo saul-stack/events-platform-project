@@ -24,8 +24,8 @@ exports.sendStripePayment = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `${BASE_URL}/account`,
-      cancel_url: `${BASE_URL}/account`,
+      success_url: `${BASE_URL}/success`,
+      cancel_url: `${BASE_URL}/fail`,
     });
 
     res.json({ id: session.id });
