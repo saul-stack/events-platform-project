@@ -27,8 +27,6 @@ const SuccessPage = () => {
 
       console.log(user.id, eventId);
       bookEvent(user.id, Number(eventId));
-      console.log(newUser);
-      navigate("/account");
     }
   }, [location.search, user, navigate]);
 
