@@ -25,9 +25,6 @@ const NewEventCard = ({ event }) => {
         <p className="event-type">{event_type}</p>
         <p className="event-time">{time}</p>
       </div>
-      <a href="#" className="event-button">
-        ADD EVENT
-      </a>
     </div>
   );
 };
