@@ -5,7 +5,7 @@ import { getEventById } from "../../../api-functions";
 import { loadStripe } from "@stripe/stripe-js";
 import { useParams } from "react-router-dom";
 
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:9090/api";
+const BASE_URL = process.env.API_BASE_URL || "http://localhost:9090/api/";
 const STRIPE_PUBLIC_KEY = process.env.VITE_STRIPE_PUBLIC_KEY || "";
 
 const api = axios.create({ baseURL: BASE_URL });
