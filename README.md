@@ -114,7 +114,7 @@ Before running the application locally, ensure PostgreSQL (PSQL) is installed on
 Once installed, configure your local environment as follows:
 
 1. **Create the `.env.development` File**:
-   - Navigate to the `backend/` directory and create a file named `.env.development`.
+   - Navigate to the root directory and create a file named `.env.development`.
    - Add the following environment variables, customized to match your local PostgreSQL setup:
 
     ```env
@@ -126,18 +126,23 @@ Once installed, configure your local environment as follows:
 
     HOMEPAGE_URL=http://localhost:5173
     API_BASE_URL=http://localhost:9090/api
+
+   
+   // optional - if you are using Stripe API: 
+   STRIPE_SECRET_KEY=`your-stripe-secret-key`
+   STRIPE_PUBLIC_KEY=`your-stripe-public-key`
     ```
 
    These values should match your local PostgreSQL database configuration. The `HOMEPAGE_URL` points to your local Vite frontend server, and `API_BASE_URL` is for your Express backend server.
 
-2. **Install Required npm Packages**:
+1. **Install Required npm Packages**:
    - In the root directory of the project, run the following command to install all required dependencies in both the frontend and backend:
    
      ```bash
      npm install-all
      ```
 
-3. **Start the Servers**:
+2. **Start the Servers**:
    - Once all packages are installed, run the following command in the root directory to start the development servers:
    
      ```bash
