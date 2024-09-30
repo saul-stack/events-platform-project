@@ -18,7 +18,9 @@ const SuccessPage = () => {
   useEffect(() => {
     const queryParams = getQueryParams(location.search);
     const eventId = queryParams.get("eventId");
+    const { user } = useContext(UserContext);
     console.log(eventId);
+    console.log(user, "<<<");
 
     if (eventId) {
       const newUser = {
