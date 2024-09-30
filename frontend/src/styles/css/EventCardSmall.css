@@ -22,6 +22,9 @@
   transform: scale(1.005);
   transition: transform 0.3s ease-in;
 }
+.event-card-small:hover .details {
+  overflow: hidden;
+}
 .event-card-small:hover .details .default-view {
   display: none;
 }
