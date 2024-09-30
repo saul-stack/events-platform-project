@@ -48,6 +48,14 @@ All users can view and book events, but only the **admin** account has permissio
 - **Optimistic rendering**: Enhances user experience by instantly updating the interface when users watch or book events.
 - **Loading states**: The app displays loading messages while data is being fetched, ensuring users are aware of ongoing processes.
 
+## Payment Integration
+
+The application uses the **Stripe API** for processing payments. All secret keys and sensitive information are stored in environment variables, ensuring they are never exposed in the codebase. This guarantees secure and reliable payment processing for paid events.
+
+## Google Calendar Integration
+
+Google Calendar integration allows users to add events directly to their calendars. A new browser tab opens with pre-filled event details, ensuring that users can keep track of their scheduled events without leaving the platform.
+
 ## Project Structure
 
 The project is organized with best practices in mind, ensuring maintainable and reusable code. The backend and frontend are separated, with npm configurations in the root directory allowing the project to be run locally using a single command. **Nodemon** is used during development to automatically reload the application when changes are made.
@@ -154,11 +162,3 @@ Once installed, configure your local environment as follows:
 
 4. **Open in browser**
    - Navigate to localhost:5173 or localhost:PORT_VITE_IS_RUNNING_ON
-
-## Payment Integration
-
-The application uses the **Stripe API** for processing payments. All secret keys and sensitive information are stored in environment variables, ensuring they are never exposed in the codebase. This guarantees secure and reliable payment processing for paid events.
-
-## Google Calendar Integration
-
-Google Calendar integration allows users to add events directly to their calendars. A new browser tab opens with pre-filled event details, ensuring that users can keep track of their scheduled events without leaving the platform.
