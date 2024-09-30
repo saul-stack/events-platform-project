@@ -1,3 +1,8 @@
+const dotenv = require("dotenv").config({ path: "../.env.development" });
+
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+
+const stripe = require("stripe")(STRIPE_SECRET_KEY);
 const express = require("express");
 const server = express();
 
@@ -77,6 +82,39 @@ server.get("/api/users/username/:username", getUserByUsername);
 
 server.post("/api/login", logUserIn);
 
-server.post("/api/create-checkout-session", handleStripeRequest);
+server.post("/api/create-checkout-session", async (req, res) => {
+  const response = req.body;
+  const event = response.products[0];
+
+  const lineItems = [
+    {
+      price_data: {
+        currency: "gbp",
+        product_data: {
+          name: event.title,
+        },
+        unit_amount: event.advance_price * 100,
+      },
+      quantity: 1,
+    },
+  ];
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: lineItems,
+      mode: "payment",
+      success_url: `https://events-platform-project.onrender.com/success&eventId=${event.id}}`,
+      cancel_url: `https://events-platform-project.onrender.com/failure`,
+    });
+
+    return res.json({ id: session.id });
+  } catch (error) {
+    console.error("Error creating Stripe session:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+module.exports = server;
 
 module.exports = server;
