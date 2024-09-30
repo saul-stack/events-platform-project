@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import axios from "axios";
-import { getEventById } from "../../../api-functions";
 import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 import { useParams } from "react-router-dom";
+import { getEventById } from "../../../api-functions";
 
 const BASE_URL = process.env.API_BASE_URL || "http://localhost:9090/api/";
 const STRIPE_PUBLIC_KEY = process.env.VITE_STRIPE_PUBLIC_KEY || "";
@@ -35,7 +35,7 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
     e.preventDefault();
     const stripe = await loadStripe(STRIPE_PUBLIC_KEY);
 
-    const url = `${BASE_URL}create-checkout-session`;
+    const url = `${BASE_URL}/create-checkout-session`;
     console.log(BASE_URL, "BASE_URL");
     const body = { "products": [event] };
 
