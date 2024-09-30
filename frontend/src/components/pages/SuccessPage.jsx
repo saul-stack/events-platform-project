@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { UserContext } from "../../contexts/UserContext";
 import { bookEvent } from "../../../api-functions";
+import { UserContext } from "../../contexts/UserContext";
 
 const SuccessPage = () => {
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ const SuccessPage = () => {
       console.log(user.id, eventId);
       bookEvent(user.id, Number(eventId));
     }
+    navigate("/account");
   }, [location.search, user, navigate]);
 
   const handleClick = () => {
