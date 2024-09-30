@@ -37,7 +37,7 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
 
     const url = `${BASE_URL}create-checkout-session`;
     console.log(BASE_URL, "BASE_URL");
-    const body = { products: [event] };
+    const body = { "products": [event] };
 
     const headers = {
       "Content-Type": "application/json",
