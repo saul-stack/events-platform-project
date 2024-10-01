@@ -1,7 +1,8 @@
 const dotenv = require("dotenv").config({ path: "../.env.development" });
-
 const axios = require("axios");
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+
+const { pingEndpoint } = require("../MVC/utils/server-utils.js");
 
 const stripe = require("stripe")(STRIPE_SECRET_KEY);
 const express = require("express");
@@ -116,36 +117,11 @@ server.post("/api/create-checkout-session", async (req, res) => {
   }
 });
 
-const url1 = `https://events-platform-project.onrender.com`;
-const url2 = `https://events-platform-project-xt77.onrender.com/api`;
-const interval = 30000;
+const frontend_url = `https://events-platform-project.onrender.com`;
+const backend_url = `https://events-platform-project-xt77.onrender.com/api`;
 
-function reloadWebsite() {
-  axios
-    .get(url1)
-    .then((response) => {
-      console.log(
-        `Reloaded at ${new Date().toISOString()}: Status Code ${
-          response.status
-        } for URL1`
-      );
-      return axios.get(url2);
-    })
-    .then((response) => {
-      console.log(
-        `Reloaded at ${new Date().toISOString()}: Status Code ${
-          response.status
-        } for URL2`
-      );
-    })
-    .catch((error) => {
-      console.error(
-        `Error reloading at ${new Date().toISOString()}:`,
-        error.message
-      );
-    });
-}
-
-setInterval(reloadWebsite, interval);
+const interval = 3000;
+setInterval(() => pingEndpoint(frontend_url), interval);
+setInterval(() => pingEndpoint(backend_url), interval);
 
 module.exports = server;
