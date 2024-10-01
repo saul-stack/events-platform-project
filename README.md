@@ -161,4 +161,4 @@ Once installed, configure your local environment as follows:
 
 
 4. **Open in browser**
-   - Navigate to localhost:5173 or localhost:PORT_VITE_IS_RUNNING_ON
+- Open your browser and navigate to `localhost:5173` or the port on which Vite is running (e.g., `localhost:PORT_VITE_IS_RUNNING_ON`).
