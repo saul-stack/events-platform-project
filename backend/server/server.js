@@ -116,18 +116,26 @@ server.post("/api/create-checkout-session", async (req, res) => {
   }
 });
 
-//prevent Render from spinning down due to inactivity
-const url = `https://events-platform-project.onrender.com/`;
-const interval = 15000;
+const url1 = `https://yourappname1.onrender.com/`;
+const url2 = `https://yourappname2.onrender.com/`;
+const interval = 30000;
 
 function reloadWebsite() {
   axios
-    .get(url)
+    .get(url1)
     .then((response) => {
       console.log(
         `Reloaded at ${new Date().toISOString()}: Status Code ${
           response.status
-        }`
+        } for URL1`
+      );
+      return axios.get(url2);
+    })
+    .then((response) => {
+      console.log(
+        `Reloaded at ${new Date().toISOString()}: Status Code ${
+          response.status
+        } for URL2`
       );
     })
     .catch((error) => {
