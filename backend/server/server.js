@@ -86,6 +86,7 @@ server.post("/api/login", logUserIn);
 
 server.post("/api/create-checkout-session", async (req, res) => {
   const response = req.body;
+  const HOMEPAGE_URL = process.env.HOMEPAGE_URL || "http://localhost:5173";
   const event = response;
 
   const lineItems = [
@@ -106,8 +107,8 @@ server.post("/api/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `https://events-platform-project.onrender.com/success?eventId=${event.products[0].id}`,
-      cancel_url: `https://events-platform-project.onrender.com/failure`,
+      success_url: `${HOMEPAGE_URL}/success?eventId=${event.products[0].id}`,
+      cancel_url: `${HOMEPAGE_URL}/failure`,
     });
 
     return res.json({ id: session.id });
@@ -117,11 +118,12 @@ server.post("/api/create-checkout-session", async (req, res) => {
   }
 });
 
-const frontend_url = `https://events-platform-project.onrender.com`;
-const backend_url = `https://events-platform-project-xt77.onrender.com/api`;
+const frontend_url = process.env.HOMEPAGE_URL || "http://localhost:5173";
+const backend_url = process.env.API_BASE_URL || "http://localhost:9090/api";
 
-const interval = 3000;
-setInterval(() => pingEndpoint(frontend_url), interval);
-setInterval(() => pingEndpoint(backend_url), interval);
+const reloadInterval = 30000;
+
+setInterval(() => pingEndpoint(frontend_url), reloadInterval);
+setInterval(() => pingEndpoint(backend_url), reloadInterval);
 
 module.exports = server;
