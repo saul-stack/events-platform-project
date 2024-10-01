@@ -77,8 +77,7 @@ exports.seedTestTable = async (tableName) => {
   }
 
   try {
-    const tableData = await fetchJson(tableDataPath);
-    const { entries, schema } = tableData;
+    const { entries, schema } = await fetchJson(tableDataPath);
     const { columns } = schema;
 
     const query = `INSERT INTO ${tableName} (${columns
@@ -89,9 +88,7 @@ exports.seedTestTable = async (tableName) => {
       .map((_, index) => `$${index + 1}`)
       .join(", ")})`;
 
-    const tableExists = await exports.verifyExists(tableName);
-
-    if (tableExists) {
+    if (await exports.verifyExists(tableName)) {
       await exports.truncateTable(tableName);
     } else {
       await exports.createTable(tableData);
