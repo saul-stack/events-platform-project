@@ -36,7 +36,6 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
     const stripe = await loadStripe(STRIPE_PUBLIC_KEY);
 
     const url = `${BASE_URL}/create-checkout-session`;
-    console.log(BASE_URL, "BASE_URL");
     const body = { "products": [event] };
 
     const headers = {
@@ -49,6 +48,7 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
       body: JSON.stringify(body),
     });
 
+    console.log(response, "<<<<<<<<<");
     const session = await response.json();
 
     const result = await stripe.redirectToCheckout({
