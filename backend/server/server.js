@@ -1,7 +1,8 @@
 const dotenv = require("dotenv").config({ path: "../.env.development" });
-
 const axios = require("axios");
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+
+const { pingEndpoint } = require("../MVC/utils/server-utils.js");
 
 const stripe = require("stripe")(STRIPE_SECRET_KEY);
 const express = require("express");
@@ -85,6 +86,7 @@ server.post("/api/login", logUserIn);
 
 server.post("/api/create-checkout-session", async (req, res) => {
   const response = req.body;
+  const HOMEPAGE_URL = process.env.HOMEPAGE_URL || "http://localhost:5173";
   const event = response;
 
   const lineItems = [
@@ -105,8 +107,8 @@ server.post("/api/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `https://events-platform-project.onrender.com/success?eventId=${event.products[0].id}`,
-      cancel_url: `https://events-platform-project.onrender.com/failure`,
+      success_url: `${HOMEPAGE_URL}/success?eventId=${event.products[0].id}`,
+      cancel_url: `${HOMEPAGE_URL}/failure`,
     });
 
     return res.json({ id: session.id });
@@ -116,36 +118,12 @@ server.post("/api/create-checkout-session", async (req, res) => {
   }
 });
 
-const url1 = `https://events-platform-project.onrender.com`;
-const url2 = `https://events-platform-project-xt77.onrender.com/api`;
-const interval = 30000;
+const frontend_url = process.env.HOMEPAGE_URL || "http://localhost:5173";
+const backend_url = process.env.API_BASE_URL || "http://localhost:9090/api";
 
-function reloadWebsite() {
-  axios
-    .get(url1)
-    .then((response) => {
-      console.log(
-        `Reloaded at ${new Date().toISOString()}: Status Code ${
-          response.status
-        } for URL1`
-      );
-      return axios.get(url2);
-    })
-    .then((response) => {
-      console.log(
-        `Reloaded at ${new Date().toISOString()}: Status Code ${
-          response.status
-        } for URL2`
-      );
-    })
-    .catch((error) => {
-      console.error(
-        `Error reloading at ${new Date().toISOString()}:`,
-        error.message
-      );
-    });
-}
+const reloadInterval = 30000;
 
-setInterval(reloadWebsite, interval);
+setInterval(() => pingEndpoint(frontend_url), reloadInterval);
+setInterval(() => pingEndpoint(backend_url), reloadInterval);
 
 module.exports = server;
