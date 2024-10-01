@@ -1,9 +1,9 @@
 import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
 
-import EventCardSmall from "../global-components/EventCardSmall";
-import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
+import EventCardSmall from "../global-components/EventCardSmall";
 
 const EventsGrid = ({
   events,
@@ -11,6 +11,7 @@ const EventsGrid = ({
   titleText,
   isBought,
   showWatchButton,
+  showBuyButton,
 }) => {
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
@@ -39,6 +40,7 @@ const EventsGrid = ({
         {events ? (
           events.map((event) => (
             <EventCardSmall
+              showBuyButton={showBuyButton}
               showWatchButton={showWatchButton}
               key={event.id}
               event={event}

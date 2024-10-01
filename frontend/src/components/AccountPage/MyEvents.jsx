@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import EventsGrid from "../global-components/EventsGrid";
-import { UserContext } from "../../contexts/UserContext";
 import { getEventById } from "../../../api-functions";
+import { UserContext } from "../../contexts/UserContext";
+import EventsGrid from "../global-components/EventsGrid";
 
 const MyEvents = () => {
   const { user } = useContext(UserContext);
@@ -67,6 +67,7 @@ const MyEvents = () => {
           {filteredEventsWatched.length > 0 && (
             <div>
               <EventsGrid
+                showBuyButton={true}
                 events={filteredEventsWatched}
                 titleText="Interested"
                 showWatchButton={true}

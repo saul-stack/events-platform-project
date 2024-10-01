@@ -1,13 +1,19 @@
 import "../../styles/css/EventCardSmall.css";
 
+import { useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   formatDateForFrontend as formatDate,
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
-import { useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 
-const EventCardSmall = ({ event, user, toggleWatchEvent, showWatchButton }) => {
+const EventCardSmall = ({
+  event,
+  user,
+  toggleWatchEvent,
+  showWatchButton,
+  showBuyButton,
+}) => {
   const buttonContainerRef = useRef(null);
   const navigate = useNavigate();
   const defaultImageUrl =
@@ -95,13 +101,13 @@ const EventCardSmall = ({ event, user, toggleWatchEvent, showWatchButton }) => {
       </div>
 
       <div className="button-container" ref={buttonContainerRef}>
-        {!isBooked ? (
+        {!isBooked && showBuyButton ? (
           <button href="#" onClick={handleBuyTicket} className="buy-button">
             {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
           </button>
         ) : (
           <>
-            {showViewButton && (
+            {showViewButton && isBooked && (
               <button href="#" className="button">
                 VIEW MY TICKETS
               </button>

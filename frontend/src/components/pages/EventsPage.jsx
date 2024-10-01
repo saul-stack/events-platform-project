@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import EventsGrid from "../global-components/EventsGrid";
 import { getEvents } from "../../../api-functions";
+import EventsGrid from "../global-components/EventsGrid";
 
 function EventsPage() {
   const [events, setEvents] = useState(null);
@@ -40,6 +40,7 @@ function EventsPage() {
           <section>
             <EventsGrid
               showWatchButton={true}
+              showBuyButton={true}
               events={upcomingEvents}
               titleText="Upcoming Events"
               enableSorting={true}
@@ -47,7 +48,8 @@ function EventsPage() {
           </section>
           <section>
             <EventsGrid
-              showWatchButton={true}
+              showBuyButton={false}
+              showWatchButton={false}
               events={pastEvents}
               titleText="Past Events"
               enableSorting={false}
