@@ -5,9 +5,7 @@ const bcrypt = require("bcrypt");
 const {
   extractValues,
   verifyValidEmailAddress,
-  handleError,
 } = require("../utils/global-utils.js");
-const { fetchAllEndpoints } = require("./api.models.js");
 
 const fetchAllUsers = async () => {
   const tableExists = await verifyExists("users");
