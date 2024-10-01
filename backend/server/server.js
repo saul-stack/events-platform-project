@@ -84,39 +84,7 @@ server.get("/api/users/username/:username", getUserByUsername);
 
 server.post("/api/login", logUserIn);
 
-server.post("/api/create-checkout-session", async (req, res) => {
-  const response = req.body;
-  const HOMEPAGE_URL = process.env.HOMEPAGE_URL || "http://localhost:5173";
-  const event = response;
-
-  const lineItems = [
-    {
-      price_data: {
-        currency: "gbp",
-        product_data: {
-          name: event.products[0].title,
-        },
-        unit_amount: event.products[0].advance_price * 100,
-      },
-      quantity: 1,
-    },
-  ];
-
-  try {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: lineItems,
-      mode: "payment",
-      success_url: `${HOMEPAGE_URL}/success?eventId=${event.products[0].id}`,
-      cancel_url: `${HOMEPAGE_URL}/failure`,
-    });
-
-    return res.json({ id: session.id });
-  } catch (error) {
-    console.error("Error creating Stripe session:", error);
-    return res.status(500).send("Internal Server Error");
-  }
-});
+server.post("/api/create-checkout-session", handleStripeRequest);
 
 const frontend_url = process.env.HOMEPAGE_URL || "http://localhost:5173";
 const backend_url = process.env.API_BASE_URL || "http://localhost:9090/api";
