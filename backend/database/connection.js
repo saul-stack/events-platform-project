@@ -2,17 +2,19 @@ const dotenv = require("dotenv");
 const { Pool } = require("pg");
 
 const environment = process.env.NODE_ENV || "development";
-console.log(`Environment: ${environment}`);
-console.log(`PGDATABASE: ${process.env.PGDATABASE}`);
-console.log(`PGUSER: ${process.env.PGUSER}`);
-console.log(`PGHOST: ${process.env.PGHOST}`);
-console.log(`PGPORT: ${process.env.PGPORT}`);
 
 if (environment === "development") {
   dotenv.config({ path: `${__dirname}/../../.env.development` });
 } else {
   dotenv.config();
 }
+
+console.log(`Environment: ${environment}`);
+console.log(
+  `Using ${
+    process.env.PGHOST === "localhost" ? "local" : "foreign (online)"
+  } database`
+);
 
 if (!process.env.PGDATABASE) {
   throw new Error("PGDATABASE not set");
