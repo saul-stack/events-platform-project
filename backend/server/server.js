@@ -1,12 +1,10 @@
-const dotenv = require("dotenv").config({ path: "../.env.development" });
-const axios = require("axios");
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
-
-const { pingEndpoint } = require("../MVC/utils/server-utils.js");
-
-const stripe = require("stripe")(STRIPE_SECRET_KEY);
 const express = require("express");
 const server = express();
+
+const {
+  pingEndpoint,
+  rejectRequestMethod,
+} = require("../MVC/utils/server-utils.js");
 
 server.use(express.json());
 
@@ -14,6 +12,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
+
 const {
   postToEvents,
   getEvents,
@@ -32,19 +31,7 @@ const {
   logUserIn,
 } = require("../MVC/controllers/users.controllers.js");
 
-const {
-  handleStripeRequest,
-} = require("../MVC/controllers/payment.controller.js");
 const { createCheckoutSession } = require("../MVC/models/payment.model.js");
-
-const rejectRequestMethod = (req, res) => {
-  const METHOD = req.method;
-  const ENDPOINT = req.originalUrl;
-  console.error(` ${METHOD} Method Not Allowed on ${ENDPOINT}`);
-  return res
-    .status(405)
-    .json({ error: `${METHOD} Method Not Allowed on ${ENDPOINT}` });
-};
 
 server.use(cors());
 
@@ -92,7 +79,7 @@ const backend_url = process.env.API_BASE_URL || "http://localhost:9090/api";
 
 const reloadInterval = 30000;
 
-setInterval(() => pingEndpoint(frontend_url), reloadInterval);
-setInterval(() => pingEndpoint(backend_url), reloadInterval);
+setInterval(() => pingEndpoint(frontend_url, "Frontend"), reloadInterval);
+setInterval(() => pingEndpoint(backend_url, "Backend"), reloadInterval);
 
 module.exports = server;

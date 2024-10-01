@@ -13,4 +13,10 @@ exports.pingEndpoint = async (url, name) => {
   }
 };
 
+exports.rejectRequestMethod = (req, res) => {
+  const { method, originalUrl } = req;
+  console.error(` ${method} Method Not Allowed on ${originalUrl}`);
+  return res
+    .status(405)
+    .json({ error: `${method} Method Not Allowed on ${originalUrl}` });
 };
