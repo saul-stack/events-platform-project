@@ -1,6 +1,6 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-const createCheckoutSession = async (req) => {
+const createCheckoutSession = async (req, res) => {
   const { event } = req.body;
   const HOMEPAGE_URL = process.env.HOMEPAGE_URL || "http://localhost:5173";
 
@@ -16,8 +16,6 @@ const createCheckoutSession = async (req) => {
       quantity: 1,
     },
   ];
-  console.log(lineItems, "<<<<<<<<here");
-  console.log(`${HOMEPAGE_URL}/success?eventId=${event.id}`, "<<<<<<<<here");
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -28,10 +26,10 @@ const createCheckoutSession = async (req) => {
       cancel_url: `${HOMEPAGE_URL}/failure`,
     });
 
-    return { id: session.id };
+    res.json({ id: session.id });
   } catch (error) {
     console.error("Error creating Stripe session:", error);
-    throw new Error("Internal Server Error");
+    res.status(500).send("Internal Server Error");
   }
 };
 

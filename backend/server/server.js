@@ -35,6 +35,7 @@ const {
 const {
   handleStripeRequest,
 } = require("../MVC/controllers/payment.controller.js");
+const { createCheckoutSession } = require("../MVC/models/payment.model.js");
 
 const rejectRequestMethod = (req, res) => {
   const METHOD = req.method;
@@ -84,7 +85,7 @@ server.get("/api/users/username/:username", getUserByUsername);
 
 server.post("/api/login", logUserIn);
 
-server.post("/api/create-checkout-session", handleStripeRequest);
+server.post("/api/create-checkout-session", createCheckoutSession);
 
 const frontend_url = process.env.HOMEPAGE_URL || "http://localhost:5173";
 const backend_url = process.env.API_BASE_URL || "http://localhost:9090/api";
