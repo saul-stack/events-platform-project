@@ -144,7 +144,7 @@ Once installed, configure your local environment as follows:
    These values should match your local PostgreSQL database configuration. The `HOMEPAGE_URL` points to your local Vite frontend server, and `API_BASE_URL` is for your Express backend server.
 
 1. **Install Required npm Packages**:
-   - In the root directory of the project, run the following command to install all required dependencies in both the frontend and backend:
+   - In the root directory of the project, run the following command to install all required dependencies for both the frontend and backend:
    
      ```bash
      npm install-all
