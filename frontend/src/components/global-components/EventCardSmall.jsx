@@ -94,6 +94,7 @@ const EventCardSmall = ({
           </div>
           <div className="hover-view">
             <div className="description">
+              <h1 className="title">{event.title}</h1>
               <p>{event.description}</p>
             </div>
           </div>
