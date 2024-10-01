@@ -116,8 +116,8 @@ server.post("/api/create-checkout-session", async (req, res) => {
   }
 });
 
-const url1 = `https://yourappname1.onrender.com/`;
-const url2 = `https://yourappname2.onrender.com/`;
+const url1 = `https://events-platform-project.onrender.com`;
+const url2 = `https://events-platform-project-xt77.onrender.com/api`;
 const interval = 30000;
 
 function reloadWebsite() {
