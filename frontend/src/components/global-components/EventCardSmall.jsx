@@ -55,6 +55,9 @@ const EventCardSmall = ({
     navigate(`/events/${id}`, { state: { showBuyForm: true } });
   };
 
+  const handleClick = () => {
+    navigate(`/account`);
+  };
   return (
     <div className="event-card-small">
       <div
@@ -109,7 +112,7 @@ const EventCardSmall = ({
         ) : (
           <>
             {showViewButton && isBooked && (
-              <button href="#" className="button">
+              <button onClick={handleClick} href="#" className="button">
                 VIEW MY TICKETS
               </button>
             )}
