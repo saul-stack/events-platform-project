@@ -7,7 +7,7 @@ A platform for managing and sharing live events, featuring Google Calendar integ
 
 ## Project Overview
 
-This full-stack application, developed as a solo project, imagines a Bristol venue called *Bar-None Club*. It was built using **JavaScript (ReactJS)** for the frontend, **CSS** and **HTML** for styling and structure, and **SQL** for managing data. It integrates key features like event management, user authentication, secure payments, and accessibility features.
+This full-stack application, developed as a solo project, imagines a Bristol venue called *Bar-None Club*. It was built using **JavaScript (ReactJS)** for the frontend, **SCSS** and **HTML** for styling and structure, and **SQL** for managing data. It integrates key features like event management, user authentication, secure payments, and accessibility features.
 
 ### Database
 
