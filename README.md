@@ -40,7 +40,7 @@ All users can view and book events, but only the **admin** account has permissio
 
 - **Google Calendar integration**: Users can add events to their Google Calendar with pre-filled event information.
 - **Payment options**: Integrated with **Stripe** to handle payments for paid events, ensuring secure transactions.
-- **Hosted on free distribution platforms**
+- **Hosted on free distribution platforms**: Tembo and Render
 
 ## Additional Features
 
@@ -58,7 +58,7 @@ Google Calendar integration allows users to add events directly to their calenda
 
 ## Project Structure
 
-The project is organized with best practices in mind, ensuring maintainable and reusable code. The backend and frontend are separated, with npm configurations in the root directory allowing the project to be run locally using a single command. **Nodemon** is used during development to automatically reload the application when changes are made.
+The project is organized with best practices in mind, ensuring maintainable and reusable code. The backend and frontend are separated, with npm configurations in the root directory allowing the project to be run locally using a single command. **Nodemon** was used during development to automatically reload the application when changes are made.
 
 ## Accessibility
 
@@ -67,7 +67,7 @@ Accessibility features have been implemented to ensure a smooth user experience 
 - Ensuring adequate contrast between text and backgrounds for readability.
 - Utilizing semantic HTML to improve navigation for assistive technologies.
 - Implementing **ARIA attributes** to communicate loading states to users relying on screen readers.
-- **Responsive design**: The event cards and buttons dynamically react to user interactions, such as mouse hovering or touch. Buttons change color and navbar links adapt in shape, providing feedback and making navigation intuitive and easy to understand.
+- **Responsive design**: The event cards and buttons dynamically react to user interactions, such as mouse hovering or touch. Buttons change color and navbar links adapt in size, providing feedback and making navigation intuitive and easy to understand.
 - **Device-specific styling**: The platform includes different styling for touchscreen devices to optimize content fit and interactions. This ensures that the layout adjusts appropriately whether the user is on a desktop or mobile device, providing an improved user experience across various devices.
 
 ## Running the Application Locally
