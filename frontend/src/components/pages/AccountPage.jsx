@@ -1,7 +1,7 @@
-import MyEvents from "../AccountPage/MyEvents";
-import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
 import { useLogout } from "../../../account-util-functions";
+import { UserContext } from "../../contexts/UserContext";
+import MyEvents from "../AccountPage/MyEvents";
 
 function AccountPage() {
   const logout = useLogout();

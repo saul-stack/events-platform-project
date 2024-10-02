@@ -6,6 +6,8 @@ import EventsGrid from "../global-components/EventsGrid";
 
 const MyEvents = () => {
   const { user } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [eventsWatched, setEventsWatched] = useState([]);
   const [eventsBooked, setEventsBooked] = useState([]);
   const [filteredEventsWatched, setFilteredEventsWatched] = useState([]);
@@ -43,6 +45,7 @@ const MyEvents = () => {
             )
         )
       );
+      setIsLoading(false);
     };
 
     fetchEvents();
@@ -50,31 +53,37 @@ const MyEvents = () => {
 
   return (
     <div className="main-content">
-      {(eventsBooked.length > 0 || filteredEventsWatched.length > 0) && (
-        <div id="my-events">
-          {eventsBooked.length > 0 && (
-            <div>
-              <EventsGrid
-                events={eventsBooked}
-                titleText="My Tickets"
-                isBought={true}
-                showWatchButton={false}
-                showViewButton={false}
-              />
-            </div>
-          )}
+      {user && isLoading ? (
+        <h1>Loading</h1>
+      ) : (
+        <>
+          {(eventsBooked.length > 0 || filteredEventsWatched.length > 0) && (
+            <div id="my-events">
+              {eventsBooked.length > 0 && (
+                <div>
+                  <EventsGrid
+                    events={eventsBooked}
+                    titleText="My Tickets"
+                    isBought={true}
+                    showWatchButton={false}
+                    showViewButton={false}
+                  />
+                </div>
+              )}
 
-          {filteredEventsWatched.length > 0 && (
-            <div>
-              <EventsGrid
-                showBuyButton={true}
-                events={filteredEventsWatched}
-                titleText="Interested"
-                showWatchButton={true}
-              />
+              {filteredEventsWatched.length > 0 && (
+                <div>
+                  <EventsGrid
+                    showBuyButton={true}
+                    events={filteredEventsWatched}
+                    titleText="Interested"
+                    showWatchButton={true}
+                  />
+                </div>
+              )}
             </div>
           )}
-        </div>
+        </>
       )}
     </div>
   );
