@@ -40,7 +40,7 @@ All users can view and book events, but only the **admin** account has permissio
 
 - **Google Calendar integration**: Users can add events to their Google Calendar with pre-filled event information.
 - **Payment options**: Integrated with **Stripe** to handle payments for paid events, ensuring secure transactions.
-- **Hosted on free distribution platforms**: Tembo and Render
+- **Hosted on free distribution platforms**: Tembo and Render.
 
 ## Additional Features
 
@@ -117,7 +117,7 @@ Accessibility features have been implemented to ensure a smooth user experience 
 
 Before running the application locally, ensure PostgreSQL (PSQL) is installed on your system. You can follow the official installation guide based on your operating system:
 
-- **PostgreSQL Installation Guide**: [https://www.postgresql.org/download/](https://www.postgresql.org/download/)
+- **PostgreSQL Download Page**: [https://www.postgresql.org/download/](https://www.postgresql.org/download/)
 
 Once installed, configure your local environment as follows:
 
@@ -161,4 +161,4 @@ Once installed, configure your local environment as follows:
 
 
 4. **Open in browser**
-- Open your browser and navigate to `localhost:5173` or the port on which Vite is running (e.g., `localhost:PORT_VITE_IS_RUNNING_ON`).
+- Open your browser and navigate to `localhost:5173` or the port on which Vite is running (i.e `localhost:PORT_VITE_IS_RUNNING_ON`).
