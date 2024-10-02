@@ -36,7 +36,7 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
     const stripe = await loadStripe(STRIPE_PUBLIC_KEY);
 
     const url = `${BASE_URL}/create-checkout-session`;
-    const body = { "products": [event] };
+    const body = { event };
 
     const headers = {
       "Content-Type": "application/json",

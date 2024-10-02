@@ -3,45 +3,36 @@ const { verifyExists } = require("../utils/db-utils.js");
 const { extractValues } = require("../utils/global-utils.js");
 
 const fetchEvents = async (queries) => {
+  let queryString = "SELECT * FROM events";
+  const valuesArray = [];
+  const propertiesArray = [];
+  const { sort } = queries || {};
+  let paramIndex = 1;
+
   if (queries) {
-    const queryParams = [];
-    const queryArray = [];
-
-    const { sort } = queries;
-
-    let paramIndex = 1;
-
-    for (let property in queries) {
-      if (property != "sort") {
-        queryArray.push(`${property} = $${paramIndex}`);
-        queryParams.push(queries[property]);
+    for (let query in queries) {
+      if (query !== "sort") {
+        const value = queries[query];
+        propertiesArray.push(`${query} = $${paramIndex}`);
+        valuesArray.push(value);
         paramIndex++;
       }
     }
 
-    let queryString = "SELECT * FROM events";
-    if (queryArray.length > 0) {
-      queryString += " WHERE " + queryArray.join(" AND ");
+    if (propertiesArray.length > 0) {
+      queryString += " WHERE " + propertiesArray.join(" AND ");
     }
     if (sort) {
       queryString += ` ORDER BY ${sort}`;
     }
+  }
 
-    try {
-      const result = await db.query(queryString, queryParams);
-      return result.rows;
-    } catch (error) {
-      console.error("Model: Database query error:", error);
-      throw error;
-    }
-  } else {
-    try {
-      const result = await db.query("SELECT * FROM events");
-      return result.rows;
-    } catch (error) {
-      console.error("Model: Database query error:", error);
-      throw error;
-    }
+  try {
+    const result = await db.query(queryString, valuesArray);
+    return result.rows;
+  } catch (error) {
+    console.error("Model: Database query error:", error);
+    throw new Error("Failed to fetch events from the database.");
   }
 };
 

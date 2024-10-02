@@ -1,12 +1,10 @@
-const dotenv = require("dotenv").config({ path: "../.env.development" });
-const axios = require("axios");
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
-
-const { pingEndpoint } = require("../MVC/utils/server-utils.js");
-
-const stripe = require("stripe")(STRIPE_SECRET_KEY);
 const express = require("express");
 const server = express();
+
+const {
+  pingEndpoint,
+  rejectRequestMethod,
+} = require("../MVC/utils/server-utils.js");
 
 server.use(express.json());
 
@@ -14,6 +12,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const { getAllEndpoints } = require("../MVC/controllers/api.controllers.js");
+
 const {
   postToEvents,
   getEvents,
@@ -32,18 +31,7 @@ const {
   logUserIn,
 } = require("../MVC/controllers/users.controllers.js");
 
-const {
-  handleStripeRequest,
-} = require("../MVC/controllers/payment.controller.js");
-
-const rejectRequestMethod = (req, res) => {
-  const METHOD = req.method;
-  const ENDPOINT = req.originalUrl;
-  console.error(` ${METHOD} Method Not Allowed on ${ENDPOINT}`);
-  return res
-    .status(405)
-    .json({ error: `${METHOD} Method Not Allowed on ${ENDPOINT}` });
-};
+const { createCheckoutSession } = require("../MVC/models/payment.model.js");
 
 server.use(cors());
 
@@ -84,46 +72,14 @@ server.get("/api/users/username/:username", getUserByUsername);
 
 server.post("/api/login", logUserIn);
 
-server.post("/api/create-checkout-session", async (req, res) => {
-  const response = req.body;
-  const HOMEPAGE_URL = process.env.HOMEPAGE_URL || "http://localhost:5173";
-  const event = response;
-
-  const lineItems = [
-    {
-      price_data: {
-        currency: "gbp",
-        product_data: {
-          name: event.products[0].title,
-        },
-        unit_amount: event.products[0].advance_price * 100,
-      },
-      quantity: 1,
-    },
-  ];
-
-  try {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: lineItems,
-      mode: "payment",
-      success_url: `${HOMEPAGE_URL}/success?eventId=${event.products[0].id}`,
-      cancel_url: `${HOMEPAGE_URL}/failure`,
-    });
-
-    return res.json({ id: session.id });
-  } catch (error) {
-    console.error("Error creating Stripe session:", error);
-    return res.status(500).send("Internal Server Error");
-  }
-});
+server.post("/api/create-checkout-session", createCheckoutSession);
 
 const frontend_url = process.env.HOMEPAGE_URL || "http://localhost:5173";
 const backend_url = process.env.API_BASE_URL || "http://localhost:9090/api";
 
 const reloadInterval = 30000;
 
-setInterval(() => pingEndpoint(frontend_url), reloadInterval);
-setInterval(() => pingEndpoint(backend_url), reloadInterval);
+setInterval(() => pingEndpoint(frontend_url, "Frontend"), reloadInterval);
+setInterval(() => pingEndpoint(backend_url, "Backend"), reloadInterval);
 
 module.exports = server;

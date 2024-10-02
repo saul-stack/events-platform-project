@@ -144,7 +144,7 @@ Once installed, configure your local environment as follows:
    These values should match your local PostgreSQL database configuration. The `HOMEPAGE_URL` points to your local Vite frontend server, and `API_BASE_URL` is for your Express backend server.
 
 1. **Install Required npm Packages**:
-   - In the root directory of the project, run the following command to install all required dependencies in both the frontend and backend:
+   - In the root directory of the project, run the following command to install all required dependencies for both the frontend and backend:
    
      ```bash
      npm install-all
@@ -161,4 +161,4 @@ Once installed, configure your local environment as follows:
 
 
 4. **Open in browser**
-   - Navigate to localhost:5173 or localhost:PORT_VITE_IS_RUNNING_ON
+- Open your browser and navigate to `localhost:5173` or the port on which Vite is running (e.g., `localhost:PORT_VITE_IS_RUNNING_ON`).

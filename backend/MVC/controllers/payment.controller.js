@@ -1,10 +1,11 @@
-const { sendStripePayment } = require("../models/payment.model");
+const { createCheckoutSession } = require("../models/payment.model");
 
-exports.handleStripeRequest = (req, res) => {
+exports.handleStripeRequest = async (req, res) => {
   try {
-    sendStripePayment(req, res);
+    response = await createCheckoutSession(req, res);
+    return response;
   } catch (error) {
     console.error("Error creating Stripe checkout session:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
