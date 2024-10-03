@@ -147,7 +147,7 @@ Once installed, configure your local environment as follows:
    - In the root directory of the project, run the following command to install all required dependencies for both the frontend and backend:
    
      ```bash
-     npm install-all
+     npm run install-all
      ```
 
 2. **Start the Servers**:
