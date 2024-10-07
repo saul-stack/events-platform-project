@@ -1,14 +1,14 @@
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
 import {
   formatDateForFrontend as formatDate,
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
-import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
-import { useContext, useEffect, useState } from "react";
 
-import { UserContext } from "../../contexts/UserContext";
 import { addToGoogleCalendar } from "../../../account-util-functions";
 import { getEventById } from "../../../api-functions";
+import { UserContext } from "../../contexts/UserContext";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
   const { eventId } = useParams();
@@ -43,8 +43,8 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
       try {
         const eventData = await getEventById(eventId);
         setEvent(eventData);
-      } catch (error) {
-        console.error("Error fetching event data:", error);
+      } catch {
+        navigate("/events");
       }
     };
 
