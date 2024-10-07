@@ -6,8 +6,8 @@ const FailPage = () => {
   };
   return (
     <div className="main-content">
-      <h1>Success</h1>
-      <p>Your payment was successful</p>
+      <h1>Payment Failure</h1>
+      <p>Your payment was unsuccessful</p>
       <button onClick={handleClick}>My Tickets</button>
     </div>
   );
