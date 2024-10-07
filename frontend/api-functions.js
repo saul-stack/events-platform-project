@@ -5,7 +5,6 @@ const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:9090/api";
 const api = axios.create({ baseURL: API_BASE_URL });
 
 export const getEvents = async (queries) => {
-  console.log(API_BASE_URL, "API_BASE_URL");
   try {
     const result = await api.get("/events");
     const eventsArray = result.data.events;

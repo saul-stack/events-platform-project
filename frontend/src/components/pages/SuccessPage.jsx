@@ -8,7 +8,6 @@ const SuccessPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, updateUser } = useContext(UserContext);
-  console.log(user);
 
   const getQueryParams = (query) => {
     return new URLSearchParams(query);
@@ -25,7 +24,6 @@ const SuccessPage = () => {
       };
       updateUser(newUser);
 
-      console.log(user.id, eventId);
       bookEvent(user.id, Number(eventId));
     }
     navigate("/account");

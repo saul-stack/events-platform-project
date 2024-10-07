@@ -48,7 +48,6 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
       body: JSON.stringify(body),
     });
 
-    console.log(response, "<<<<<<<<<");
     const session = await response.json();
 
     const result = await stripe.redirectToCheckout({
