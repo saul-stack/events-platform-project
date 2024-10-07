@@ -39,7 +39,7 @@ All users can view and book events, but only the **admin** account has permissio
 ## Key Features
 
 - **Google Calendar integration**: Users can add events to their Google Calendar with pre-filled event information.
-- **Payment options**: Integrated with **Stripe** to handle payments for paid events, ensuring secure transactions.
+- **Payment options**: Implemented with **Stripe** to handle payments for paid events, ensuring secure transactions.
 - **Hosted on free distribution platforms**: Tembo and Render.
 
 ## Additional Features
