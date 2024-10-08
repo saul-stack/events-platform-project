@@ -1,3 +1,5 @@
+import "../../styles/css/EventCardLarge.css";
+
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";

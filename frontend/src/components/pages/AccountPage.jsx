@@ -1,3 +1,5 @@
+import "../../styles/css/AccountPage.css";
+
 import { useContext } from "react";
 import { useLogout } from "../../../account-util-functions";
 import { UserContext } from "../../contexts/UserContext";

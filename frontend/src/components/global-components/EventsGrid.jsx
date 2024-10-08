@@ -1,3 +1,5 @@
+import "../../styles/css/EventsGrid.css";
+
 import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
 
 import { useContext } from "react";
