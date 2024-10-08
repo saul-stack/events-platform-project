@@ -1,0 +1,13 @@
+#logout-bar {
+  width: 80%;
+  margin: 0 10%;
+  font-size: 12px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-bottom: 70%;
+  padding-left: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=AccountPage.css.map */

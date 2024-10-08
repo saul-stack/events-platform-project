@@ -1,0 +1,57 @@
+.event-card-large {
+  border: 3px solid rgba(0, 0, 0, 0.109);
+  border-radius: 10px;
+  width: 80%;
+  margin: 0 auto;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+  gap: 10px;
+}
+.event-card-large h1 {
+  font-size: 40px;
+}
+.event-card-large .image-and-description {
+  min-width: 80%;
+  border: 3px solid rgba(0, 0, 0, 0.109);
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  gap: 10px;
+}
+.event-card-large .image-and-description .description {
+  border: 3px solid rgba(0, 0, 0, 0.109);
+  border-radius: 5px;
+}
+.event-card-large .image-and-description .image {
+  margin: 0 auto;
+  border-radius: 10px;
+  height: 25vh;
+  max-width: 50%;
+}
+.event-card-large .topbar {
+  display: grid;
+  grid-template-columns: 1fr 30fr 1fr;
+}
+.event-card-large .details-container {
+  border: 1px solid rgba(61, 61, 61, 0.109);
+}
+.event-card-large .details-container .details-top {
+  border: 1px solid rgba(61, 61, 61, 0.109);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.event-card-large .details-container .details-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid rgba(61, 61, 61, 0.109);
+}
+
+/*# sourceMappingURL=EventCardLarge.css.map */
