@@ -1,29 +1,28 @@
 .event-card-small {
   width: 100%;
   height: 450px;
-  padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
   background-size: cover;
   background-position: center;
-  border-radius: 7px;
-  border: 1px solid rgb(202, 202, 202);
+  border-radius: 2px;
   transition: transform 0.3s ease;
   cursor: pointer;
   position: relative;
 }
 .event-card-small:hover {
-  border: 1px solid rgb(152, 152, 152);
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
 }
 .event-card-small:hover .image {
-  transform: scale(1.005);
-  transition: transform 0.3s ease-in;
+  transform: scale(0.97);
+  transition: transform 1.5s ease;
 }
 .event-card-small:hover .details {
   overflow: hidden;
+  transform: scale(1.01);
+  transition: transform 0.3s ease;
 }
 .event-card-small:hover .details .default-view {
   display: none;
@@ -38,9 +37,9 @@
   right: 5%;
   bottom: 67%;
   font-size: small;
-  border-radius: 20px;
+  border-radius: 2px;
   height: 30px;
-  width: 80px;
+  width: 100px;
   justify-content: center;
 }
 .event-card-small .image-container .free-icon {
@@ -54,17 +53,13 @@
   justify-content: center;
 }
 .event-card-small .image {
-  border: 2px solid rgb(73, 73, 73);
   background-size: cover;
-  border-radius: 8px;
   width: 100%;
   height: 160px;
   background-position: center;
   margin-bottom: 20px;
 }
 .event-card-small .details {
-  border: 1px solid rgba(202, 202, 202, 0.46);
-  border-radius: 10px;
   position: relative;
   top: 0%;
 }
@@ -95,42 +90,38 @@
 }
 .event-card-small .details .date {
   font-size: 0.9rem;
-  color: #777;
+  color: #000000;
   text-align: center;
 }
 .event-card-small .details .description {
-  font-size: 15px;
+  font-size: 12px;
   text-align: left;
   margin-top: 10%;
   padding-left: 10%;
   padding-right: 10%;
 }
 .event-card-small .details .type .social {
-  border: 1px solid #c2c2c2;
   background-color: #c4fff3;
   color: #000000;
-  border-radius: 20px;
+  border-radius: 5px;
   margin-left: 20%;
 }
 .event-card-small .details .type .music {
   background-color: #e2ffe0;
-  border: 1px solid #c2c2c2;
   color: #777;
-  border-radius: 20px;
+  border-radius: 5px;
   margin-left: 20%;
 }
 .event-card-small .details .type .education {
   background-color: #fff6e0;
-  border: 1px solid #c2c2c2;
   color: #777;
-  border-radius: 20px;
+  border-radius: 5px;
   margin-left: 20%;
 }
 .event-card-small .details .type .comedy {
   background-color: #e0f2ff;
-  border: 1px solid #c2c2c2;
   color: #777;
-  border-radius: 20px;
+  border-radius: 5px;
   margin-left: 20%;
 }
 .event-card-small .details .time {
@@ -160,7 +151,6 @@
   color: #fff;
   text-decoration: none;
   font-size: 1rem;
-  border-radius: 6px;
   margin-bottom: 2px;
   margin-top: 2px;
   transition: background-color 0.3s ease;
