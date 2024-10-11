@@ -5,11 +5,10 @@ function AboutPage() {
     <main className="main-content">
       <article className="about-page-card">
         <header className="container-topbar">
-          <h1 id="title">Bar-None Club</h1>
+          <h1 id="title">About</h1>
         </header>
         <section className="about-page-paragraph">
           <div className="card-container">
-            <h2 className="title">About Us</h2>
             <div className="card">
               <div className="paragraph">
                 <p>
