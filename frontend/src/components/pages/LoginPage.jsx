@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import { UserContext } from "../../contexts/UserContext";
-import { logUserIn } from "../../../api-functions";
 import { useNavigate } from "react-router-dom";
+import { logUserIn } from "../../../api-functions";
+import { UserContext } from "../../contexts/UserContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -10,6 +10,12 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/account");
+    }
+  }, [user]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
