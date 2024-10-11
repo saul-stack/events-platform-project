@@ -12,8 +12,14 @@ const LoginPage = () => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
+    console.log(user.role);
+    if (user.role === "admin") {
+      navigate("/admin");
+      return;
+    }
     if (user.user_name) {
       navigate("/account");
+      return;
     }
   }, [user]);
 
