@@ -1,8 +1,9 @@
 import "../../styles/css/Navbar.css";
 
-import { Link, useLocation } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
+import logo from "../../assets/images/logo.png";
 import { UserContext } from "../../contexts/UserContext";
 
 const Navbar = () => {
@@ -18,7 +19,6 @@ const Navbar = () => {
   useEffect(() => {}, [routeBase]);
 
   const menuItems = [
-    { name: "About", route: "/about" },
     { name: "Events", route: "/events" },
     {
       name:
@@ -37,19 +37,24 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-content">
-        {menuItems.map((item, index) => (
-          <Link to={item.route} key={index}>
-            <div
-              className={`navbar-link ${
-                item.route.split("/")[1] === routeBase
-                  ? "navbar-link-active"
-                  : ""
-              }`}
-            >
-              {item.name}
-            </div>
-          </Link>
-        ))}
+        <a href="/about">
+          <img className="logo" src={logo} alt="logo" />
+        </a>
+        <div className="navbar-link-container">
+          {menuItems.map((item, index) => (
+            <a href={item.route} key={index}>
+              <div
+                className={`navbar-link ${
+                  item.route.split("/")[1] === routeBase
+                    ? "navbar-link-active"
+                    : ""
+                }`}
+              >
+                {item.name}
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </nav>
   );
