@@ -1,6 +1,7 @@
 import "../../styles/css/AccountPage.css";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../../../account-util-functions";
 import { UserContext } from "../../contexts/UserContext";
@@ -12,10 +13,18 @@ function AccountPage() {
   const { user, setUser } = useContext(UserContext);
   const { role, user_name } = user;
 
-  if (!user_name) {
-    setUser({});
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (!user_name) {
+      setUser({});
+      navigate("/login");
+      return;
+    }
+
+    if (role === "admin") {
+      navigate("/admin");
+      return;
+    }
+  }, []);
 
   return (
     <main className="main-content">
