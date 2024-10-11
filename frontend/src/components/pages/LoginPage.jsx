@@ -12,7 +12,7 @@ const LoginPage = () => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    if (user) {
+    if (user.user_name) {
       navigate("/account");
     }
   }, [user]);
