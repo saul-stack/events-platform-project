@@ -1,8 +1,7 @@
 .about-page-card {
   background-color: #ffffff;
-  border-radius: 20px;
   margin-top: 5%;
-  margin: 0 auto;
+  margin: 10px auto;
   box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1);
   padding: 20px;
 }
@@ -15,11 +14,8 @@
 }
 .about-page-card .about-page-paragraph .card-container {
   box-shadow: 1px 1px 11px rgba(31, 58, 72, 0.3);
-  width: 90%;
   padding: 10px;
   margin: 0 auto;
-  border-radius: 10px;
-  border: 1px solid rgb(147, 147, 147);
 }
 .about-page-card .about-page-paragraph .card-container .title {
   margin-bottom: 0px;
@@ -31,21 +27,23 @@
   padding: 10px;
 }
 .about-page-card .about-page-paragraph .card-container .card .paragraph {
-  border: 1px solid rgb(131, 131, 131);
-  padding: 15px 25px;
+  padding: 5px 5px;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
   background-size: cover;
   background-position: center;
-  border-radius: 7px;
   overflow: hidden;
   text-align: left;
   transition: transform 0.3s ease;
   cursor: pointer;
 }
 .about-page-card .container-topbar {
-  font-size: 12px;
+  height: 60px;
+  margin-bottom: 10px;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
 }
 
 /*# sourceMappingURL=AboutPage.css.map */
