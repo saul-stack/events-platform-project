@@ -20,13 +20,6 @@ A platform for managing and sharing live events, featuring Google Calendar integ
 - [Accessibility](#accessibility)
 - [Running the Application Locally](#running-the-application-locally)
   - [Prerequisite npm Packages](#prerequisite-npm-packages)
-    - [Frontend](#frontend)
-      - [Dependencies](#dependencies)
-      - [DevDependencies](#devdependencies)
-    - [Backend](#backend)
-      - [Dependencies](#dependencies-1)
-      - [DevDependencies](#devdependencies-1)
-      - [Global](#global)
   - [PostgreSQL Installation and Local Setup](#postgresql-installation-and-local-setup)
 
 ## Project Overview
@@ -98,8 +91,9 @@ Accessibility features have been implemented to ensure a smooth user experience 
 
 ### Prerequisite npm Packages
 
+<!-- omit in toc -->
 #### Frontend
-
+<!-- omit in toc -->
 ##### Dependencies
 
 - **@stripe/stripe-js**: ^4.5.0
@@ -109,14 +103,15 @@ Accessibility features have been implemented to ensure a smooth user experience 
 - **react-router-dom**: ^6.26.1
 - **sass**: ^1.79.3
 - **stripe**: ^16.12.0
-
+<!-- omit in toc -->
 ##### DevDependencies
 
 - **@eslint/js**: ^9.9.0
 - **@types/react**: ^18.3.3
 
+<!-- omit in toc -->
 #### Backend
-
+<!-- omit in toc -->
 ##### Dependencies
 
 - **bcrypt**: ^5.1.1
@@ -127,13 +122,13 @@ Accessibility features have been implemented to ensure a smooth user experience 
 - **pg**: ^8.12.0
 - **pg-format**: ^1.0.4
 - **stripe**: ^16.12.0
-
+<!-- omit in toc -->
 ##### DevDependencies
 
 - **jest**: ^29.7.0
 - **nodemon**: ^3.1.4
 - **supertest**: ^7.0.0
-
+<!-- omit in toc -->
 ##### Global
 
 - **concurrently** ^9.0.1
