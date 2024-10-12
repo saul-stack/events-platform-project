@@ -79,8 +79,9 @@ const EventCardSmall = ({
           ></div>
         </div>
         <div className="details">
+          <h1 className="title">{event.title}</h1>
           <div className="default-view">
-            <h1 className="title">{event.title}</h1>
+            <p className="date">{date}</p>
             <div className="type-and-time-container">
               <div className="type">
                 <p
@@ -93,11 +94,9 @@ const EventCardSmall = ({
               </div>
               <p className="time">{time}</p>
             </div>
-            <p className="date">{date}</p>
           </div>
           <div className="hover-view">
             <div className="description">
-              <h1 className="title">{event.title}</h1>
               <p>{event.description}</p>
             </div>
           </div>
