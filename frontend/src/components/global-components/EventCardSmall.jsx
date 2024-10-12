@@ -49,7 +49,7 @@ const EventCardSmall = ({
 
   const handleBuyTicket = () => {
     if (!user.id) {
-      navigate("/login");
+      navigate("/login", { state: { redirectEventId: id } });
       return;
     }
     navigate(`/events/${id}`, { state: { showBuyForm: true } });
