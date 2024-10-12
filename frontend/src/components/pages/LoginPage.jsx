@@ -29,7 +29,11 @@ const LoginPage = () => {
     try {
       const loggedInUser = await logUserIn(username, password);
       await setUser(loggedInUser);
-      if (location.state && location.state.redirectEventId) {
+      if (
+        loggedInUser.role != "admin" &&
+        location.state &&
+        location.state.redirectEventId
+      ) {
         const eventId = location.state.redirectEventId;
         navigate(`/events/${eventId}`, {
           state: { showBuyForm: true },
