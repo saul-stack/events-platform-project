@@ -97,7 +97,7 @@ export const watchEvent = async (userId, eventId) => {
 
 export const bookEvent = async (userId, eventId) => {
   try {
-    const currentUserObject = (await api.get(`/users/${userId}`)).data.user;
+    const currentUserObject = (await api.get(`/uses/${userId}`)).data.user;
     const eventsBooked = currentUserObject.events_booked;
 
     eventsBooked.push(eventId);
