@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
 import { logUserIn } from "../../../api-functions";
 import { UserContext } from "../../contexts/UserContext";
 
 const LoginPage = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -12,7 +13,6 @@ const LoginPage = () => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    console.log(user.role);
     if (user.role === "admin") {
       navigate("/admin");
       return;
@@ -29,6 +29,13 @@ const LoginPage = () => {
     try {
       const loggedInUser = await logUserIn(username, password);
       await setUser(loggedInUser);
+      if (location.state && location.state.redirectEventId) {
+        const eventId = location.state.redirectEventId;
+        navigate(`/events/${eventId}`, {
+          state: { showBuyForm: true },
+        });
+        return;
+      }
       if (loggedInUser.role === "admin") {
         navigate("/admin");
       } else navigate("/account");
