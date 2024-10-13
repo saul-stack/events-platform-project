@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
 import { getEvents } from "../../../api-functions";
 import EventsGrid from "../global-components/EventsGrid";
 
 function EventsPage() {
+  const navigate = useNavigate();
   const [events, setEvents] = useState(null);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [pastEvents, setPastEvents] = useState([]);
@@ -12,19 +14,26 @@ function EventsPage() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const result = await getEvents();
+      try {
+        const params = { sort: "date" };
+        const result = await getEvents(params);
 
-      if (Array.isArray(result)) {
-        const now = new Date();
-        const upcoming = result.filter((event) => new Date(event.date) >= now);
-        const past = result.filter((event) => new Date(event.date) < now);
+        if (Array.isArray(result)) {
+          const now = new Date();
+          const upcoming = result.filter(
+            (event) => new Date(event.date) >= now
+          );
+          const past = result.filter((event) => new Date(event.date) < now);
 
-        setEvents(result);
-        setUpcomingEvents(upcoming);
-        setPastEvents(past);
-        setIsLoading(false);
-      } else {
-        setError(result);
+          setEvents(result);
+          setUpcomingEvents(upcoming);
+          setPastEvents(past);
+          setIsLoading(false);
+        } else {
+          setError(result);
+        }
+      } catch (error) {
+        navigate("/failure", { state: { errorMessage: error.message } });
       }
     };
 
@@ -51,7 +60,7 @@ function EventsPage() {
               showBuyButton={false}
               showWatchButton={false}
               events={pastEvents}
-              titleText="Past Events"
+              titleText="Previous Events"
               enableSorting={false}
             />
           </section>
