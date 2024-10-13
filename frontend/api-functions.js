@@ -6,7 +6,7 @@ const api = axios.create({ baseURL: API_BASE_URL });
 
 export const getEvents = async (queries) => {
   try {
-    const result = await api.get("/events");
+    const result = await api.get("/events", { params });
     const eventsArray = result.data.events;
     return eventsArray;
   } catch (error) {
