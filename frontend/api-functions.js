@@ -4,13 +4,13 @@ const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:9090/api";
 
 const api = axios.create({ baseURL: API_BASE_URL });
 
-export const getEvents = async (queries) => {
+export const getEvents = async (params) => {
   try {
     const result = await api.get("/events", { params });
     const eventsArray = result.data.events;
     return eventsArray;
   } catch (error) {
-    return error;
+    throw new Error("There was an error loading our upcoming events.");
   }
 };
 
@@ -20,7 +20,7 @@ export const getUserByUsername = async (username) => {
     const user = result.data.user;
     return user;
   } catch (error) {
-    throw error;
+    throw new Error("Error fetching users.");
   }
 };
 
@@ -30,7 +30,7 @@ export const getEventById = async (eventId) => {
     const event = result.data.event;
     return event;
   } catch (error) {
-    throw error;
+    throw new Error("That event could not be found.");
   }
 };
 
@@ -47,6 +47,7 @@ export const getUserById = async (userId) => {
 export const logUserIn = async (username, password) => {
   try {
     const result = await api.post("/login", { username, password });
+
     if (result.status === 200) {
       return result.data;
     }
@@ -71,12 +72,11 @@ export const unwatchEvent = async (userId, eventId) => {
 
     eventsWatched = eventsWatched.filter((id) => id !== eventId);
 
-    const result = await api.patch(`/users/${userId}`, {
+    await api.patch(`/users/${userId}`, {
       events_watched: eventsWatched,
     });
   } catch (error) {
-    console.error(error);
-    throw error;
+    throw new Error("Failed to unwatch event.");
   }
 };
 
@@ -86,12 +86,11 @@ export const watchEvent = async (userId, eventId) => {
     const eventsWatched = currentUserObject.events_watched;
 
     eventsWatched.push(eventId);
-    const result = await api.patch(`/users/${userId}`, {
+    await api.patch(`/users/${userId}`, {
       events_watched: eventsWatched,
     });
   } catch (error) {
-    console.error(error);
-    throw error;
+    throw new Error("Failed to add event to watchlist.");
   }
 };
 
@@ -105,8 +104,7 @@ export const bookEvent = async (userId, eventId) => {
       events_booked: eventsBooked,
     });
   } catch (error) {
-    console.error(error);
-    throw error;
+    throw new Error("Failed to book event.");
   }
 };
 
