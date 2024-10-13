@@ -73,6 +73,8 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
     isEventBooked = user.events_booked.includes(event.id);
   }
 
+  const eventIsUpcoming = new Date(event.date) > new Date();
+
   const date = formatDate(event.date);
   const time = formatTime(event.time);
   const ticketsAvailable = event.tickets_total - event.tickets_sold;
@@ -108,7 +110,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           {is_seated ? <p>Seated</p> : <p>Standing</p>}
         </div>
 
-        {user.role != "admin" && (
+        {user.role != "admin" && eventIsUpcoming && (
           <div className="watch-button-container">
             {!isEventBooked && (
               <>
