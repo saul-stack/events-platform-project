@@ -2,10 +2,10 @@ import "../../styles/css/EventsGrid.css";
 
 import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
 
+import EventCardSmall from "../global-components/EventCardSmall";
+import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext";
-import EventCardSmall from "../global-components/EventCardSmall";
 
 const EventsGrid = ({
   events,
@@ -40,11 +40,11 @@ const EventsGrid = ({
       </header>
       <div id="events-grid">
         {events ? (
-          events.map((event) => (
+          events.map((event, index) => (
             <EventCardSmall
               showBuyButton={showBuyButton}
               showWatchButton={showWatchButton}
-              key={event.id}
+              key={`${event.id}-${index}`}
               event={event}
               user={user}
               toggleWatchEvent={toggleWatchEvent}
