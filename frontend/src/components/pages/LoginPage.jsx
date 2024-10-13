@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { logUserIn } from "../../../api-functions";
 import { UserContext } from "../../contexts/UserContext";
+import { logUserIn } from "../../../api-functions";
 
 const LoginPage = () => {
   const location = useLocation();
@@ -52,35 +52,38 @@ const LoginPage = () => {
     <main className="main-content">
       <section className="login-container">
         <header>
-          <h1>Login</h1>
-          <p>Login to watch and book events, and manage your booked events.</p>
+          <h2>Login</h2>
+          <p>Login to watch and book events.</p>
         </header>
         <form className="login-form" onSubmit={handleSubmit}>
-          <div>
-            <label className="text-input" htmlFor="username">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className="text-input" htmlFor="password">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+          <div className="text-boxes">
+            <div>
+              <label className="text-input" htmlFor="username">
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="text-input" htmlFor="password">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
           </div>
           {errorMessage && <p className="error">{errorMessage}</p>}
           <button type="submit">Login</button>
