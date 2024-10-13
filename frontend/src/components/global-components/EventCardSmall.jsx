@@ -23,6 +23,7 @@ const EventCardSmall = ({
 
   date = formatDate(date);
   time = formatTime(time);
+  const ticketsAvailable = event.tickets_total - event.tickets_sold;
 
   const location = useLocation();
   let showViewButton = true;
@@ -79,6 +80,7 @@ const EventCardSmall = ({
             </div>
           }
           {advance_price === 0 && <p className="free-icon">FREE</p>}
+          {ticketsAvailable < 1 && <p className="sold-out-icon">SOLD OUT</p>}
 
           <div
             className="image"
@@ -109,9 +111,21 @@ const EventCardSmall = ({
       {user.role != "admin" && (
         <div className="button-container" ref={buttonContainerRef}>
           {!isBooked && showBuyButton ? (
-            <button href="#" onClick={handleBuyTicket} className="buy-button">
-              {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
-            </button>
+            <>
+              {ticketsAvailable > 0 ? (
+                <button
+                  href="#"
+                  onClick={handleBuyTicket}
+                  className="buy-button"
+                >
+                  {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
+                </button>
+              ) : (
+                <button href="#" className="button-sold-out">
+                  Sold Out
+                </button>
+              )}
+            </>
           ) : (
             <>
               {showViewButton && isBooked && (

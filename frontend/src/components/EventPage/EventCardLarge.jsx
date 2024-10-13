@@ -22,6 +22,12 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
     addToGoogleCalendar(event);
   };
 
+  const handleAttemptPurchase = () => {
+    if (ticketsAvailable > 0) {
+      handleBuyButtonClick();
+    }
+  };
+
   const handleWatchButtonClick = async () => {
     const toggleWatchEvent = async (userId, eventId) => {
       try {
@@ -69,6 +75,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
 
   const date = formatDate(event.date);
   const time = formatTime(event.time);
+  const ticketsAvailable = event.tickets_total - event.tickets_sold;
 
   return (
     <div className="event-card-large">
@@ -105,10 +112,20 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           <div className="watch-button-container">
             {!isEventBooked && (
               <>
-                {advance_price > 0 ? (
-                  <button onClick={handleBuyButtonClick}>Buy Tickets</button>
+                {ticketsAvailable > 0 ? (
+                  <>
+                    {advance_price > 0 ? (
+                      <button onClick={handleAttemptPurchase}>
+                        Buy Tickets
+                      </button>
+                    ) : (
+                      <button onClick={handleAttemptPurchase}>
+                        Get Tickets
+                      </button>
+                    )}
+                  </>
                 ) : (
-                  <button onClick={handleBuyButtonClick}>Get Tickets</button>
+                  <button className="button-sold-out">Sold Out</button>
                 )}
               </>
             )}

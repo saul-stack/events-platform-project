@@ -18,6 +18,10 @@
       position: relative;
       z-index: 10;
     }
+    .sold-out-icon {
+      position: relative;
+      z-index: 10;
+    }
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
     .image {
       transform: scale(0.97);
@@ -91,6 +95,22 @@
       padding: 5px;
       padding-left: 10px;
       padding-right: 10px;
+
+      justify-content: center;
+    }
+
+    .sold-out-icon {
+      rotate: 9deg;
+      position: absolute;
+      left: 4%;
+      top: 20%;
+      background-color: rgba(255, 0, 0, 0.926);
+      border-radius: 8px;
+      color: rgb(45, 40, 40);
+      padding: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
+      border: 1px solid black;
 
       justify-content: center;
     }
@@ -212,14 +232,7 @@
       margin-top: 2px;
       box-sizing: border-box;
 
-      .sold-out {
-        text-decoration: line-through;
-        color: #fff;
-        font-size: 1rem;
-        font-weight: 600;
-      }
       &:hover {
-        background-color: #68ff6d62;
         border: 1px solid #515151;
       }
     }

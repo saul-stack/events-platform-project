@@ -65,6 +65,13 @@ button {
   }
 }
 
+.button-sold-out {
+  text-decoration: line-through;
+  &:hover {
+    background-color: #d5d5d5;
+  }
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
