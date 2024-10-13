@@ -1,5 +1,4 @@
 .events-grid-container {
-  background-color: #ffffff;
   padding: 20px 20px 30px;
   width: 100%;
   box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1), 0 10px 10px rgba(152, 152, 152, 0.1);
@@ -7,12 +6,17 @@
 }
 .events-grid-container .container-topbar {
   position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
 }
 .events-grid-container .container-topbar h2 {
   font-size: 30px;
-  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0;
 }
 .events-grid-container #events-grid {
   width: 100%;
