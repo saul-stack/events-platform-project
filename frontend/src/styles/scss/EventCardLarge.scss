@@ -1,3 +1,5 @@
+@import "styles-index";
+
 .event-card-large {
   box-shadow: 1px 1px 11px rgba(31, 58, 72, 0.3);
   width: 100%;
@@ -20,10 +22,15 @@
     gap: 10px;
 
     .description {
-      border-radius: 5px;
+      p {
+        font-size: 15px;
+        padding: 30px;
+      }
+      border: 0.5px solid black;
     }
 
     .image {
+      object-fit: cover;
       margin: 0 auto;
       height: 40vh;
       max-width: 50%;
@@ -32,34 +39,60 @@
 
   .topbar {
     height: auto;
-    border: 1px solid rgba(61, 61, 61, 0.109);
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
+    margin-bottom: 30px;
 
     .event-card-large-topbar-back-button {
       font-size: 15px;
-      border: 1px solid black;
+      background-color: $main-background-color;
     }
 
     .title {
       margin: 0px;
+      font-size: 25px;
     }
   }
 
   .details-container {
-    border: 1px solid rgba(61, 61, 61, 0.109);
-
+    width: 80vh;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
     .details-top {
-      border: 1px solid rgba(61, 61, 61, 0.109);
+      p {
+        margin: 0px;
+
+        padding: 10px;
+        background-color: rgb(236, 236, 236);
+      }
+      gap: 10px;
       display: grid;
       grid-template-columns: 1fr 1fr;
     }
 
     .details-bottom {
+      p {
+        margin: 0px;
+        padding: 10px;
+        background-color: rgb(236, 236, 236);
+      }
+
+      gap: 10px;
+
       display: grid;
       grid-template-columns: 1fr 1fr;
-      border: 1px solid rgba(61, 61, 61, 0.109);
+    }
+
+    .watch-button-container {
+      button {
+        border: 1px solid black;
+        width: 100%;
+      }
+      display: flex;
+      gap: 10px;
     }
   }
 }
