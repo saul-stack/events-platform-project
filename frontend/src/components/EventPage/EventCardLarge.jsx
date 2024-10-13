@@ -22,8 +22,9 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
     addToGoogleCalendar(event);
   };
 
-  const handleWatchButtonClick = () => {
+  const handleWatchButtonClick = async () => {
     const toggleWatchEvent = async (userId, eventId) => {
+      try {
       let events_watched = user.events_watched || [];
       if (userId && eventId) {
         let isWatched = events_watched.includes(eventId);
@@ -35,6 +36,9 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
         updateUser(response);
       } else {
         navigate("/login");
+        }
+      } catch (error) {
+        navigate("/failure", { state: { errorMessage: error.message } });
       }
     };
     toggleWatchEvent(user.id, event.id);
@@ -45,8 +49,8 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
       try {
         const eventData = await getEventById(eventId);
         setEvent(eventData);
-      } catch {
-        navigate("/events");
+      } catch (error) {
+        navigate("/failure", { state: { errorMessage: error.message } });
       }
     };
 
