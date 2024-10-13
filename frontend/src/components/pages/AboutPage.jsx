@@ -5,11 +5,13 @@ function AboutPage() {
     <main className="main-content">
       <article className="about-page-card">
         <header className="container-topbar">
-          <h1 id="title">About</h1>
+          <h1 className="title">Welcome</h1>
         </header>
         <section className="about-page-paragraph">
           <div className="card-container">
             <div className="card">
+              <h2 className="hire-title">About Us</h2>
+
               <div className="paragraph">
                 <p>
                   Bar-None Club is a lively, community-driven venue in the heart
@@ -37,8 +39,8 @@ function AboutPage() {
           </div>
 
           <div className="card-container">
-            <h2 className="title">Hire Our Space</h2>
             <div className="card">
+              <h2 className="hire-title">Hire Our Space</h2>
               <div className="paragraph">
                 <p>
                   Need a place to hold your event? Bar-None is available for
