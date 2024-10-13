@@ -1,9 +1,8 @@
 #logout-bar {
   width: 80%;
-  margin: 0 10%;
+  margin: 20px auto;
   font-size: 12px;
   border: 1px solid black;
-  margin-bottom: 70%;
   padding-left: 2%;
   display: flex;
   justify-content: space-between;
