@@ -1,6 +1,6 @@
 .event-card-small {
   width: 100%;
-  height: 450px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,9 +15,15 @@
 .event-card-small:hover {
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
 }
+.event-card-small:hover .type-and-time-container,
+.event-card-small:hover .free-icon {
+  position: relative;
+  z-index: 10;
+}
 .event-card-small:hover .image {
   transform: scale(0.97);
   transition: transform 1.5s ease;
+  z-index: 7;
 }
 .event-card-small:hover .details {
   overflow: hidden;
@@ -29,27 +35,54 @@
 }
 .event-card-small:hover .details .hover-view {
   display: block;
-  margin-top: -25px;
 }
-.event-card-small .image-container .watch-button,
-.event-card-small .image-container .watch-button-watched {
+.event-card-small .image-container .type-and-time-container {
   position: absolute;
-  right: 5%;
-  bottom: 67%;
-  font-size: small;
-  border-radius: 2px;
-  height: 30px;
-  width: 100px;
-  justify-content: center;
+  left: 4%;
+}
+.event-card-small .image-container .type-and-time-container .type p {
+  font-size: 15px;
+  text-align: center;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.event-card-small .image-container .type-and-time-container .type .social {
+  color: #000000;
+  background-color: #c4fff3;
+  border-radius: 5px;
+}
+.event-card-small .image-container .type-and-time-container .type .music {
+  background-color: #e2ffe0;
+  color: #000000;
+  border-radius: 5px;
+}
+.event-card-small .image-container .type-and-time-container .type .education {
+  background-color: #fff6e0;
+  color: #000000;
+  border-radius: 5px;
+}
+.event-card-small .image-container .type-and-time-container .type .comedy {
+  background-color: #e0f2ff;
+  color: #000000;
+  border-radius: 5px;
+}
+.event-card-small .image-container .type-and-time-container .time {
+  width: 60%;
+  color: #000000;
+  background-color: #eaeaea;
+  border-radius: 5px;
+  margin-left: 20%;
 }
 .event-card-small .image-container .free-icon {
   position: absolute;
   right: 8%;
-  background-color: rgb(78, 234, 138);
+  background-color: rgb(59, 255, 134);
   font-size: small;
-  border-radius: 20px;
-  height: 20px;
-  width: 50px;
+  border-radius: 12px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
   justify-content: center;
 }
 .event-card-small .image {
@@ -64,11 +97,11 @@
   top: 0%;
 }
 .event-card-small .details .title {
+  padding: 1px;
   font-size: 1.3rem;
   color: #000;
   margin-top: 10px;
   text-align: center;
-  display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -78,16 +111,6 @@
 .event-card-small .details .hover-view {
   display: none;
 }
-.event-card-small .details .type-and-time-container {
-  position: relative;
-  margin-top: px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.event-card-small .details .type-and-time-container p {
-  padding: 1px;
-  text-align: center;
-}
 .event-card-small .details .date {
   font-size: 0.9rem;
   color: #000000;
@@ -96,58 +119,26 @@
 .event-card-small .details .description {
   font-size: 12px;
   text-align: left;
-  margin-top: 10%;
   padding-left: 10%;
   padding-right: 10%;
 }
-.event-card-small .details .type .social {
-  background-color: #c4fff3;
-  color: #000000;
-  border-radius: 5px;
-  margin-left: 20%;
-}
-.event-card-small .details .type .music {
-  background-color: #e2ffe0;
-  color: #777;
-  border-radius: 5px;
-  margin-left: 20%;
-}
-.event-card-small .details .type .education {
-  background-color: #fff6e0;
-  color: #777;
-  border-radius: 5px;
-  margin-left: 20%;
-}
-.event-card-small .details .type .comedy {
-  background-color: #e0f2ff;
-  color: #777;
-  border-radius: 5px;
-  margin-left: 20%;
-}
-.event-card-small .details .time {
-  width: 60%;
-  color: #000000;
-  background-color: #eaeaea;
-  border-radius: 5px;
-  margin-left: 20%;
-}
 .event-card-small .button-container {
-  width: 94%;
+  width: 100%;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 5px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 5px;
   position: absolute;
-  left: 3%;
-  bottom: 13px;
+  bottom: 0px;
 }
 .event-card-small .button-container .button {
   position: relative;
-  left: 5%;
-  height: 60px;
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #a9a9a9;
   color: #fff;
   text-decoration: none;
   font-size: 1rem;
@@ -155,48 +146,48 @@
   margin-top: 2px;
   transition: background-color 0.3s ease;
   text-align: center;
+  border-radius: 0px;
+  background-color: #d5d5d5;
+  color: rgb(0, 0, 0);
 }
-.event-card-small .button-container .watch-button-unwatched {
+.event-card-small .button-container .button:hover {
+  border: 0.5px solid black;
+}
+.event-card-small .button-container .watch-button, .event-card-small .button-container .watch-button-unwatched, .event-card-small .button-container .watch-button-watched {
   position: relative;
-  left: 5%;
-  height: 60px;
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #a9a9a9;
-  color: #fff;
   text-decoration: none;
   font-size: 1rem;
-  border-radius: 6px;
   margin-bottom: 2px;
   margin-top: 2px;
   transition: background-color 0.3s ease;
   text-align: center;
-}
-.event-card-small .button-container .watch-button-unwatched:hover {
-  background-color: rgba(86, 86, 86, 0.3843137255);
-  color: black;
-  transform: scale(1.01);
+  border-radius: 0px;
+  border: 1px solid black;
 }
 .event-card-small .button-container .watch-button-watched {
-  position: relative;
-  left: 5%;
-  height: 60px;
-  width: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #a9a9a9;
-  text-decoration: none;
-  font-size: 1rem;
-  border-radius: 6px;
+  border-radius: 0px;
+  border: 0.5px solid black;
+  background-color: rgba(86, 86, 86, 0.3843137255);
+  color: black;
+}
+.event-card-small .button-container .watch-button-unwatched {
+  border: 0.5px solid transparent;
+  background-color: #d5d5d5;
+  color: rgb(0, 0, 0);
+}
+.event-card-small .button-container .watch-button-unwatched:hover {
+  border: 0.5px solid black;
+}
+.event-card-small .button-container .buy-button {
+  border-radius: 0px;
+  background-color: rgba(104, 255, 109, 0.3843137255);
   margin-bottom: 2px;
   margin-top: 2px;
-  transition: background-color 0.3s ease;
-  text-align: center;
-  background-color: #d5d5d5;
-  color: green;
+  box-sizing: border-box;
 }
 .event-card-small .button-container .buy-button .sold-out {
   text-decoration: line-through;
@@ -206,7 +197,7 @@
 }
 .event-card-small .button-container .buy-button:hover {
   background-color: rgba(104, 255, 109, 0.3843137255);
-  transform: scale(1.01);
+  border: 1px solid #515151;
 }
 
 .event-card-small:hover {

@@ -1,11 +1,11 @@
 import "../../styles/css/EventCardSmall.css";
 
-import { useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import {
   formatDateForFrontend as formatDate,
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
+import { useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const EventCardSmall = ({
   event,
@@ -65,6 +65,19 @@ const EventCardSmall = ({
         onClick={() => navigate(`/events/${id}`)}
       >
         <div className="image-container">
+          {
+            <div className="type-and-time-container">
+              <div className="type">
+                <p
+                  className={`${event.event_type
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}`}
+                >
+                  {event.event_type}
+                </p>
+              </div>
+            </div>
+          }
           {advance_price === 0 && <p className="free-icon">FREE</p>}
 
           <div
@@ -79,21 +92,11 @@ const EventCardSmall = ({
           ></div>
         </div>
         <div className="details">
-          <h1 className="title">{event.title}</h1>
           <div className="default-view">
-            <p className="date">{date}</p>
-            <div className="type-and-time-container">
-              <div className="type">
-                <p
-                  className={`${event.event_type
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}`}
-                >
-                  {event.event_type}
-                </p>
-              </div>
-              <p className="time">{time}</p>
-            </div>
+            <h1 className="title">{event.title}</h1>
+            <p className="date">
+              {date} @ {time}
+            </p>
           </div>
           <div className="hover-view">
             <div className="description">
@@ -103,42 +106,44 @@ const EventCardSmall = ({
         </div>
       </div>
 
-      <div className="button-container" ref={buttonContainerRef}>
-        {!isBooked && showBuyButton ? (
-          <button href="#" onClick={handleBuyTicket} className="buy-button">
-            {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
-          </button>
-        ) : (
-          <>
-            {showViewButton && isBooked && (
-              <button onClick={handleClick} href="#" className="button">
-                VIEW MY TICKETS
-              </button>
-            )}
-          </>
-        )}
-        {!isBooked && showWatchButton && (
-          <div className="watch-button-container">
-            {isWatched ? (
-              <button
-                onClick={() => toggleWatchEvent(user.id, event.id)}
-                href="#"
-                className="watch-button-watched"
-              >
-                Watching ✔️
-              </button>
-            ) : (
-              <button
-                onClick={() => toggleWatchEvent(user.id, event.id)}
-                href="#"
-                className="watch-button-unwatched"
-              >
-                Watch Event
-              </button>
-            )}
-          </div>
-        )}
-      </div>
+      {user.role != "admin" && (
+        <div className="button-container" ref={buttonContainerRef}>
+          {!isBooked && showBuyButton ? (
+            <button href="#" onClick={handleBuyTicket} className="buy-button">
+              {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
+            </button>
+          ) : (
+            <>
+              {showViewButton && isBooked && (
+                <button onClick={handleClick} href="#" className="button">
+                  VIEW MY TICKETS
+                </button>
+              )}
+            </>
+          )}
+          {!isBooked && showWatchButton && (
+            <div className="watch-button-container">
+              {isWatched ? (
+                <button
+                  onClick={() => toggleWatchEvent(user.id, event.id)}
+                  href="#"
+                  className="watch-button-watched"
+                >
+                  Watching
+                </button>
+              ) : (
+                <button
+                  onClick={() => toggleWatchEvent(user.id, event.id)}
+                  href="#"
+                  className="watch-button-unwatched"
+                >
+                  Watch
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
