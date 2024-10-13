@@ -1,16 +1,16 @@
 import "../../styles/css/EventCardLarge.css";
 
-import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
 import {
   formatDateForFrontend as formatDate,
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
+import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
+import { useContext, useEffect, useState } from "react";
 
+import { UserContext } from "../../contexts/UserContext";
 import { addToGoogleCalendar } from "../../../account-util-functions";
 import { getEventById } from "../../../api-functions";
-import { UserContext } from "../../contexts/UserContext";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
   const { eventId } = useParams();
@@ -25,17 +25,17 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   const handleWatchButtonClick = async () => {
     const toggleWatchEvent = async (userId, eventId) => {
       try {
-      let events_watched = user.events_watched || [];
-      if (userId && eventId) {
-        let isWatched = events_watched.includes(eventId);
-        if (!isWatched) await watchEvent(userId, eventId);
-        else {
-          await unwatchEvent(userId, eventId);
-        }
-        const response = await getUserById(userId);
-        updateUser(response);
-      } else {
-        navigate("/login");
+        let events_watched = user.events_watched || [];
+        if (userId && eventId) {
+          let isWatched = events_watched.includes(eventId);
+          if (!isWatched) await watchEvent(userId, eventId);
+          else {
+            await unwatchEvent(userId, eventId);
+          }
+          const response = await getUserById(userId);
+          updateUser(response);
+        } else {
+          navigate("/login");
         }
       } catch (error) {
         navigate("/failure", { state: { errorMessage: error.message } });
@@ -81,7 +81,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
             <p>back</p>
           </Link>
         </div>
-        <h2>{title}</h2>
+        <h2 className="title">{title}</h2>
       </div>
 
       <div className="image-and-description">
@@ -101,29 +101,31 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           {is_seated ? <p>Seated</p> : <p>Standing</p>}
         </div>
 
-        <div className="watch-button-container">
-          {!isEventBooked && (
-            <>
-              {advance_price > 0 ? (
-                <button onClick={handleBuyButtonClick}>BUY TICKETS</button>
-              ) : (
-                <button onClick={handleBuyButtonClick}>GET TICKETS</button>
-              )}
-            </>
-          )}
+        {user.role != "admin" && (
+          <div className="watch-button-container">
+            {!isEventBooked && (
+              <>
+                {advance_price > 0 ? (
+                  <button onClick={handleBuyButtonClick}>Buy Tickets</button>
+                ) : (
+                  <button onClick={handleBuyButtonClick}>Get Tickets</button>
+                )}
+              </>
+            )}
 
-          {user === null || !user?.events_watched?.includes(event.id) ? (
-            <button onClick={handleWatchButtonClick}>WATCH EVENT</button>
-          ) : (
-            <button
-              className="watch-button-watched"
-              onClick={handleWatchButtonClick}
-            >
-              UNWATCH EVENT
-            </button>
-          )}
-          <button onClick={handleAddToCalendar}>Add to Google Calendar</button>
-        </div>
+            {user === null || !user?.events_watched?.includes(event.id) ? (
+              <button onClick={handleWatchButtonClick}>Watch</button>
+            ) : (
+              <button
+                className="watch-button-watched"
+                onClick={handleWatchButtonClick}
+              >
+                Unwatch
+              </button>
+            )}
+            <button onClick={handleAddToCalendar}>Add to Calendar</button>
+          </div>
+        )}
       </div>
     </div>
   );
