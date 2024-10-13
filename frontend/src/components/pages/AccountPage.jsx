@@ -2,10 +2,10 @@ import "../../styles/css/AccountPage.css";
 
 import { useContext, useEffect } from "react";
 
-import { useNavigate } from "react-router-dom";
-import { useLogout } from "../../../account-util-functions";
-import { UserContext } from "../../contexts/UserContext";
 import MyEvents from "../AccountPage/MyEvents";
+import { UserContext } from "../../contexts/UserContext";
+import { useLogout } from "../../../account-util-functions";
+import { useNavigate } from "react-router-dom";
 
 function AccountPage() {
   const navigate = useNavigate();
