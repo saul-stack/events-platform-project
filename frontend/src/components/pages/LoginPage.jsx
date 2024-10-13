@@ -35,9 +35,7 @@ const LoginPage = () => {
         location.state.redirectEventId
       ) {
         const eventId = location.state.redirectEventId;
-        navigate(`/events/${eventId}`, {
-          state: { showBuyForm: true },
-        });
+        navigate(`/events/${eventId}`);
         return;
       }
       if (loggedInUser.role === "admin") {

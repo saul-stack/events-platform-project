@@ -53,7 +53,7 @@ const EventCardSmall = ({
       navigate("/login", { state: { redirectEventId: id } });
       return;
     }
-    navigate(`/events/${id}`, { state: { showBuyForm: true } });
+    navigate(`/events/${id}`);
   };
 
   const handleClick = () => {
