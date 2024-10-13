@@ -20,7 +20,7 @@ A platform for managing and sharing live events, featuring Google Calendar integ
 - [Accessibility](#accessibility)
 - [Running the Application Locally](#running-the-application-locally)
   - [Prerequisite npm Packages](#prerequisite-npm-packages)
-  - [PostgreSQL Installation and Local Setup](#postgresql-installation-and-local-setup)
+  - [Local Setup](#local-setup)
 
 ## Project Overview
 
@@ -133,7 +133,7 @@ Accessibility features have been implemented to ensure a smooth user experience 
 
 - **concurrently** ^9.0.1
 
-### PostgreSQL Installation and Local Setup
+### Local Setup
 
 Before running the application locally, ensure PostgreSQL (PSQL) is installed on your system. You can follow the official installation guide based on your operating system:
 
