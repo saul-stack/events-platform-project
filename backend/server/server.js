@@ -74,12 +74,21 @@ server.post("/api/login", logUserIn);
 
 server.post("/api/create-checkout-session", createCheckoutSession);
 
+//Reloader function. Used to ping render servers to prevent spin-down.
 const frontend_url = process.env.HOMEPAGE_URL || "http://localhost:5173";
 const backend_url = process.env.API_BASE_URL || "http://localhost:9090/api";
 
-const reloadInterval = 30000;
+const KEEP_ALIVE = process.env.KEEP_ALIVE || "false";
+const KEEP_ALIVE_INTERVAL = process.env.KEEP_ALIVE_INTERVAL || 600000; //10 minutes
 
-setInterval(() => pingEndpoint(frontend_url, "Frontend"), reloadInterval);
-setInterval(() => pingEndpoint(backend_url, "Backend"), reloadInterval);
+if (KEEP_ALIVE === "true") {
+  console.log(KEEP_ALIVE);
+  setInterval(
+    () => pingEndpoint(frontend_url, "Frontend"),
+    KEEP_ALIVE_INTERVAL
+  );
+
+  setInterval(() => pingEndpoint(backend_url, "Backend"), KEEP_ALIVE_INTERVAL);
+}
 
 module.exports = server;

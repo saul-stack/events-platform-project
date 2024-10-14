@@ -1,11 +1,11 @@
 import "../../styles/css/EventCardSmall.css";
 
-import { useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import {
   formatDateForFrontend as formatDate,
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
+import { useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const EventCardSmall = ({
   event,
@@ -23,6 +23,7 @@ const EventCardSmall = ({
 
   date = formatDate(date);
   time = formatTime(time);
+  const ticketsAvailable = event.tickets_total - event.tickets_sold;
 
   const location = useLocation();
   let showViewButton = true;
@@ -49,10 +50,10 @@ const EventCardSmall = ({
 
   const handleBuyTicket = () => {
     if (!user.id) {
-      navigate("/login");
+      navigate("/login", { state: { redirectEventId: id } });
       return;
     }
-    navigate(`/events/${id}`, { state: { showBuyForm: true } });
+    navigate(`/events/${id}`);
   };
 
   const handleClick = () => {
@@ -65,7 +66,21 @@ const EventCardSmall = ({
         onClick={() => navigate(`/events/${id}`)}
       >
         <div className="image-container">
+          {
+            <div className="type-and-time-container">
+              <div className="type">
+                <p
+                  className={`${event.event_type
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}`}
+                >
+                  {event.event_type}
+                </p>
+              </div>
+            </div>
+          }
           {advance_price === 0 && <p className="free-icon">FREE</p>}
+          {ticketsAvailable < 1 && <p className="sold-out-icon">SOLD OUT</p>}
 
           <div
             className="image"
@@ -81,65 +96,68 @@ const EventCardSmall = ({
         <div className="details">
           <div className="default-view">
             <h1 className="title">{event.title}</h1>
-            <div className="type-and-time-container">
-              <div className="type">
-                <p
-                  className={`${event.event_type
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}`}
-                >
-                  {event.event_type}
-                </p>
-              </div>
-              <p className="time">{time}</p>
-            </div>
-            <p className="date">{date}</p>
+            <p className="date">
+              {date} @ {time}
+            </p>
           </div>
           <div className="hover-view">
             <div className="description">
-              <h1 className="title">{event.title}</h1>
               <p>{event.description}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="button-container" ref={buttonContainerRef}>
-        {!isBooked && showBuyButton ? (
-          <button href="#" onClick={handleBuyTicket} className="buy-button">
-            {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
-          </button>
-        ) : (
-          <>
-            {showViewButton && isBooked && (
-              <button onClick={handleClick} href="#" className="button">
-                VIEW MY TICKETS
-              </button>
-            )}
-          </>
-        )}
-        {!isBooked && showWatchButton && (
-          <div className="watch-button-container">
-            {isWatched ? (
-              <button
-                onClick={() => toggleWatchEvent(user.id, event.id)}
-                href="#"
-                className="watch-button-watched"
-              >
-                Watching ✔️
-              </button>
-            ) : (
-              <button
-                onClick={() => toggleWatchEvent(user.id, event.id)}
-                href="#"
-                className="watch-button-unwatched"
-              >
-                Watch Event
-              </button>
-            )}
-          </div>
-        )}
-      </div>
+      {user.role != "admin" && (
+        <div className="button-container" ref={buttonContainerRef}>
+          {!isBooked && showBuyButton ? (
+            <>
+              {ticketsAvailable > 0 ? (
+                <button
+                  href="#"
+                  onClick={handleBuyTicket}
+                  className="buy-button"
+                >
+                  {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
+                </button>
+              ) : (
+                <button href="#" className="button-sold-out">
+                  Sold Out
+                </button>
+              )}
+            </>
+          ) : (
+            <>
+              {showViewButton && isBooked && (
+                <button onClick={handleClick} href="#" className="button">
+                  VIEW MY TICKETS
+                </button>
+              )}
+            </>
+          )}
+          {!isBooked && showWatchButton && (
+            <div className="watch-button-container">
+              {isWatched ? (
+                <button
+                  onClick={() => toggleWatchEvent(user.id, event.id)}
+                  href="#"
+                  className="watch-button-watched"
+                >
+                  Watching
+                </button>
+              ) : (
+                <button
+                  onClick={() => toggleWatchEvent(user.id, event.id)}
+                  href="#"
+                  className="watch-button-unwatched"
+                >
+                  Watch
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

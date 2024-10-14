@@ -1,3 +1,5 @@
+import "../../styles/css/EventCardLarge.css";
+
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   formatDateForFrontend as formatDate,
@@ -20,19 +22,29 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
     addToGoogleCalendar(event);
   };
 
-  const handleWatchButtonClick = () => {
+  const handleAttemptPurchase = () => {
+    if (ticketsAvailable > 0) {
+      handleBuyButtonClick();
+    }
+  };
+
+  const handleWatchButtonClick = async () => {
     const toggleWatchEvent = async (userId, eventId) => {
-      let events_watched = user.events_watched || [];
-      if (userId && eventId) {
-        let isWatched = events_watched.includes(eventId);
-        if (!isWatched) await watchEvent(userId, eventId);
-        else {
-          await unwatchEvent(userId, eventId);
+      try {
+        let events_watched = user.events_watched || [];
+        if (userId && eventId) {
+          let isWatched = events_watched.includes(eventId);
+          if (!isWatched) await watchEvent(userId, eventId);
+          else {
+            await unwatchEvent(userId, eventId);
+          }
+          const response = await getUserById(userId);
+          updateUser(response);
+        } else {
+          navigate("/login");
         }
-        const response = await getUserById(userId);
-        updateUser(response);
-      } else {
-        navigate("/login");
+      } catch (error) {
+        navigate("/failure", { state: { errorMessage: error.message } });
       }
     };
     toggleWatchEvent(user.id, event.id);
@@ -44,7 +56,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
         const eventData = await getEventById(eventId);
         setEvent(eventData);
       } catch (error) {
-        console.error("Error fetching event data:", error);
+        navigate("/failure", { state: { errorMessage: error.message } });
       }
     };
 
@@ -61,8 +73,11 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
     isEventBooked = user.events_booked.includes(event.id);
   }
 
+  const eventIsUpcoming = new Date(event.date) > new Date();
+
   const date = formatDate(event.date);
   const time = formatTime(event.time);
+  const ticketsAvailable = event.tickets_total - event.tickets_sold;
 
   return (
     <div className="event-card-large">
@@ -75,7 +90,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
             <p>back</p>
           </Link>
         </div>
-        <h2>{title}</h2>
+        <h2 className="title">{title}</h2>
       </div>
 
       <div className="image-and-description">
@@ -95,29 +110,41 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           {is_seated ? <p>Seated</p> : <p>Standing</p>}
         </div>
 
-        <div className="watch-button-container">
-          {!isEventBooked && (
-            <>
-              {advance_price > 0 ? (
-                <button onClick={handleBuyButtonClick}>BUY TICKETS</button>
-              ) : (
-                <button onClick={handleBuyButtonClick}>GET TICKETS</button>
-              )}
-            </>
-          )}
+        {user.role != "admin" && eventIsUpcoming && (
+          <div className="watch-button-container">
+            {!isEventBooked && (
+              <>
+                {ticketsAvailable > 0 ? (
+                  <>
+                    {advance_price > 0 ? (
+                      <button onClick={handleAttemptPurchase}>
+                        Buy Tickets
+                      </button>
+                    ) : (
+                      <button onClick={handleAttemptPurchase}>
+                        Get Tickets
+                      </button>
+                    )}
+                  </>
+                ) : (
+                  <button className="button-sold-out">Sold Out</button>
+                )}
+              </>
+            )}
 
-          {user === null || !user?.events_watched?.includes(event.id) ? (
-            <button onClick={handleWatchButtonClick}>WATCH EVENT</button>
-          ) : (
-            <button
-              className="watch-button-watched"
-              onClick={handleWatchButtonClick}
-            >
-              UNWATCH EVENT
-            </button>
-          )}
-          <button onClick={handleAddToCalendar}>Add to Google Calendar</button>
-        </div>
+            {user === null || !user?.events_watched?.includes(event.id) ? (
+              <button onClick={handleWatchButtonClick}>Watch</button>
+            ) : (
+              <button
+                className="watch-button-watched"
+                onClick={handleWatchButtonClick}
+              >
+                Unwatch
+              </button>
+            )}
+            <button onClick={handleAddToCalendar}>Add to Calendar</button>
+          </div>
+        )}
       </div>
     </div>
   );

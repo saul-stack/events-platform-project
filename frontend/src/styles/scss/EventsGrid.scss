@@ -1,0 +1,33 @@
+@import "styles-index";
+
+.events-grid-container {
+  padding: 20px 20px 30px;
+  width: 100%;
+  box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1),
+    0 10px 10px rgba(152, 152, 152, 0.1);
+  display: grid;
+
+  .container-topbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+
+    h2 {
+      font-size: 30px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin: 0;
+    }
+  }
+
+  #events-grid {
+    width: 100%;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 20px;
+  }
+}

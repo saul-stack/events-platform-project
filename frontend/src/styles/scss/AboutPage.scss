@@ -1,0 +1,61 @@
+@import "styles-index";
+.about-page-card {
+  padding-top: 30px;
+  background-color: $main-background-color;
+  box-shadow: 0 -10px 10px rgba(152, 152, 152, 0.1);
+
+  .title {
+    //
+    padding-left: 50px;
+    font-size: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+  .container-topbar {
+    padding: 20px;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
+
+  .about-page-paragraph {
+    h2 {
+      width: 50%;
+      border: 0.5px solid black;
+      padding: 1%;
+    }
+    padding: 1%;
+
+    gap: 20px;
+    position: relative;
+    text-align: left;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px));
+    .card-container {
+      margin: 0 auto;
+      .card {
+        position: relative;
+        padding-left: 5%;
+        padding-right: 5%;
+
+        .paragraph {
+          background-color: rgb(234, 234, 234);
+
+          padding: 5px 5px;
+          flex-direction: column;
+          justify-content: space-between;
+          box-sizing: border-box;
+          background-size: cover;
+          background-position: center;
+          overflow: hidden;
+          text-align: left;
+          transition: transform 0.3s ease;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

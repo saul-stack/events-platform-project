@@ -1,9 +1,26 @@
+<!-- omit in toc -->
 # Events Platform Project
-
+<!-- omit in toc -->
 # [Bar-None Club](https://events-platform-project.onrender.com)
 
+A platform for managing and sharing live events, featuring Google Calendar integration and secure payment through Stripe.
 
-A platform for managing and sharing live events, featuring Google Calendar integration and secure payment options.
+<!-- omit in toc -->
+## Contents
+- [Project Overview](#project-overview)
+  - [Database](#database)
+  - [Hosting](#hosting)
+  - [Security](#security)
+  - [User Accounts](#user-accounts)
+- [Key Features](#key-features)
+- [Additional Features](#additional-features)
+- [Payment Integration](#payment-integration)
+- [Google Calendar Integration](#google-calendar-integration)
+- [Project Structure](#project-structure)
+- [Accessibility](#accessibility)
+- [Running the Application Locally](#running-the-application-locally)
+  - [Prerequisite npm Packages](#prerequisite-npm-packages)
+  - [Local Setup](#local-setup)
 
 ## Project Overview
 
@@ -74,8 +91,9 @@ Accessibility features have been implemented to ensure a smooth user experience 
 
 ### Prerequisite npm Packages
 
+<!-- omit in toc -->
 #### Frontend
-
+<!-- omit in toc -->
 ##### Dependencies
 
 - **@stripe/stripe-js**: ^4.5.0
@@ -85,14 +103,15 @@ Accessibility features have been implemented to ensure a smooth user experience 
 - **react-router-dom**: ^6.26.1
 - **sass**: ^1.79.3
 - **stripe**: ^16.12.0
-
+<!-- omit in toc -->
 ##### DevDependencies
 
 - **@eslint/js**: ^9.9.0
 - **@types/react**: ^18.3.3
 
+<!-- omit in toc -->
 #### Backend
-
+<!-- omit in toc -->
 ##### Dependencies
 
 - **bcrypt**: ^5.1.1
@@ -103,17 +122,18 @@ Accessibility features have been implemented to ensure a smooth user experience 
 - **pg**: ^8.12.0
 - **pg-format**: ^1.0.4
 - **stripe**: ^16.12.0
-
+<!-- omit in toc -->
 ##### DevDependencies
 
 - **jest**: ^29.7.0
 - **nodemon**: ^3.1.4
 - **supertest**: ^7.0.0
-
-### Global
+<!-- omit in toc -->
+##### Global
 
 - **concurrently** ^9.0.1
-### PostgreSQL Installation and Local Setup
+
+### Local Setup
 
 Before running the application locally, ensure PostgreSQL (PSQL) is installed on your system. You can follow the official installation guide based on your operating system:
 
@@ -141,7 +161,7 @@ Once installed, configure your local environment as follows:
    STRIPE_PUBLIC_KEY=`your-stripe-public-key`
     ```
 
-   These values should match your local PostgreSQL database configuration. The `HOMEPAGE_URL` points to your local Vite frontend server, and `API_BASE_URL` is for your Express backend server.
+   These values should match your local PostgreSQL database configuration. The [`HOMEPAGE_URL`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FUsers%2Fsaul%2FDesktop%2Fevents-platform-project%2FREADME.md%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A134%2C%22character%22%3A4%7D%7D%5D%2C%22c51e2fb9-ae57-4d0a-8811-a3f7161bf9ea%22%5D "Go to definition") points to your local Vite frontend server, and [`API_BASE_URL`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FUsers%2Fsaul%2FDesktop%2Fevents-platform-project%2FREADME.md%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A135%2C%22character%22%3A4%7D%7D%5D%2C%22c51e2fb9-ae57-4d0a-8811-a3f7161bf9ea%22%5D "Go to definition") is for your Express backend server.
 
 1. **Install Required npm Packages**:
    - In the root directory of the project, run the following command to install all required dependencies for both the frontend and backend:
@@ -158,7 +178,6 @@ Once installed, configure your local environment as follows:
      ```
 
    This will automatically handle PostgreSQL database creation and seeding, followed by starting the **Vite** frontend and **Express** backend servers.
-
 
 4. **Open in browser**
 - Open your browser and navigate to `localhost:5173` or the port on which Vite is running (i.e `localhost:PORT_VITE_IS_RUNNING_ON`).
