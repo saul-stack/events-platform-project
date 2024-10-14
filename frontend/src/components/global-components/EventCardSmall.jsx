@@ -36,6 +36,7 @@ const EventCardSmall = ({
 
   let isBooked = events_booked.includes(id);
   let isWatched = events_watched.includes(id);
+  const eventIsUpcoming = new Date(event.date) > new Date();
 
   useEffect(() => {
     isWatched = events_watched.includes(id);
@@ -80,7 +81,9 @@ const EventCardSmall = ({
             </div>
           }
           {advance_price === 0 && <p className="free-icon">FREE</p>}
-          {ticketsAvailable < 1 && <p className="sold-out-icon">SOLD OUT</p>}
+          {ticketsAvailable < 1 && eventIsUpcoming && (
+            <p className="sold-out-icon">SOLD OUT</p>
+          )}
 
           <div
             className="image"
@@ -122,7 +125,7 @@ const EventCardSmall = ({
                 </button>
               ) : (
                 <button href="#" className="button-sold-out">
-                  Sold Out
+                  GET TICKETS{" "}
                 </button>
               )}
             </>

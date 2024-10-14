@@ -127,7 +127,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
                     )}
                   </>
                 ) : (
-                  <button className="button-sold-out">Sold Out</button>
+                  <button className="button-sold-out">Get Tickets</button>
                 )}
               </>
             )}
