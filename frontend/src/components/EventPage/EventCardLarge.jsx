@@ -90,7 +90,10 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
             <p>back</p>
           </Link>
         </div>
-        <h2 className="title">{title}</h2>
+        <h2 className="title">
+          {ticketsAvailable < 1 ? "SOLD OUT: " : ""}
+          {title}
+        </h2>
       </div>
 
       <div className="image-and-description">
