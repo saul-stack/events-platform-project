@@ -1,11 +1,11 @@
 import "../../styles/css/EventCardSmall.css";
 
+import { useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   formatDateForFrontend as formatDate,
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
-import { useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 
 const EventCardSmall = ({
   event,
@@ -19,7 +19,7 @@ const EventCardSmall = ({
   const defaultImageUrl =
     "https://images.pexels.com/photos/3843282/pexels-photo-3843282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
-  let { id, date, time, advance_price, is_seated } = event;
+  let { id, date, time, advance_price, is_ticketed } = event;
 
   date = formatDate(date);
   time = formatTime(time);
@@ -81,7 +81,7 @@ const EventCardSmall = ({
             </div>
           }
           {advance_price === 0 && <p className="free-icon">FREE</p>}
-          {ticketsAvailable < 1 && eventIsUpcoming && (
+          {ticketsAvailable < 1 && eventIsUpcoming && is_ticketed && (
             <p className="sold-out-icon">SOLD OUT</p>
           )}
 

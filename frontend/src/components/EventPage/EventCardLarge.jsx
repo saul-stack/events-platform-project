@@ -1,16 +1,16 @@
 import "../../styles/css/EventCardLarge.css";
 
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
 import {
   formatDateForFrontend as formatDate,
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
-import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
-import { useContext, useEffect, useState } from "react";
 
-import { UserContext } from "../../contexts/UserContext";
 import { addToGoogleCalendar } from "../../../account-util-functions";
 import { getEventById } from "../../../api-functions";
+import { UserContext } from "../../contexts/UserContext";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
   const { eventId } = useParams();
@@ -66,7 +66,14 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   if (!event) {
     return <div>Loading</div>;
   }
-  const { title, advance_price, description, is_seated, image_url } = event;
+  const {
+    title,
+    advance_price,
+    description,
+    is_seated,
+    image_url,
+    is_ticketed,
+  } = event;
 
   let isEventBooked = false;
   if (user.events_booked != null) {
@@ -91,7 +98,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           </Link>
         </div>
         <h2 className="title">
-          {ticketsAvailable < 1 ? "SOLD OUT: " : ""}
+          {ticketsAvailable < 1 && is_ticketed ? "SOLD OUT: " : ""}
           {title}
         </h2>
       </div>
