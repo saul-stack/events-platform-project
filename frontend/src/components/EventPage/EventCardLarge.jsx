@@ -120,7 +120,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           {is_seated ? <p>Seated</p> : <p>Standing</p>}
         </div>
 
-        {user.role != "admin" && eventIsUpcoming && (
+        {eventIsUpcoming && (
           <div className="watch-button-container">
             {!isEventBooked && (
               <>

@@ -110,57 +110,50 @@ const EventCardSmall = ({
           </div>
         </div>
       </div>
-
-      {user.role != "admin" && (
-        <div className="button-container" ref={buttonContainerRef}>
-          {!isBooked && showBuyButton ? (
-            <>
-              {ticketsAvailable > 0 ? (
-                <button
-                  href="#"
-                  onClick={handleBuyTicket}
-                  className="buy-button"
-                >
-                  {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
-                </button>
-              ) : (
-                <button href="#" className="button-sold-out">
-                  GET TICKETS{" "}
-                </button>
-              )}
-            </>
-          ) : (
-            <>
-              {showViewButton && isBooked && (
-                <button onClick={handleClick} href="#" className="button">
-                  VIEW MY TICKETS
-                </button>
-              )}
-            </>
-          )}
-          {!isBooked && showWatchButton && (
-            <div className="watch-button-container">
-              {isWatched ? (
-                <button
-                  onClick={() => toggleWatchEvent(user.id, event.id)}
-                  href="#"
-                  className="watch-button-watched"
-                >
-                  Watching
-                </button>
-              ) : (
-                <button
-                  onClick={() => toggleWatchEvent(user.id, event.id)}
-                  href="#"
-                  className="watch-button-unwatched"
-                >
-                  Watch
-                </button>
-              )}
-            </div>
-          )}
-        </div>
-      )}
+      <div className="button-container" ref={buttonContainerRef}>
+        {!isBooked && showBuyButton ? (
+          <>
+            {ticketsAvailable > 0 ? (
+              <button href="#" onClick={handleBuyTicket} className="buy-button">
+                {advance_price === 0 ? "GET TICKETS" : "BUY TICKETS"}
+              </button>
+            ) : (
+              <button href="#" className="button-sold-out">
+                GET TICKETS{" "}
+              </button>
+            )}
+          </>
+        ) : (
+          <>
+            {showViewButton && isBooked && (
+              <button onClick={handleClick} href="#" className="button">
+                VIEW MY TICKETS
+              </button>
+            )}
+          </>
+        )}
+        {!isBooked && showWatchButton && (
+          <div className="watch-button-container">
+            {isWatched ? (
+              <button
+                onClick={() => toggleWatchEvent(user.id, event.id)}
+                href="#"
+                className="watch-button-watched"
+              >
+                Watching
+              </button>
+            ) : (
+              <button
+                onClick={() => toggleWatchEvent(user.id, event.id)}
+                href="#"
+                className="watch-button-unwatched"
+              >
+                Watch
+              </button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
