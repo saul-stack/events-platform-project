@@ -13,6 +13,7 @@ const EventCardSmall = ({
   toggleWatchEvent,
   showWatchButton,
   showBuyButton,
+  titleText,
 }) => {
   const buttonContainerRef = useRef(null);
   const navigate = useNavigate();
@@ -81,9 +82,12 @@ const EventCardSmall = ({
             </div>
           }
           {advance_price === 0 && <p className="free-icon">FREE</p>}
-          {ticketsAvailable < 1 && eventIsUpcoming && is_ticketed && (
-            <p className="sold-out-icon">SOLD OUT</p>
-          )}
+          {ticketsAvailable < 1 &&
+            eventIsUpcoming &&
+            is_ticketed &&
+            titleText != "My Tickets" && (
+              <p className="sold-out-icon">SOLD OUT</p>
+            )}
 
           <div
             className="image"

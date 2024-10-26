@@ -2,10 +2,10 @@ import "../../styles/css/EventsGrid.css";
 
 import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
 
-import EventCardSmall from "../global-components/EventCardSmall";
-import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
+import EventCardSmall from "../global-components/EventCardSmall";
 
 const EventsGrid = ({
   events,
@@ -49,6 +49,7 @@ const EventsGrid = ({
               user={user}
               toggleWatchEvent={toggleWatchEvent}
               isBought={isBought}
+              titleText={titleText}
             />
           ))
         ) : (
