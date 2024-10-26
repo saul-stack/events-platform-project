@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
 
-import NewEventPanel from "../AdminPage/NewEventPanel";
-import { UserContext } from "../../contexts/UserContext";
-import { useLogout } from "../../../account-util-functions";
 import { useNavigate } from "react-router-dom";
+import { useLogout } from "../../../account-util-functions";
+import { UserContext } from "../../contexts/UserContext";
+import MyEvents from "../AccountPage/MyEvents";
+import NewEventPanel from "../AdminPage/NewEventPanel";
 
 const AdminPage = () => {
   const navigate = useNavigate();
@@ -25,6 +26,9 @@ const AdminPage = () => {
       </header>
       <section>
         <NewEventPanel />
+      </section>
+      <section>
+        <MyEvents />
       </section>
     </main>
   );
