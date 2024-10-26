@@ -2,14 +2,19 @@ import "../../styles/css/EventCardLarge.css";
 
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
+import {
+  deleteEventById,
+  getEventById,
+  getUserById,
+  unwatchEvent,
+  watchEvent,
+} from "../../../api-functions";
 import {
   formatDateForFrontend as formatDate,
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
 
 import { addToGoogleCalendar } from "../../../account-util-functions";
-import { getEventById } from "../../../api-functions";
 import { UserContext } from "../../contexts/UserContext";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
@@ -20,6 +25,11 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
 
   const handleAddToCalendar = () => {
     addToGoogleCalendar(event);
+  };
+
+  const handleDeleteEvent = async () => {
+    await deleteEventById(eventId);
+    navigate("/events");
   };
 
   const handleAttemptPurchase = () => {
@@ -153,6 +163,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
               </button>
             )}
             <button onClick={handleAddToCalendar}>Add to Calendar</button>
+            <button onClick={handleDeleteEvent}>DELETE EVENT</button>
           </div>
         )}
       </div>

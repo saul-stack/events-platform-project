@@ -34,6 +34,15 @@ export const getEventById = async (eventId) => {
   }
 };
 
+export const deleteEventById = async (eventId) => {
+  try {
+    const result = await api.delete(`/events/${eventId}`);
+    return result.data;
+  } catch (error) {
+    throw new Error("Failed to delete event.");
+  }
+};
+
 export const getUserById = async (userId) => {
   try {
     const result = await api.get(`/users/${userId}`);
