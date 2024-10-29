@@ -132,7 +132,7 @@
       "tickets_total": 100,
       "tickets_sold": 90,
       "is_seated": true,
-      "is_ticketed": false,
+      "is_ticketed": true,
       "is_recurring": true,
       "image_url": "https://images.pexels.com/photos/287615/pexels-photo-287615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
@@ -177,7 +177,7 @@
       "tickets_total": 100,
       "tickets_sold": 85,
       "is_seated": false,
-      "is_ticketed": false,
+      "is_ticketed": true,
       "is_recurring": false,
       "image_url": "https://images.pexels.com/photos/3984831/pexels-photo-3984831.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
     },
