@@ -27,7 +27,8 @@
       { "name": "is_seated", "type": "BOOLEAN NOT NULL" },
       { "name": "is_ticketed", "type": "BOOLEAN NOT NULL" },
       { "name": "is_recurring", "type": "BOOLEAN NOT NULL" },
-      { "name": "image_url", "type": "TEXT" }
+      { "name": "image_url", "type": "TEXT" },
+      { "name": "users_booked", "type": "INTEGER []" }
     ]
   },
   "entries": [
@@ -44,7 +45,8 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/1283219/pexels-photo-1283219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/1283219/pexels-photo-1283219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Distillery Social 1",
@@ -59,7 +61,8 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/274192/pexels-photo-274192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/274192/pexels-photo-274192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Distillery Social 2",
@@ -74,7 +77,8 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Something Else",
@@ -89,7 +93,8 @@
       "is_seated": true,
       "is_ticketed": false,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/3540/restaurant-alcohol-bar-drinks.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/3540/restaurant-alcohol-bar-drinks.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Blue Velvet Quintet",
@@ -104,7 +109,8 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://images.pexels.com/photos/10175905/pexels-photo-10175905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/10175905/pexels-photo-10175905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Skeletons in the Closet",
@@ -119,7 +125,8 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/5547060/pexels-photo-5547060.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/5547060/pexels-photo-5547060.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Swings and Roundabouts",
@@ -134,7 +141,8 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://images.pexels.com/photos/287615/pexels-photo-287615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/287615/pexels-photo-287615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Park Walk",
@@ -149,7 +157,8 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/16360910/pexels-photo-16360910/free-photo-of-cabot-tower-in-bristol.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/16360910/pexels-photo-16360910/free-photo-of-cabot-tower-in-bristol.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Joe Taylor",
@@ -164,7 +173,8 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://images.pexels.com/photos/3469692/pexels-photo-3469692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/3469692/pexels-photo-3469692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Cruel To Be Kind",
@@ -179,7 +189,8 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/3984831/pexels-photo-3984831.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
+      "image_url": "https://images.pexels.com/photos/3984831/pexels-photo-3984831.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
+      "users_booked": []
     },
     {
       "title": "Jackie Walker Live",
@@ -194,7 +205,8 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/1234567/pexels-photo-1234567.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/1234567/pexels-photo-1234567.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Household Finances: How to Balance Spending",
@@ -209,7 +221,8 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://images.pexels.com/photos/128867/coins-currency-investment-insurance-128867.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      "image_url": "https://images.pexels.com/photos/128867/coins-currency-investment-insurance-128867.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      "users_booked": []
     },
     {
       "title": "Comedy Night with Sarah Johnson",
@@ -224,7 +237,8 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/1115680/pexels-photo-1115680.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      "image_url": "https://images.pexels.com/photos/1115680/pexels-photo-1115680.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      "users_booked": []
     },
     {
       "title": "Gardening Basics: Growing Your Own Vegetables",
@@ -239,7 +253,8 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://images.pexels.com/photos/169523/pexels-photo-169523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/169523/pexels-photo-169523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Jazz Night with The Blue Notes",
@@ -254,7 +269,8 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/442540/pexels-photo-442540.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      "image_url": "https://images.pexels.com/photos/442540/pexels-photo-442540.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      "users_booked": []
     },
     {
       "title": "Stand-Up Comedy with Mike Davis",
@@ -269,7 +285,8 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://images.pexels.com/photos/6789012/pexels-photo-6789012.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/6789012/pexels-photo-6789012.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Cooking Class: Italian Cuisine",
@@ -284,7 +301,8 @@
       "is_seated": true,
       "is_ticketed": false,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/725990/pexels-photo-725990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/725990/pexels-photo-725990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Community discussion",
@@ -299,7 +317,8 @@
       "is_seated": false,
       "is_ticketed": false,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/440731/pexels-photo-440731.jpeg?auto=compress&cs=tinysrgb&w=800"
+      "image_url": "https://images.pexels.com/photos/440731/pexels-photo-440731.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "users_booked": []
     },
     {
       "title": "The Thunderbolts",
@@ -314,7 +333,8 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      "image_url": "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      "users_booked": []
     },
     {
       "title": "Financial Planning for Retirement",
@@ -329,7 +349,8 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/28558283/pexels-photo-28558283/free-photo-of-sunset-view-of-historic-toowong-cemetery-graves.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      "image_url": "https://images.pexels.com/photos/28558283/pexels-photo-28558283/free-photo-of-sunset-view-of-historic-toowong-cemetery-graves.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      "users_booked": []
     },
     {
       "title": "Classical Music Evening with The Harmony Quartet",
@@ -344,7 +365,8 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": ""
+      "image_url": "",
+      "users_booked": []
     },
     {
       "title": "Stand-Up Comedy with Laura Bennett",
@@ -359,7 +381,8 @@
       "is_seated": true,
       "is_ticketed": true,
       "is_recurring": false,
-      "image_url": ""
+      "image_url": "",
+      "users_booked": []
     },
     {
       "title": "Photography Workshop: Capturing Nature",
@@ -374,7 +397,8 @@
       "is_seated": false,
       "is_ticketed": true,
       "is_recurring": true,
-      "image_url": "https://images.pexels.com/photos/2922672/pexels-photo-2922672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image_url": "https://images.pexels.com/photos/2922672/pexels-photo-2922672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "users_booked": []
     },
     {
       "title": "Acoustic Night with Emma Stone",
@@ -389,7 +413,8 @@
       "is_seated": true,
       "is_ticketed": false,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/625788/pexels-photo-625788.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      "image_url": "https://images.pexels.com/photos/625788/pexels-photo-625788.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      "users_booked": []
     },
     {
       "title": "Nïdlung",
@@ -404,7 +429,8 @@
       "is_seated": true,
       "is_ticketed": false,
       "is_recurring": false,
-      "image_url": "https://images.pexels.com/photos/7180827/pexels-photo-7180827.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      "image_url": "https://images.pexels.com/photos/7180827/pexels-photo-7180827.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      "users_booked": []
     }
   ]
 }
