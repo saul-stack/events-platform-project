@@ -197,20 +197,23 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
                   </p>
                   <p>Tickets available: {tickets_total - tickets_sold}</p>
                 </div>
-                <div className="attendees">
-                  <h2>Attendees</h2>
 
-                  {attendeesArray.map((attendee, index) => (
-                    <ul key={index}>
-                      <li>
-                        <p>
-                          {attendee.first_name} {attendee.last_name} (
-                          {attendee.user_name}) ID : {attendee.id}
-                        </p>
-                      </li>
-                    </ul>
-                  ))}
-                </div>
+                {event.users_booked.length > 0 && (
+                  <div className="attendees">
+                    <h2>Attendees</h2>
+
+                    {attendeesArray.map((attendee, index) => (
+                      <ul key={index}>
+                        <li>
+                          <p>
+                            {attendee.first_name} {attendee.last_name} (
+                            {attendee.user_name}) ID : {attendee.id}
+                          </p>
+                        </li>
+                      </ul>
+                    ))}
+                  </div>
+                )}
               </>
             )}
           </>
