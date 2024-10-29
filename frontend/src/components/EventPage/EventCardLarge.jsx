@@ -73,7 +73,6 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           updatedAttendeesArray.push(user);
         }
         setAttendeesArray(updatedAttendeesArray);
-        console.log(attendeesArray);
       } catch (error) {
         navigate("/failure", { state: { errorMessage: error.message } });
       }
