@@ -83,6 +83,8 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
     is_seated,
     image_url,
     is_ticketed,
+    tickets_sold,
+    tickets_total,
   } = event;
 
   let isEventBooked = false;
@@ -175,7 +177,17 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           </div>
         )}
         {user.role === "admin" && (
-          <button onClick={handleDeleteEvent}>DELETE EVENT</button>
+          <>
+            <button onClick={handleDeleteEvent}>DELETE EVENT</button>
+            {is_ticketed && (
+              <>
+                <p>
+                  Tickets sold: {tickets_sold}/{tickets_total}
+                </p>
+                <p>Tickets available: {tickets_total - tickets_sold}</p>
+              </>
+            )}
+          </>
         )}
       </div>
     </div>
