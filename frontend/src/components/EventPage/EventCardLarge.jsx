@@ -178,7 +178,9 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
         )}
         {user.role === "admin" && (
           <>
-            <button onClick={handleDeleteEvent}>DELETE EVENT</button>
+            {!showDeleteForm && (
+              <button onClick={handleDeleteEvent}>DELETE EVENT</button>
+            )}
             {is_ticketed && (
               <>
                 <p>
