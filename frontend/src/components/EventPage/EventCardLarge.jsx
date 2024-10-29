@@ -108,7 +108,10 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           </Link>
         </div>
         <h2 className="title">
-          {ticketsAvailable < 1 && is_ticketed ? "SOLD OUT: " : ""}
+          {!eventIsUpcoming ? "ENDED: " : ""}
+          {eventIsUpcoming && ticketsAvailable < 1 && is_ticketed
+            ? "SOLD OUT: "
+            : ""}
           {title}
         </h2>
       </div>
