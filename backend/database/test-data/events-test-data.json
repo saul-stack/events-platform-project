@@ -287,6 +287,21 @@
       "image_url": "https://images.pexels.com/photos/725990/pexels-photo-725990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
+      "title": "Community discussion",
+      "date": "2025-02-02",
+      "time": "12:00:00",
+      "description": "Meet up to discuss local issues.",
+      "event_type": "Other",
+      "advance_price": 0,
+      "door_price": 0,
+      "tickets_total": 0,
+      "tickets_sold": 0,
+      "is_seated": false,
+      "is_ticketed": false,
+      "is_recurring": false,
+      "image_url": "https://images.pexels.com/photos/440731/pexels-photo-440731.jpeg?auto=compress&cs=tinysrgb&w=800"
+    },
+    {
       "title": "The Thunderbolts",
       "date": "2024-02-10",
       "time": "12:00:00",
