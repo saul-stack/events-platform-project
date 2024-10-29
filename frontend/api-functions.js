@@ -105,6 +105,11 @@ export const watchEvent = async (userId, eventId) => {
 
 export const bookEvent = async (userId, eventId) => {
   try {
+    const event = await getEventById(eventId);
+    await api.patch(`/events/${eventId}`, {
+      tickets_sold: event.tickets_sold + 1,
+    });
+
     const currentUserObject = (await api.get(`/users/${userId}`)).data.user;
     const eventsBooked = currentUserObject.events_booked;
 
