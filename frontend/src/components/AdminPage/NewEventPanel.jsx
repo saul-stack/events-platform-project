@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import NewEventCard from "./NewEventCard";
-import { formatDateForPostgres } from "../../../js-util-functions";
-import { postNewEvent } from "../../../api-functions";
 import { useNavigate } from "react-router-dom";
+import { postNewEvent } from "../../../api-functions";
+import { formatDateForPostgres } from "../../../js-util-functions";
+import NewEventCard from "./NewEventCard";
 
 const currentDate = new Date();
 const formattedDate = formatDateForPostgres(currentDate);
@@ -22,6 +22,7 @@ const defaultEvent = {
   "is_recurring": false,
   "image_url":
     "https://images.pexels.com/photos/274192/pexels-photo-274192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  "users_booked": [],
 };
 const NewEventPanel = () => {
   const [newEvent, setNewEvent] = useState(defaultEvent);
