@@ -3,7 +3,6 @@ import "../../styles/css/EventCardLarge.css";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  deleteEventById,
   getEventById,
   getUserById,
   unwatchEvent,
@@ -16,9 +15,11 @@ import {
 
 import { addToGoogleCalendar } from "../../../account-util-functions";
 import { UserContext } from "../../contexts/UserContext";
+import DeleteEventForm from "./DeleteEventForm";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
   const { eventId } = useParams();
+  const [showDeleteForm, setShowDeleteForm] = useState(false);
   const [event, setEvent] = useState(null);
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
@@ -28,8 +29,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   };
 
   const handleDeleteEvent = async () => {
-    await deleteEventById(eventId);
-    navigate("/events");
+    setShowDeleteForm(true);
   };
 
   const handleAttemptPurchase = () => {
@@ -129,6 +129,12 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           {advance_price > 0 ? <p>£{advance_price}</p> : <p>Free</p>}
           {is_seated ? <p>Seated</p> : <p>Standing</p>}
         </div>
+        {showDeleteForm && (
+          <DeleteEventForm
+            showDeleteForm={showDeleteForm}
+            setShowDeleteForm={setShowDeleteForm}
+          />
+        )}
 
         {eventIsUpcoming && (
           <div className="watch-button-container">
