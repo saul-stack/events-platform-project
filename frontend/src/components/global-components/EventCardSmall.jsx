@@ -27,7 +27,10 @@ const EventCardSmall = ({
 
   const location = useLocation();
   let showViewButton = true;
-  if (location && location.pathname === "/account") {
+  if (
+    (location && location.pathname === "/account") ||
+    (location && location.pathname === "/admin")
+  ) {
     showViewButton = false;
   }
 
