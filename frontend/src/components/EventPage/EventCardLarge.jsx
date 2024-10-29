@@ -23,6 +23,8 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   const [event, setEvent] = useState(null);
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
+  const [attendeesArray, setAttendeesArray] = useState([]);
+  let updatedAttendeesArray = [];
 
   const handleAddToCalendar = () => {
     addToGoogleCalendar(event);
@@ -65,6 +67,13 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
       try {
         const eventData = await getEventById(eventId);
         setEvent(eventData);
+        const attendees = eventData.users_booked;
+        for (let attendee of attendees) {
+          const user = await getUserById(attendee);
+          updatedAttendeesArray.push(user);
+        }
+        setAttendeesArray(updatedAttendeesArray);
+        console.log(attendeesArray);
       } catch (error) {
         navigate("/failure", { state: { errorMessage: error.message } });
       }
@@ -183,10 +192,26 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
             )}
             {is_ticketed && (
               <>
-                <p>
-                  Tickets sold: {tickets_sold}/{tickets_total}
-                </p>
-                <p>Tickets available: {tickets_total - tickets_sold}</p>
+                <div className="ticket-numbers">
+                  <p>
+                    Tickets sold: {tickets_sold}/{tickets_total}
+                  </p>
+                  <p>Tickets available: {tickets_total - tickets_sold}</p>
+                </div>
+                <div className="attendees">
+                  <h2>Attendees</h2>
+
+                  {attendeesArray.map((attendee, index) => (
+                    <ul key={index}>
+                      <li>
+                        <p>
+                          {attendee.first_name} {attendee.last_name} (
+                          {attendee.user_name}) ID : {attendee.id}
+                        </p>
+                      </li>
+                    </ul>
+                  ))}
+                </div>
               </>
             )}
           </>
