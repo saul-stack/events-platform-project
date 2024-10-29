@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { UserContext } from "../../contexts/UserContext";
 import { logUserIn } from "../../../api-functions";
+import { UserContext } from "../../contexts/UserContext";
 
 const LoginPage = () => {
   const location = useLocation();
@@ -29,11 +29,7 @@ const LoginPage = () => {
     try {
       const loggedInUser = await logUserIn(username, password);
       await setUser(loggedInUser);
-      if (
-        loggedInUser.role != "admin" &&
-        location.state &&
-        location.state.redirectEventId
-      ) {
+      if (location.state && location.state.redirectEventId) {
         const eventId = location.state.redirectEventId;
         navigate(`/events/${eventId}`);
         return;

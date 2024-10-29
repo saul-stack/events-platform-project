@@ -1,25 +1,37 @@
 import "../../styles/css/EventCardLarge.css";
 
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  getEventById,
+  getUserById,
+  unwatchEvent,
+  watchEvent,
+} from "../../../api-functions";
 import {
   formatDateForFrontend as formatDate,
   formatTimeForFrontend as formatTime,
 } from "../../../js-util-functions";
-import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
-import { useContext, useEffect, useState } from "react";
 
-import { UserContext } from "../../contexts/UserContext";
 import { addToGoogleCalendar } from "../../../account-util-functions";
-import { getEventById } from "../../../api-functions";
+import { UserContext } from "../../contexts/UserContext";
+import DeleteEventForm from "./DeleteEventForm";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
   const { eventId } = useParams();
+  const [showDeleteForm, setShowDeleteForm] = useState(false);
   const [event, setEvent] = useState(null);
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
+  const [attendeesArray, setAttendeesArray] = useState([]);
+  let updatedAttendeesArray = [];
 
   const handleAddToCalendar = () => {
     addToGoogleCalendar(event);
+  };
+
+  const handleDeleteEvent = async () => {
+    setShowDeleteForm(true);
   };
 
   const handleAttemptPurchase = () => {
@@ -55,6 +67,12 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
       try {
         const eventData = await getEventById(eventId);
         setEvent(eventData);
+        const attendees = eventData.users_booked;
+        for (let attendee of attendees) {
+          const user = await getUserById(attendee);
+          updatedAttendeesArray.push(user);
+        }
+        setAttendeesArray(updatedAttendeesArray);
       } catch (error) {
         navigate("/failure", { state: { errorMessage: error.message } });
       }
@@ -66,7 +84,16 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   if (!event) {
     return <div>Loading</div>;
   }
-  const { title, advance_price, description, is_seated, image_url } = event;
+  const {
+    title,
+    advance_price,
+    description,
+    is_seated,
+    image_url,
+    is_ticketed,
+    tickets_sold,
+    tickets_total,
+  } = event;
 
   let isEventBooked = false;
   if (user.events_booked != null) {
@@ -91,7 +118,10 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           </Link>
         </div>
         <h2 className="title">
-          {ticketsAvailable < 1 ? "SOLD OUT: " : ""}
+          {!eventIsUpcoming ? "ENDED: " : ""}
+          {eventIsUpcoming && ticketsAvailable < 1 && is_ticketed
+            ? "SOLD OUT: "
+            : ""}
           {title}
         </h2>
       </div>
@@ -112,8 +142,14 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           {advance_price > 0 ? <p>£{advance_price}</p> : <p>Free</p>}
           {is_seated ? <p>Seated</p> : <p>Standing</p>}
         </div>
+        {showDeleteForm && (
+          <DeleteEventForm
+            showDeleteForm={showDeleteForm}
+            setShowDeleteForm={setShowDeleteForm}
+          />
+        )}
 
-        {user.role != "admin" && eventIsUpcoming && (
+        {eventIsUpcoming && (
           <div className="watch-button-container">
             {!isEventBooked && (
               <>
@@ -147,6 +183,37 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
             )}
             <button onClick={handleAddToCalendar}>Add to Calendar</button>
           </div>
+        )}
+        {user.role === "admin" && (
+          <>
+            {!showDeleteForm && (
+              <button onClick={handleDeleteEvent}>DELETE EVENT</button>
+            )}
+            {is_ticketed && (
+              <>
+                <div className="ticket-numbers">
+                  <p>
+                    Tickets sold: {tickets_sold}/{tickets_total}
+                  </p>
+                  <p>Tickets available: {tickets_total - tickets_sold}</p>
+                </div>
+                <div className="attendees">
+                  <h2>Attendees</h2>
+
+                  {attendeesArray.map((attendee, index) => (
+                    <ul key={index}>
+                      <li>
+                        <p>
+                          {attendee.first_name} {attendee.last_name} (
+                          {attendee.user_name}) ID : {attendee.id}
+                        </p>
+                      </li>
+                    </ul>
+                  ))}
+                </div>
+              </>
+            )}
+          </>
         )}
       </div>
     </div>

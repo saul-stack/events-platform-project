@@ -71,6 +71,11 @@
   color: #000000;
   border-radius: 5px;
 }
+.event-card-small .image-container .type-and-time-container .type .other {
+  background-color: #78c7ff;
+  color: #000000;
+  border-radius: 5px;
+}
 .event-card-small .image-container .type-and-time-container .time {
   width: 60%;
   color: #000000;

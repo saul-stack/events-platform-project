@@ -71,6 +71,7 @@ exports.seedTestTable = async (tableName) => {
   };
 
   const tableDataPath = tableDataPaths[tableName];
+  const tableData = await fetchJson(tableDataPath);
   if (!tableDataPath) {
     console.log(`Test data not found for table: ${tableName}`);
     throw new Error("Test data not found");
