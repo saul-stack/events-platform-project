@@ -49,7 +49,6 @@ function EventsPage() {
           <section>
             <EventsGrid
               showWatchButton={true}
-              showBuyButton={true}
               events={upcomingEvents}
               titleText="Upcoming Events"
               enableSorting={true}

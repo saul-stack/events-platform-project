@@ -12,7 +12,6 @@ const EventCardSmall = ({
   user,
   toggleWatchEvent,
   showWatchButton,
-  showBuyButton,
   titleText,
 }) => {
   const buttonContainerRef = useRef(null);
@@ -38,6 +37,8 @@ const EventCardSmall = ({
   let isBooked = events_booked.includes(id);
   let isWatched = events_watched.includes(id);
   const eventIsUpcoming = new Date(event.date) > new Date();
+
+  let showBuyButton = is_ticketed && eventIsUpcoming;
 
   useEffect(() => {
     isWatched = events_watched.includes(id);

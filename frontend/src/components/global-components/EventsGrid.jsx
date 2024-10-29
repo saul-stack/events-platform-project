@@ -13,7 +13,6 @@ const EventsGrid = ({
   titleText,
   isBought,
   showWatchButton,
-  showBuyButton,
 }) => {
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
@@ -42,7 +41,6 @@ const EventsGrid = ({
         {events ? (
           events.map((event, index) => (
             <EventCardSmall
-              showBuyButton={showBuyButton}
               showWatchButton={showWatchButton}
               key={`${event.id}-${index}`}
               event={event}
