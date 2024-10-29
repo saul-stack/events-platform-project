@@ -169,10 +169,10 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
               </button>
             )}
             <button onClick={handleAddToCalendar}>Add to Calendar</button>
-            {user.role === "admin" && (
-              <button onClick={handleDeleteEvent}>DELETE EVENT</button>
-            )}
           </div>
+        )}
+        {user.role === "admin" && (
+          <button onClick={handleDeleteEvent}>DELETE EVENT</button>
         )}
       </div>
     </div>
