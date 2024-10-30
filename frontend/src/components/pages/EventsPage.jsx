@@ -38,7 +38,7 @@ function EventsPage() {
     };
 
     fetchEvents();
-  }, []);
+  }, [events]);
 
   return (
     <main className="main-content">
