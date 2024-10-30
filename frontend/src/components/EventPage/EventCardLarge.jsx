@@ -90,7 +90,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
     };
 
     fetchEvent();
-  }, [eventId]);
+  }, [eventId, usersWatchingArray, attendeesArray]);
 
   if (!event) {
     return <div>Loading</div>;
