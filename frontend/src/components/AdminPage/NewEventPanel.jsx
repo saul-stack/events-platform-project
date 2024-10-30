@@ -5,8 +5,12 @@ import { postNewEvent } from "../../../api-functions";
 import { formatDateForPostgres } from "../../../js-util-functions";
 import NewEventCard from "./NewEventCard";
 
-const currentDate = new Date();
-const formattedDate = formatDateForPostgres(currentDate);
+let currentDate = new Date();
+
+const dateTomorrow = new Date(currentDate);
+dateTomorrow.setDate(dateTomorrow.getDate() + 1);
+
+const formattedDate = formatDateForPostgres(dateTomorrow);
 const defaultEvent = {
   "title": "",
   "date": formattedDate,
