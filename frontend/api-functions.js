@@ -76,6 +76,13 @@ export const postNewEvent = async (event) => {
 
 export const unwatchEvent = async (userId, eventId) => {
   try {
+    const event = await getEventById(eventId);
+    const usersWatched = event.users_watched;
+    const updatedUsersWatched = usersWatched.filter((id) => id !== userId);
+    await api.patch(`/events/${eventId}`, {
+      users_watched: updatedUsersWatched,
+    });
+
     const currentUserObject = (await api.get(`/users/${userId}`)).data.user;
     let eventsWatched = currentUserObject.events_watched;
 
@@ -93,6 +100,14 @@ export const watchEvent = async (userId, eventId) => {
   try {
     const currentUserObject = (await api.get(`/users/${userId}`)).data.user;
     const eventsWatched = currentUserObject.events_watched;
+
+    const event = await getEventById(eventId);
+    let updatedUsersWatched = event.users_watched;
+    updatedUsersWatched.push(userId);
+
+    await api.patch(`/events/${eventId}`, {
+      users_watched: updatedUsersWatched,
+    });
 
     eventsWatched.push(eventId);
     await api.patch(`/users/${userId}`, {
