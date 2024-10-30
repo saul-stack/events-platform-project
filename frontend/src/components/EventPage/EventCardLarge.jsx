@@ -21,6 +21,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   const { eventId } = useParams();
   const [showDeleteForm, setShowDeleteForm] = useState(false);
   const [event, setEvent] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
 
@@ -56,6 +57,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           }
           const response = await getUserById(userId);
           updateUser(response);
+          setRefresh(!refresh);
         } else {
           navigate("/login");
         }
@@ -90,7 +92,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
     };
 
     fetchEvent();
-  }, [eventId, usersWatchingArray, attendeesArray]);
+  }, [eventId, refresh]);
 
   if (!event) {
     return <div>Loading</div>;
