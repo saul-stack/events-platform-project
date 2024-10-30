@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import EventsGrid from "../global-components/EventsGrid";
-import { UserContext } from "../../contexts/UserContext";
 import { getEventById } from "../../../api-functions";
+import { UserContext } from "../../contexts/UserContext";
+import EventsGrid from "../global-components/EventsGrid";
 
 const MyEvents = () => {
   const { user } = useContext(UserContext);
@@ -21,18 +21,14 @@ const MyEvents = () => {
         try {
           const event = await getEventById(eventId);
           watchedEvents.push(event);
-        } catch (error) {
-          console.error(`Failed to fetch event with ID ${eventId}:`, error);
-        }
+        } catch (error) {}
       }
 
       for (let eventId of user.events_booked) {
         try {
           const event = await getEventById(eventId);
           bookedEvents.push(event);
-        } catch (error) {
-          console.error(`Failed to fetch event with ID ${eventId}:`, error);
-        }
+        } catch (error) {}
       }
 
       setEventsWatched(watchedEvents);
