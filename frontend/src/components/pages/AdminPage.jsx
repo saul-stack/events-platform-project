@@ -21,7 +21,7 @@ const AdminPage = () => {
   return (
     <main className="main-content">
       <header>
-        <p>Admin Page</p>
+        <p>Admin Page (Logged in as {user.user_name})</p>
         <button onClick={logout}>Logout</button>
       </header>
       <section>
