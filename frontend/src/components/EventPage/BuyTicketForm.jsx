@@ -23,9 +23,7 @@ const BuyTicketForm = ({ setShowBuyTicketForm, showBuyTicketForm }) => {
       try {
         const eventData = await getEventById(eventId);
         setEvent(eventData);
-      } catch (error) {
-        console.error("Error fetching event data:", error);
-      }
+      } catch (error) {}
     };
 
     fetchEvent();
