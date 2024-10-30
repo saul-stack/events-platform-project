@@ -27,6 +27,7 @@ const defaultEvent = {
   "image_url":
     "https://images.pexels.com/photos/274192/pexels-photo-274192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   "users_booked": [],
+  "users_watched": [],
 };
 const NewEventPanel = () => {
   const [newEvent, setNewEvent] = useState(defaultEvent);
