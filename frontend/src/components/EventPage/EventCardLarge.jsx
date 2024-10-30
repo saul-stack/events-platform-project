@@ -21,8 +21,13 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   const { eventId } = useParams();
   const [showDeleteForm, setShowDeleteForm] = useState(false);
   const [event, setEvent] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
+
+  const [usersWatchingArray, setUsersWatchingArray] = useState([]);
+  let updatedUsersWatchingArray = [];
+
   const [attendeesArray, setAttendeesArray] = useState([]);
   let updatedAttendeesArray = [];
 
@@ -52,6 +57,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           }
           const response = await getUserById(userId);
           updateUser(response);
+          setRefresh(!refresh);
         } else {
           navigate("/login");
         }
@@ -73,13 +79,20 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
           updatedAttendeesArray.push(user);
         }
         setAttendeesArray(updatedAttendeesArray);
+
+        const usersWatching = eventData.users_watched;
+        for (let userWatching of usersWatching) {
+          const user = await getUserById(userWatching);
+          updatedUsersWatchingArray.push(user);
+        }
+        setUsersWatchingArray(updatedUsersWatchingArray);
       } catch (error) {
         navigate("/failure", { state: { errorMessage: error.message } });
       }
     };
 
     fetchEvent();
-  }, [eventId]);
+  }, [eventId, refresh]);
 
   if (!event) {
     return <div>Loading</div>;
@@ -208,6 +221,23 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
                           <p>
                             {attendee.first_name} {attendee.last_name} (
                             {attendee.user_name}) ID : {attendee.id}
+                          </p>
+                        </li>
+                      </ul>
+                    ))}
+                  </div>
+                )}
+
+                {event.users_watched.length > 0 && (
+                  <div className="users-watching">
+                    <h2>Users Interested</h2>
+
+                    {usersWatchingArray.map((user, index) => (
+                      <ul key={index}>
+                        <li>
+                          <p>
+                            {user.first_name} {user.last_name} ({user.user_name}
+                            ) ID : {user.id}
                           </p>
                         </li>
                       </ul>
