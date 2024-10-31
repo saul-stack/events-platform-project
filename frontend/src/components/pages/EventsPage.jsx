@@ -16,7 +16,7 @@ function EventsPage() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const params = { sort: "date" };
+        const params = { sort: "date, time" };
         const result = await getEvents(params);
 
         if (Array.isArray(result)) {
