@@ -29,7 +29,6 @@ const EventsGrid = ({
     }
     if (refresh && setRefresh) {
       setRefresh(!refresh);
-      console.log("refreshed");
     }
   }, []);
 
