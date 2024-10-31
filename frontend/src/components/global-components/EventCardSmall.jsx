@@ -1,6 +1,6 @@
 import "../../styles/css/EventCardSmall.css";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   formatDateForFrontend as formatDate,
@@ -14,6 +14,7 @@ const EventCardSmall = ({
   showWatchButton,
   titleText,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const buttonContainerRef = useRef(null);
   const navigate = useNavigate();
   const defaultImageUrl =
@@ -53,6 +54,12 @@ const EventCardSmall = ({
       buttonContainerRef.current.style.gridTemplateColumns = `repeat(${numberOfButtons}, 1fr)`;
     }
   }, [isWatched, isBooked]);
+
+  const handleWatchButtonClick = async (userId, eventId) => {
+    setIsLoading(true);
+    await toggleWatchEvent(userId, eventId);
+    setIsLoading(false);
+  };
 
   const handleBuyTicket = () => {
     if (!user.id) {
@@ -141,25 +148,31 @@ const EventCardSmall = ({
           </>
         )}
         {!isBooked && showWatchButton && (
-          <div className="watch-button-container">
-            {isWatched ? (
-              <button
-                onClick={() => toggleWatchEvent(user.id, event.id)}
-                href="#"
-                className="watch-button-watched"
-              >
-                Watching
-              </button>
-            ) : (
-              <button
-                onClick={() => toggleWatchEvent(user.id, event.id)}
-                href="#"
-                className="watch-button-unwatched"
-              >
-                Watch
-              </button>
-            )}
-          </div>
+          <>
+            <div className="watch-button-container">
+              {isWatched ? (
+                <button
+                  disabled={isLoading}
+                  onClick={() => handleWatchButtonClick(user.id, event.id)}
+                  href="#"
+                  className="watch-button-watched"
+                >
+                  {" "}
+                  Watching
+                </button>
+              ) : (
+                <button
+                  disabled={isLoading}
+                  onClick={() => handleWatchButtonClick(user.id, event.id)}
+                  href="#"
+                  className="watch-button-unwatched"
+                >
+                  {" "}
+                  Watch
+                </button>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>
