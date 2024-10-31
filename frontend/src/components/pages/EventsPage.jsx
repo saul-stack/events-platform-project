@@ -11,6 +11,7 @@ function EventsPage() {
   const [pastEvents, setPastEvents] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -38,7 +39,11 @@ function EventsPage() {
     };
 
     fetchEvents();
-  }, [events]);
+  }, []);
+
+  useEffect(() => {
+    setRefresh(!refresh);
+  }, []);
 
   return (
     <main className="main-content">
