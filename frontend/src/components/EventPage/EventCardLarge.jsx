@@ -15,7 +15,6 @@ import {
 
 import { addToGoogleCalendar } from "../../../account-util-functions";
 import { UserContext } from "../../contexts/UserContext";
-import LoadingCard from "../global-components/LoadingCard";
 import DeleteEventForm from "./DeleteEventForm";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
@@ -181,36 +180,32 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
 
           {eventIsUpcoming && (
             <>
-              {isLoading ? (
-                <LoadingCard />
-              ) : (
-                <div className="watch-button-container">
-                  {!isEventBooked && (
-                    <>
-                      {ticketsAvailable > 0 ? (
-                        <>
-                          {advance_price > 0 ? (
-                            <button onClick={handleAttemptPurchase}>
-                              Buy Tickets
-                            </button>
-                          ) : (
-                            <button onClick={handleAttemptPurchase}>
-                              Get Tickets
-                            </button>
-                          )}
-                        </>
-                      ) : (
-                        <button className="button-sold-out">Get Tickets</button>
-                      )}
-                    </>
-                  )}
+              <div className="watch-button-container">
+                {!isEventBooked && (
+                  <>
+                    {ticketsAvailable > 0 ? (
+                      <>
+                        {advance_price > 0 ? (
+                          <button onClick={handleAttemptPurchase}>
+                            Buy Tickets
+                          </button>
+                        ) : (
+                          <button onClick={handleAttemptPurchase}>
+                            Get Tickets
+                          </button>
+                        )}
+                      </>
+                    ) : (
+                      <button className="button-sold-out">Get Tickets</button>
+                    )}
+                  </>
+                )}
 
-                  <button onClick={handleWatchButtonClick}>
-                    {isWatching ? "Unwatch" : "Watch"}
-                  </button>
-                  <button onClick={handleAddToCalendar}>Add to Calendar</button>
-                </div>
-              )}
+                <button disabled={isLoading} onClick={handleWatchButtonClick}>
+                  {isWatching ? "Unwatch" : "Watch"}
+                </button>
+                <button onClick={handleAddToCalendar}>Add to Calendar</button>
+              </div>
             </>
           )}
           {user.role === "admin" && (
