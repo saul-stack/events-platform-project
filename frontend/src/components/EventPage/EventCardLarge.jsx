@@ -18,6 +18,7 @@ import { UserContext } from "../../contexts/UserContext";
 import DeleteEventForm from "./DeleteEventForm";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
+  const [isWatching, setIsWatching] = useState(false);
   const { eventId } = useParams();
   const [showDeleteForm, setShowDeleteForm] = useState(false);
   const [event, setEvent] = useState(null);
@@ -69,6 +70,15 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   };
 
   useEffect(() => {
+    const checkIfWatched = async () => {
+      setIsWatching(false);
+      if (user) {
+        const userObject = await getUserById(user.id);
+        const isWatched = userObject.events_watched.includes(Number(eventId));
+        setIsWatching(isWatched);
+      }
+    };
+
     const fetchEvent = async () => {
       try {
         const eventData = await getEventById(eventId);
@@ -91,6 +101,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
       }
     };
 
+    checkIfWatched();
     fetchEvent();
   }, [eventId, refresh]);
 
@@ -184,16 +195,9 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
               </>
             )}
 
-            {user === null || !user?.events_watched?.includes(event.id) ? (
-              <button onClick={handleWatchButtonClick}>Watch</button>
-            ) : (
-              <button
-                className="watch-button-watched"
-                onClick={handleWatchButtonClick}
-              >
-                Unwatch
-              </button>
-            )}
+            <button onClick={handleWatchButtonClick}>
+              {isWatching ? "Unwatch" : "Watch"}
+            </button>
             <button onClick={handleAddToCalendar}>Add to Calendar</button>
           </div>
         )}
