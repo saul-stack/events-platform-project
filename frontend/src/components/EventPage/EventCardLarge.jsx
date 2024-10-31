@@ -15,6 +15,7 @@ import {
 
 import { addToGoogleCalendar } from "../../../account-util-functions";
 import { UserContext } from "../../contexts/UserContext";
+import LoadingCard from "../global-components/LoadingCard";
 import DeleteEventForm from "./DeleteEventForm";
 
 const EventCardLarge = ({ handleBuyButtonClick }) => {
@@ -23,6 +24,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   const [showDeleteForm, setShowDeleteForm] = useState(false);
   const [event, setEvent] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
 
@@ -47,6 +49,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   };
 
   const handleWatchButtonClick = async () => {
+    setIsLoading(true);
     const toggleWatchEvent = async (userId, eventId) => {
       try {
         let events_watched = user.events_watched || [];
@@ -64,6 +67,8 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
         }
       } catch (error) {
         navigate("/failure", { state: { errorMessage: error.message } });
+      } finally {
+        setIsLoading(false);
       }
     };
     toggleWatchEvent(user.id, event.id);
@@ -131,129 +136,137 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   const ticketsAvailable = event.tickets_total - event.tickets_sold;
 
   return (
-    <div className="event-card-large">
-      <div className="topbar">
-        <div className="event-card-large-topbar-back-button">
-          <Link
-            to="/events"
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
-            <p>back</p>
-          </Link>
-        </div>
-        <h2 className="title">
-          {!eventIsUpcoming ? "ENDED: " : ""}
-          {eventIsUpcoming && ticketsAvailable < 1 && is_ticketed
-            ? "SOLD OUT: "
-            : ""}
-          {title}
-        </h2>
-      </div>
-
-      <div className="image-and-description">
-        <img className="image" src={image_url} alt={title} />
-        <div className="description">
-          <p>{description}</p>
-        </div>
-      </div>
-
-      <div className="details-container">
-        <div className="details-top">
-          <p>{date}</p>
-          <p>{time}</p>
-        </div>
-        <div className="details-bottom">
-          {advance_price > 0 ? <p>£{advance_price}</p> : <p>Free</p>}
-          {is_seated ? <p>Seated</p> : <p>Standing</p>}
-        </div>
-        {showDeleteForm && (
-          <DeleteEventForm
-            showDeleteForm={showDeleteForm}
-            setShowDeleteForm={setShowDeleteForm}
-          />
-        )}
-
-        {eventIsUpcoming && (
-          <div className="watch-button-container">
-            {!isEventBooked && (
-              <>
-                {ticketsAvailable > 0 ? (
-                  <>
-                    {advance_price > 0 ? (
-                      <button onClick={handleAttemptPurchase}>
-                        Buy Tickets
-                      </button>
-                    ) : (
-                      <button onClick={handleAttemptPurchase}>
-                        Get Tickets
-                      </button>
-                    )}
-                  </>
-                ) : (
-                  <button className="button-sold-out">Get Tickets</button>
-                )}
-              </>
-            )}
-
-            <button onClick={handleWatchButtonClick}>
-              {isWatching ? "Unwatch" : "Watch"}
-            </button>
-            <button onClick={handleAddToCalendar}>Add to Calendar</button>
+    <>
+      <div className="event-card-large">
+        <div className="topbar">
+          <div className="event-card-large-topbar-back-button">
+            <Link
+              to="/events"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <p>back</p>
+            </Link>
           </div>
-        )}
-        {user.role === "admin" && (
-          <>
-            {!showDeleteForm && (
-              <button onClick={handleDeleteEvent}>DELETE EVENT</button>
-            )}
-            {is_ticketed && (
-              <>
-                <div className="ticket-numbers">
-                  <p>
-                    Tickets sold: {tickets_sold}/{tickets_total}
-                  </p>
-                  <p>Tickets available: {tickets_total - tickets_sold}</p>
+          <h2 className="title">
+            {!eventIsUpcoming ? "ENDED: " : ""}
+            {eventIsUpcoming && ticketsAvailable < 1 && is_ticketed
+              ? "SOLD OUT: "
+              : ""}
+            {title}
+          </h2>
+        </div>
+
+        <div className="image-and-description">
+          <img className="image" src={image_url} alt={title} />
+          <div className="description">
+            <p>{description}</p>
+          </div>
+        </div>
+
+        <div className="details-container">
+          <div className="details-top">
+            <p>{date}</p>
+            <p>{time}</p>
+          </div>
+          <div className="details-bottom">
+            {advance_price > 0 ? <p>£{advance_price}</p> : <p>Free</p>}
+            {is_seated ? <p>Seated</p> : <p>Standing</p>}
+          </div>
+          {showDeleteForm && (
+            <DeleteEventForm
+              showDeleteForm={showDeleteForm}
+              setShowDeleteForm={setShowDeleteForm}
+            />
+          )}
+
+          {eventIsUpcoming && (
+            <>
+              {isLoading ? (
+                <LoadingCard />
+              ) : (
+                <div className="watch-button-container">
+                  {!isEventBooked && (
+                    <>
+                      {ticketsAvailable > 0 ? (
+                        <>
+                          {advance_price > 0 ? (
+                            <button onClick={handleAttemptPurchase}>
+                              Buy Tickets
+                            </button>
+                          ) : (
+                            <button onClick={handleAttemptPurchase}>
+                              Get Tickets
+                            </button>
+                          )}
+                        </>
+                      ) : (
+                        <button className="button-sold-out">Get Tickets</button>
+                      )}
+                    </>
+                  )}
+
+                  <button onClick={handleWatchButtonClick}>
+                    {isWatching ? "Unwatch" : "Watch"}
+                  </button>
+                  <button onClick={handleAddToCalendar}>Add to Calendar</button>
                 </div>
-
-                {event.users_booked.length > 0 && (
-                  <div className="attendees">
-                    <h2>Attendees</h2>
-
-                    {attendeesArray.map((attendee, index) => (
-                      <ul key={index}>
-                        <li>
-                          <p>
-                            {attendee.first_name} {attendee.last_name} (
-                            {attendee.user_name}) ID : {attendee.id}
-                          </p>
-                        </li>
-                      </ul>
-                    ))}
+              )}
+            </>
+          )}
+          {user.role === "admin" && (
+            <>
+              {!showDeleteForm && (
+                <button onClick={handleDeleteEvent}>DELETE EVENT</button>
+              )}
+              {is_ticketed && (
+                <>
+                  <div className="ticket-numbers">
+                    <p>
+                      Tickets sold: {tickets_sold}/{tickets_total}
+                    </p>
+                    <p>Tickets available: {tickets_total - tickets_sold}</p>
                   </div>
-                )}
 
-                {event.users_watched.length > 0 && (
-                  <div className="users-watching">
-                    <h2>Users Interested</h2>
+                  {event.users_booked.length > 0 && (
+                    <div className="attendees">
+                      <h2>Attendees</h2>
 
-                    {usersWatchingArray.map((user, index) => (
-                      <ul key={index}>
-                        <li>
-                          <p>
-                            {user.first_name} {user.last_name} ({user.user_name}
-                            ) ID : {user.id}
-                          </p>
-                        </li>
-                      </ul>
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
-          </>
-        )}
+                      {attendeesArray.map((attendee, index) => (
+                        <ul key={index}>
+                          <li>
+                            <p>
+                              {attendee.first_name} {attendee.last_name} (
+                              {attendee.user_name}) ID : {attendee.id}
+                            </p>
+                          </li>
+                        </ul>
+                      ))}
+                    </div>
+                  )}
+
+                  {event.users_watched.length > 0 && (
+                    <div className="users-watching">
+                      <h2>Users Interested</h2>
+
+                      {usersWatchingArray.map((user, index) => (
+                        <ul key={index}>
+                          <li>
+                            <p>
+                              {user.first_name} {user.last_name} (
+                              {user.user_name}) ID : {user.id}
+                            </p>
+                          </li>
+                        </ul>
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
