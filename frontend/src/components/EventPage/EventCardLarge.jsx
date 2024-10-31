@@ -72,7 +72,7 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
   useEffect(() => {
     const checkIfWatched = async () => {
       setIsWatching(false);
-      if (user) {
+      if (user.id) {
         const userObject = await getUserById(user.id);
         const isWatched = userObject.events_watched.includes(Number(eventId));
         setIsWatching(isWatched);
