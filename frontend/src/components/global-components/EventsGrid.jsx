@@ -13,6 +13,8 @@ const EventsGrid = ({
   titleText,
   isBought,
   showWatchButton,
+  refresh,
+  setRefresh,
 }) => {
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
@@ -23,6 +25,7 @@ const EventsGrid = ({
       updateUser(response);
     };
     updateUserObject();
+    setRefresh(!refresh);
   }, []);
 
   const toggleWatchEvent = async (userId, eventId) => {

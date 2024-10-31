@@ -39,11 +39,7 @@ function EventsPage() {
     };
 
     fetchEvents();
-  }, []);
-
-  useEffect(() => {
-    setRefresh(!refresh);
-  }, []);
+  }, [refresh]);
 
   return (
     <main className="main-content">
@@ -57,6 +53,8 @@ function EventsPage() {
               events={upcomingEvents}
               titleText="Upcoming Events"
               enableSorting={true}
+              setRefresh={setRefresh}
+              refresh={refresh}
             />
           </section>
           <section>
@@ -66,6 +64,8 @@ function EventsPage() {
               events={pastEvents}
               titleText="Previous Events"
               enableSorting={false}
+              setRefresh={setRefresh}
+              refresh={refresh}
             />
           </section>
         </>
