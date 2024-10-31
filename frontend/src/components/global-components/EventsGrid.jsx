@@ -1,8 +1,8 @@
 import "../../styles/css/EventsGrid.css";
 
+import { useContext, useEffect } from "react";
 import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
 
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import EventCardSmall from "../global-components/EventCardSmall";
@@ -16,6 +16,14 @@ const EventsGrid = ({
 }) => {
   const navigate = useNavigate();
   const { user, updateUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const updateUserObject = async () => {
+      const response = await getUserById(user.id);
+      updateUser(response);
+    };
+    updateUserObject();
+  }, []);
 
   const toggleWatchEvent = async (userId, eventId) => {
     let events_watched = user.events_watched || [];
