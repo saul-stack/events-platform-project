@@ -39,12 +39,10 @@ const EventsGrid = ({
         setEvents(
           response.filter((event) => new Date(event.date) < new Date())
         );
+      } else if (user.role == "admin") {
+        navigate("/admin");
       } else {
-        navigate("/failure", {
-          state: {
-            errorMessage: "There was an error loading our upcoming events.",
-          },
-        });
+        navigate("/account");
       }
     };
 
