@@ -39,6 +39,12 @@ const EventsGrid = ({
         setEvents(
           response.filter((event) => new Date(event.date) < new Date())
         );
+      } else {
+        navigate("/failure", {
+          state: {
+            errorMessage: "There was an error loading our upcoming events.",
+          },
+        });
       }
     };
 
