@@ -19,16 +19,20 @@ const EventsGrid = ({
 
   const toggleWatchEvent = async (userId, eventId) => {
     let events_watched = user.events_watched || [];
-    if (userId && eventId) {
-      let isWatched = events_watched.includes(eventId);
-      if (!isWatched) await watchEvent(userId, eventId);
-      else {
-        await unwatchEvent(userId, eventId);
+    try {
+      if (userId && eventId) {
+        let isWatched = events_watched.includes(eventId);
+        if (!isWatched) await watchEvent(userId, eventId);
+        else {
+          await unwatchEvent(userId, eventId);
+        }
+        const response = await getUserById(userId);
+        updateUser(response);
+      } else {
+        navigate("/login");
       }
-      const response = await getUserById(userId);
-      updateUser(response);
-    } else {
-      navigate("/login");
+    } catch (error) {
+      navigate("/failure", { state: { errorMessage: error.message } });
     }
   };
 
