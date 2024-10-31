@@ -24,9 +24,12 @@ const EventsGrid = ({
       const response = await getUserById(user.id);
       updateUser(response);
     };
-    updateUserObject();
+    if (user.id) {
+      updateUserObject();
+    }
     if (refresh && setRefresh) {
       setRefresh(!refresh);
+      console.log("refreshed");
     }
   }, []);
 
