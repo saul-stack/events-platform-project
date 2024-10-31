@@ -25,7 +25,9 @@ const EventsGrid = ({
       updateUser(response);
     };
     updateUserObject();
-    setRefresh(!refresh);
+    if (refresh && setRefresh) {
+      setRefresh(!refresh);
+    }
   }, []);
 
   const toggleWatchEvent = async (userId, eventId) => {
