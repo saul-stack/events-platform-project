@@ -80,5 +80,8 @@
   border: 1px solid black;
   width: 100%;
 }
+.event-card-large .details-container .watch-button-container #watch-button {
+  width: 110%;
+}
 
 /*# sourceMappingURL=EventCardLarge.css.map */

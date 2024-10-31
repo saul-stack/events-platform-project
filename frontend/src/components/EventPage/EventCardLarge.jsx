@@ -201,7 +201,11 @@ const EventCardLarge = ({ handleBuyButtonClick }) => {
                   </>
                 )}
 
-                <button disabled={isLoading} onClick={handleWatchButtonClick}>
+                <button
+                  id="watch-button"
+                  disabled={isLoading}
+                  onClick={handleWatchButtonClick}
+                >
                   {isWatching ? "Unwatch" : "Watch"}
                 </button>
                 <button onClick={handleAddToCalendar}>Add to Calendar</button>
