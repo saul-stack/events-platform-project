@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { getEventById } from "../../../api-functions";
-import { UserContext } from "../../contexts/UserContext";
 import EventsGrid from "../global-components/EventsGrid";
+import { UserContext } from "../../contexts/UserContext";
+import { getEventById } from "../../../api-functions";
 
 const MyEvents = () => {
   const { user } = useContext(UserContext);
@@ -55,17 +55,15 @@ const MyEvents = () => {
         <>
           {(eventsBooked.length > 0 || filteredEventsWatched.length > 0) && (
             <div id="my-events">
-              {eventsBooked.length > 0 && (
-                <div>
-                  <EventsGrid
-                    events={eventsBooked}
-                    titleText="My Tickets"
-                    isBought={true}
-                    showWatchButton={false}
-                    showViewButton={false}
-                  />
-                </div>
-              )}
+              <div>
+                <EventsGrid
+                  events={eventsBooked}
+                  titleText="My Tickets"
+                  isBought={true}
+                  showWatchButton={false}
+                  showViewButton={false}
+                />
+              </div>
 
               {filteredEventsWatched.length > 0 && (
                 <div>

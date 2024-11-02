@@ -1,12 +1,12 @@
 import "../../styles/css/EventsGrid.css";
 
-import { useContext, useEffect, useState } from "react";
 import { getUserById, unwatchEvent, watchEvent } from "../../../api-functions";
+import { useContext, useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
-import { getEvents } from "../../../api-functions";
-import { UserContext } from "../../contexts/UserContext";
 import EventCardSmall from "../global-components/EventCardSmall";
+import { UserContext } from "../../contexts/UserContext";
+import { getEvents } from "../../../api-functions";
+import { useNavigate } from "react-router-dom";
 
 const EventsGrid = ({
   error,
@@ -38,6 +38,23 @@ const EventsGrid = ({
         const response = await getEvents(params);
         setEvents(
           response.filter((event) => new Date(event.date) < new Date())
+        );
+      } else if (titleText == "My Tickets") {
+        const params = { sort: "date, time" };
+        const response = await getEvents(params);
+        setEvents(
+          response.filter((event) => user.events_booked.includes(event.id))
+        );
+      } else if (titleText == "Interested") {
+        const params = { sort: "date, time" };
+        const response = await getEvents(params);
+
+        setEvents(
+          response.filter(
+            (event) =>
+              user.events_watched.includes(event.id) &&
+              !user.events_booked.includes(event.id)
+          )
         );
       } else if (user.role == "admin") {
         navigate("/admin");
