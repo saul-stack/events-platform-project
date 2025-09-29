@@ -29,13 +29,13 @@ This full-stack application, developed as a solo project, imagines a Bristol ven
 
 ### Database
 
-The backend connects to a **PostgreSQL** database hosted on **Tembo** to manage user and event data, such as event titles and descriptions. During development, a locally hosted PostgreSQL database was used. Database credentials and connection strings are securely injected as environment variables in the `connection.js` file to avoid exposure of sensitive information.
+The backend connects to a **PostgreSQL** database hosted on **Neon** to manage user and event data, such as event titles and descriptions. During development, a locally hosted PostgreSQL database was used. Database credentials and connection strings are securely injected as environment variables in the `connection.js` file to avoid exposure of sensitive information.
 
 ### Hosting
 
 - **Frontend:** Deployed using a **Vite** server hosted on **Render**.
 - **Backend:** Hosted on **Render** with an **Express** server.
-- **Database:** Managed through a **PostgreSQL** instance hosted on **Tembo**.
+- **Database:** Managed through a **PostgreSQL** instance hosted on **Neon**.
 
 ### Security
 
@@ -58,7 +58,7 @@ All users can view and book events, but only the **admin** account has permissio
 
 - **Google Calendar integration**: Users can add events to their Google Calendar with pre-filled event information.
 - **Payment options**: Implemented with **Stripe** to handle payments for paid events, ensuring secure transactions.
-- **Hosted on free distribution platforms**: Tembo and Render.
+- **Hosted on free distribution platforms**: Neon and Render.
 
 ## Additional Features
 
