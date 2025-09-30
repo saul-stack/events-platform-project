@@ -3,7 +3,7 @@
 
 <!-- Please note that this is hosted on a free tier on Render, so will need to spin-up after periods of inactivity. -->
 
-A platform for managing and sharing live events, featuring Google Calendar integration and secure payment through Stripe.
+A [platform for managing and sharing live events](https://events-platform-project.onrender.com), featuring Google Calendar integration and secure payment through Stripe.
 
 [![website-preview](/readme-images/website-preview.png)](https://events-platform-project.onrender.com)
 
