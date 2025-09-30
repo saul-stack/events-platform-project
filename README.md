@@ -1,10 +1,13 @@
 <!-- omit in toc -->
-# Events Platform Project
-<!-- omit in toc -->
-# [Bar-None Club](https://events-platform-project.onrender.com)
-Please note that this is hosted on a free tier on Render, so will need to spin-up after periods of inactivity.
+[![bar-none-club-logo](/readme-images/bar-none-club-logo.png)](https://events-platform-project.onrender.com)
+
+<!-- Please note that this is hosted on a free tier on Render, so will need to spin-up after periods of inactivity. -->
 
 A platform for managing and sharing live events, featuring Google Calendar integration and secure payment through Stripe.
+
+[![website-preview](/readme-images/website-preview.png)](https://events-platform-project.onrender.com)
+
+---
 
 <!-- omit in toc -->
 ## Contents
